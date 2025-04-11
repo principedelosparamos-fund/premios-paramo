@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LoginForm from "../components/LoginForm";
+---
+
+<Layout>
+  <h1>Hola mundo</h1>
+  <LoginForm client:load />
+</Layout>
+
+<script>
+  import { db } from "../lib/firebase";
+  console.log("Firebase Firestore conectado:", db);
+</script>
