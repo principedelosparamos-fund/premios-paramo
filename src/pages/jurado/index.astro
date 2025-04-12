@@ -1,0 +1,16 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import JuradoInfo from "../../components/JuradoInfo";
+import AuthGuard from "../../components/AuthGuard";
+import Header from "../../components/Header";
+import JuradoDashboard from "../../components/JuradoDashboard";
+---
+
+<Layout>
+  <Header client:load />
+  <AuthGuard client:load>
+    <h1>Bienvenido Jurado</h1>
+    <!-- <JuradoInfo client:load /> -->
+    <JuradoDashboard client:load />
+  </AuthGuard>
+</Layout>

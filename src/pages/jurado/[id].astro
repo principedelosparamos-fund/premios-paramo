@@ -1,0 +1,14 @@
+---
+import FichaProyecto from "../../components/FichaProyecto.tsx";
+export const prerender = false;
+const { id } = Astro.params as { id: string };
+---
+
+<html lang="es">
+  <body class="bg-gray-100 min-h-screen p-6">
+    <main class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+      <h1 class="text-2xl font-bold mb-6">Ficha del Proyecto</h1>
+      <FichaProyecto id={id} client:load />
+    </main>
+  </body>
+</html>
