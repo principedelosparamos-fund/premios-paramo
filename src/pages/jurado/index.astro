@@ -8,6 +8,12 @@ import JuradoDashboard from "../../components/JuradoDashboard";
 
 <Layout>
   <Header client:load />
+  <button
+    onclick="window.location.href='/'"
+    class="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-sm text-gray-800"
+  >
+    ← Volver
+  </button>
   <AuthGuard client:load>
     <h1>Bienvenido Jurado</h1>
     <!-- <JuradoInfo client:load /> -->

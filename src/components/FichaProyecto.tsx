@@ -59,30 +59,30 @@ export default function FichaProyecto({ id }: { id: string }) {
   if (!proyecto) return null;
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold">{proyecto.nombreProyecto}</h2>
-      <p><strong>Postulante:</strong> {proyecto.nombrePostulante}</p>
-      <p><strong>Correo:</strong> {proyecto.email}</p>
-      <p><strong>Categoría:</strong> {proyecto.categoria}</p>
-      <p><strong>Fecha de estreno:</strong> {formatearFecha(proyecto.fechaEstreno)}</p>
-      <p><strong>Sinopsis:</strong> {proyecto.sinopsis}</p>
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">{proyecto.nombreProyecto}</h2>
+        <p><strong>Postulante:</strong> {proyecto.nombrePostulante}</p>
+        <p><strong>Correo:</strong> {proyecto.email}</p>
+        <p><strong>Categoría:</strong> {proyecto.categoria}</p>
+        <p><strong>Fecha de estreno:</strong> {formatearFecha(proyecto.fechaEstreno)}</p>
+        <p><strong>Sinopsis:</strong> {proyecto.sinopsis}</p>
 
-      {proyecto.linkVideo && (
-        <p>
-          🎬 <a href={proyecto.linkVideo} target="_blank" className="text-blue-600 underline">Ver video</a>
-        </p>
-      )}
-      {proyecto.linkLibreto && (
-        <p>
-          📄 <a href={proyecto.linkLibreto} target="_blank" className="text-blue-600 underline">Ver libreto</a>
-        </p>
-      )}
-      {proyecto.linkImagen && (
-        <p>
-          🖼️ <a href={proyecto.linkImagen} target="_blank" className="text-blue-600 underline">Ver imagen</a>
-        </p>
-      )}
-      <FormularioVotacion proyectoId={id}/>
-    </div>
+        {proyecto.linkVideo && (
+          <p>
+            🎬 <a href={proyecto.linkVideo} target="_blank" className="text-blue-600 underline">Ver video</a>
+          </p>
+        )}
+        {proyecto.linkLibreto && (
+          <p>
+            📄 <a href={proyecto.linkLibreto} target="_blank" className="text-blue-600 underline">Ver libreto</a>
+          </p>
+        )}
+        {proyecto.linkImagen && (
+          <p>
+            🖼️ <a href={proyecto.linkImagen} target="_blank" className="text-blue-600 underline">Ver imagen</a>
+          </p>
+        )}
+        <FormularioVotacion proyectoId={id}/>
+      </div>
   );
 }

@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LoginForm from "../components/LoginForm";
+import Header from "../components/Header";
+---
+
+<Layout>
+  <Header />
+  <div class="max-w-[20vw] mx-auto h-full flex items-center">
+    <div class="p-5 w-full">
+      <LoginForm client:load />
+    </div>
+  </div>
+</Layout>

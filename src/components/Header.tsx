@@ -18,23 +18,25 @@ export default function Header() {
   };
 
   return (
-    <header className='header'>
-      <h1 className="text-xl font-bold">Premios Páramos</h1>
-      {isLoggedIn ? (
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-        >
-          Cerrar sesión
-        </button>
-      ) : (
-        <a
-          href="/login"
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-        >
-          Iniciar sesión
-        </a>
-      )}
-    </header>
+    <div className="contenedor">
+      <header className='flex justify-between items-center p-4 bg-black-700'>
+        <h1 className="text-xl font-bold text-white">Premios Paramo</h1>
+        {isLoggedIn ? (
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+          >
+            Cerrar sesión
+          </button>
+        ) : (
+          <a
+            href="/jurado"
+            className="bg-gold-700 text-white px-4 py-2 rounded"
+          >
+            Ingreso jurados
+          </a>
+        )}
+      </header>
+    </div>
   );
 }
