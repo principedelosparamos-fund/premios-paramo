@@ -1,55 +1,78 @@
 // tailwind.config.js
-  /** @type {import('tailwindcss').Config} */
-module.exports = {
-    content: ['./src/**/*.{astro,js,ts,jsx,tsx,html}'],
-    theme: {
-      extend: {
-        colors: {
-          black: {
-            700: '#121212',
-            600: '#1A1A1A',
-            500: '#2E2E2E',
-          },
-          gray: {
-            300: '#B3B3B3',
-            100: '#F5F5F5',
-          },
-          white: '#FFFFFF',
-          gold: {
-            700: '#C59F24',
-            600: '#D4AF37',
-            500: '#E5C970',
-            300: '#F7E29C',
-          },
-          copper: {
-            700: '#742C22',
-            600: '#9C3B2F',
-            500: '#C84D3D',
-            300: '#E98A7F',
-          },
-          yellow: {
-            700: '#B58E00',
-            600: '#FFD700',
-            500: '#FFE766',
-            300: '#FFF5B0',
-          },
-          olive: {
-            500: '#647C56',
-            300: '#A3B18A',
-          },
-          sky: {
-            200: '#CBD5E1',
-          },
-          midnight: {
-            700: '#2D1B3C',
-          },
-        },
-        fontFamily: {
-          titulo: ['"Josefin Sans"', 'sans-serif'],
-          texto: ['"Raleway"', 'sans-serif'],
-        },
-      },
-    },
-    plugins: [],
+/** @type {import('tailwindcss').Config} */
+module.exports= {
+
+  content: ['./src/**/*.{astro,js,ts,jsx,tsx,html}'],
+  theme: {
+    extend: {
+      colors: {
+        black: {
+          700: 'oklch(0.13 0 0)',
+            600: 'oklch(0.18 0 0)',
+            500: 'oklch(0.27 0 0)',
+        }
+
+        ,
+        gray: {
+          300: 'oklch(0.75 0 0)',
+            100: 'oklch(0.95 0 0)',
+        }
+
+        ,
+        white: 'oklch(1 0 0)',
+        gold: {
+          700: 'oklch(0.7 0.2 95)',
+            600: 'oklch(0.72 0.21 95)',
+            500: 'oklch(0.8 0.18 95)',
+            300: 'oklch(0.88 0.14 95)',
+        }
+
+        ,
+        copper: {
+          700: 'oklch(0.35 0.2 30)',
+            600: 'oklch(0.45 0.22 30)',
+            500: 'oklch(0.58 0.22 30)',
+            300: 'oklch(0.74 0.15 30)',
+        }
+
+        ,
+        yellow: {
+          700: 'oklch(0.72 0.18 95)',
+            600: 'oklch(0.9 0.17 95)',
+            500: 'oklch(0.95 0.14 95)',
+            300: 'oklch(0.98 0.08 95)',
+        }
+
+        ,
+        olive: {
+          500: 'oklch(0.58 0.08 130)',
+            300: 'oklch(0.75 0.05 130)',
+        }
+
+        ,
+        sky: {
+          200: 'oklch(0.85 0.03 250)',
+        }
+
+        ,
+        midnight: {
+          700: 'oklch(0.18 0.04 280)',
+        }
+
+        ,
+      }
+
+      ,
+      fontFamily: {
+        paramo: ['"Cinzel"', 'serif'],
+      }
+
+      ,
+    }
+
+    ,
   }
 
+  ,
+  plugins: [],
+}

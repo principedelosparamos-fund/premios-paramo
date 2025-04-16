@@ -1,0 +1,57 @@
+---
+interface Props {
+  text: string;
+  href?: string;
+  type?: "primary" | "secondary" | "tertiary";
+  size?: "small" | "medium" | "large";
+  disabled?: boolean;
+  fontWeight?: "light" | "normal" | "medium" | "semibold" | "bold";
+}
+
+const {
+  text,
+  href,
+  type = "primary",
+  size = "medium",
+  disabled = false,
+  fontWeight = "normal",
+} = Astro.props as Props;
+
+const typeClass = {
+  primary: "bg-gold-700 text-white hover:bg-gold-500",
+  secondary: "bg-white text-blue-600 border border-blue-600 hover:bg-blue-50",
+  tertiary: "bg-transparent text-blue-600 hover:underline",
+}[type];
+
+const sizeClass = {
+  small: "text-sm py-1 px-3 w-full",
+  medium: "text-base py-2 px-16 w-full",
+  large: "text-xl py-2 px-16 w-full",
+}[size];
+
+const weightClass = {
+  light: "font-light",
+  normal: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+  bold: "font-bold",
+}[fontWeight];
+
+const stateClass = disabled
+  ? "opacity-50 pointer-events-none"
+  : "cursor-pointer";
+
+const classes = `flex items-center justify-center rounded-full transition ${typeClass} ${sizeClass} ${weightClass} ${stateClass}`;
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <span>{text}</span>
+    </a>
+  ) : (
+    <button class={classes} disabled={disabled}>
+      <span>{text}</span>
+    </button>
+  )
+}

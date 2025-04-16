@@ -1,48 +1,29 @@
-# Astro Starter Kit: Basics
+# 🏆 Premios Príncipe de los Páramos
 
-```sh
-npm create astro@latest -- --template basics
-```
+**Premios Príncipe de los Páramos** es una plataforma web creada para visibilizar, postular y calificar obras audiovisuales que exaltan la biodiversidad y riqueza cultural de Colombia. Inspirado en eventos como los Golden Globes, este proyecto celebra la creatividad desde lo natural, lo diverso y lo auténtico.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+---
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Funcionalidades principales
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- 🎥 **Postulación de obras**
+  Formulario completo para registrar obras con sinopsis, libreto, imagen y enlaces de visualización.
 
-## 🚀 Project Structure
+- 👩‍⚖️ **Panel de jurados**
+  Acceso personalizado para cada jurado según categoría, con ficha detallada de cada obra y formulario de votación.
 
-Inside of your Astro project, you'll see the following folders and files:
+- 📊 **Sistema de votación automático**
+  Las calificaciones se guardan en Firestore, se calcula automáticamente el promedio por obra y jurado.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- 📥 **Exportación de resultados**
+  Información disponible para análisis, nominaciones y elección de ganadores.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+---
 
-## 🧞 Commands
+## 🧱 Tecnologías utilizadas
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- ⚡ **Astro** – Framework moderno para interfaces web rápidas
+- 🎨 **Tailwind CSS** – Sistema de diseño basado en utilidades
+- 🔥 **Firebase** – Autenticación, Firestore y almacenamiento
+- 🧠 **React** – Interactividad avanzada en componentes clave
+- 🗃️ **Firestore** – Base de datos NoSQL en tiempo real
