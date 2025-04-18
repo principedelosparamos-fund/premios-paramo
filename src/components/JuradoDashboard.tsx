@@ -49,11 +49,11 @@ export default function JuradoDashboard() {
     cargarDatos();
   }, []);
 
-  if (loading) return <p>Cargando panel del jurado...</p>;
-  if (!jurado) return <p className="text-red-600">⚠️ Jurado no encontrado en Firestore.</p>;
+  if (loading) return <p className="text-center py-10">Cargando panel del jurado...</p>;
+  if (!jurado) return <p className="text-red-600 text-center py-10">⚠️ Jurado no encontrado en Firestore.</p>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl mx-auto p-6">
       <div className="bg-gray-100 p-4 rounded shadow">
         <p className="text-lg font-semibold">👤 Jurado: {jurado.nombre}</p>
         <p className="text-sm text-gray-600">📧 {jurado.email}</p>
@@ -61,30 +61,46 @@ export default function JuradoDashboard() {
       </div>
 
       <div>
-        <h2 className="text-xl font-bold mb-2">Proyectos para calificar:</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gold-600 text-center">Proyectos para calificar:</h2>
         {proyectos.length === 0 ? (
-          <p>No hay proyectos en tus categorías.</p>
+          <p className="text-center">No hay proyectos disponibles en tus categorías asignadas.</p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {proyectos.map((p) => (
-              <li key={p.id} className="border p-4 rounded shadow">
-                <h3 className="text-lg font-bold">{p.nombreProyecto}</h3>
-                <p><strong>Postulante:</strong> {p.nombrePostulante}</p>
-                <p><strong>Categoría:</strong> {p.categoria}</p>
-                <a
-                  href={`/jurado/${p.id}`}
-                  className="text-blue-600 hover:underline block mt-1"
-                >
-                  Ver ficha del proyecto →
-                </a>
-
-                {votaciones[p.id] !== undefined ? (
-                  <p className="text-green-700 mt-2">
-                    ✅ Calificado — Promedio: <strong>{votaciones[p.id]}</strong>
-                  </p>
+              <li key={p.id} className="border rounded shadow overflow-hidden flex flex-col bg-white">
+                {p.linkImagen ? (
+                  <img
+                    src={p.linkImagen}
+                    alt={`Imagen de ${p.nombreProyecto}`}
+                    className="w-full h-48 object-cover object-center"
+                  />
                 ) : (
-                  <p className="text-yellow-600 mt-2">🕒 Sin calificar</p>
+                  <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                    Sin imagen disponible
+                  </div>
                 )}
+                <div className="p-4 flex flex-col flex-grow">
+                  <h3 className="text-lg font-bold">{p.nombreProyecto}</h3>
+                  <p className="text-sm text-gray-700"><strong>Postulante:</strong> {p.nombrePostulante}</p>
+                  <p className="text-sm text-gray-700"><strong>Categoría:</strong> {p.categoria}</p>
+
+                  <div className="mt-auto space-y-2">
+                    <a
+                      href={`/jurado/${p.id}`}
+                      className="block text-center bg-gold-600 text-black font-semibold px-4 py-2 rounded hover:bg-gold-500 transition"
+                    >
+                      Ver ficha del proyecto →
+                    </a>
+
+                    {votaciones[p.id] !== undefined ? (
+                      <p className="text-green-700 text-center mt-2">
+                        ✅ Calificado — Promedio: <strong>{votaciones[p.id]}</strong>
+                      </p>
+                    ) : (
+                      <p className="text-yellow-600 text-center mt-2">🕒 Sin calificar</p>
+                    )}
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
