@@ -3,6 +3,9 @@ import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firesto
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
+// Cambiar aquí para ajustar el aspect ratio de las imágenes
+const aspectRatioClass = "aspect-[3/4]"; // Ejemplo: 3:4, puedes cambiar a 1:1 si prefieres
+
 export default function JuradoDashboard() {
   const [jurado, setJurado] = useState<any>(null);
   const [proyectos, setProyectos] = useState<any[]>([]);
@@ -68,17 +71,23 @@ export default function JuradoDashboard() {
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {proyectos.map((p) => (
               <li key={p.id} className="border rounded shadow overflow-hidden flex flex-col bg-white">
+                {/* Imagen directa */}
                 {p.linkImagen ? (
-                  <img
-                    src={p.linkImagen}
-                    alt={`Imagen de ${p.nombreProyecto}`}
-                    className="w-full h-48 object-cover object-center"
-                  />
+                  <div className={`w-full ${aspectRatioClass} overflow-hidden`}>
+                    <img
+                      src={p.linkImagen}
+                      alt={`Imagen de ${p.nombreProyecto}`}
+                      className="w-full h-full object-cover object-center"
+                      loading="lazy"
+                    />
+                  </div>
                 ) : (
-                  <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                  <div className={`w-full ${aspectRatioClass} bg-gray-200 flex items-center justify-center text-gray-500 text-sm`}>
                     Sin imagen disponible
                   </div>
                 )}
+
+                {/* Información del proyecto */}
                 <div className="p-4 flex flex-col flex-grow">
                   <h3 className="text-lg font-bold">{p.nombreProyecto}</h3>
                   <p className="text-sm text-gray-700"><strong>Postulante:</strong> {p.nombrePostulante}</p>

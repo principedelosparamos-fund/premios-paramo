@@ -1,46 +1,70 @@
-import { useState } from 'react';
-import { auth } from '../lib/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../lib/firebase";
+import { getUserRole } from "../lib/getUserRole";
 
-export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginForm = () => {
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.password.value;
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = '/jurado'; // Redirección al dashboard
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Leer el rol del usuario
+      const role = await getUserRole(user.uid);
+
+      if (!role) {
+        alert("No tienes permisos para ingresar.");
+        await auth.signOut();
+        return;
+      }
+
+      // Guardar el rol en localStorage
+      localStorage.setItem("userRole", role);
+
+      // Redirigir según el rol
+      if (role === "admin") {
+        window.location.href = '/dashboard';
+      } else if (role === "jurado") {
+        window.location.href = '/jurado';
+      } else {
+        alert("Rol no autorizado.");
+        await auth.signOut();
+      }
+
     } catch (error) {
-      alert('Credenciales incorrectas');
-      console.error(error);
+      if (import.meta.env.DEV) {
+        console.error("⚠️ Error al iniciar sesión:", error);
+      }
+      alert("Error en el inicio de sesión. Verifica tu correo y contraseña.");
     }
   };
 
   return (
-    <div className="container">
-      <h1 className='text-3xl p-5 text-center'>Ingreso jurados</h1>
-      <form onSubmit={handleLogin} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded">
-          Ingresar
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <input
+      type="email"
+      name="email"
+      placeholder="Correo electrónico"
+      required
+      className="border p-2 rounded"
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Contraseña"
+      required
+      className="border p-2 rounded"
+    />
+    <button type="submit" className="bg-blue-600 text-white py-2 rounded">
+      Iniciar sesión
+    </button>
+  </form>
   );
-}
+};
+
+export default LoginForm;
