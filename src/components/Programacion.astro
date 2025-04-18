@@ -9,7 +9,7 @@ import Button from "./Button.astro";
       Colombia.
     </h2>
   </div>
-  <div class="container mx-auto grid grid-cols-[1fr] lg:grid-cols-[2fr_1fr]">
+  <div class="container mx-auto">
     <div class="">
       <!-- Imagen simple -->
       <img
@@ -18,20 +18,13 @@ import Button from "./Button.astro";
         class="w-full"
         loading="lazy"
       />
-    </div>
-    <div class="bg-white text-center py-24 px-6">
-      <div class="flex justify-center items-center h-full flex-col gap-8">
-        <h2 class="text-7xl font-bold font-paramo text-gold-900">
-          21 al 25 <br /> de julio
-        </h2>
-        <Button
-          text="Programación"
-          type="primary"
-          size="large"
-          href="/programacion"
-          fontWeight="semibold"
-        />
-      </div>
+      <Button
+        text="Programación"
+        type="primary"
+        size="large"
+        href="/programacion"
+        fontWeight="semibold"
+      />
     </div>
   </div>
 </section>
