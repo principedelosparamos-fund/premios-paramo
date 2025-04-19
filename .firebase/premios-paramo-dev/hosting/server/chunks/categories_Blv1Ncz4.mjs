@@ -1,0 +1,20 @@
+const CATEGORIES = [
+  "Mejor largometraje de ficción",
+  "Mejor largometraje documental",
+  "Mejor largometraje de animación",
+  "Mejor cortometraje de ficción",
+  "Mejor cortometraje documental",
+  "Mejor cortometraje de animación",
+  "Mejor telenovela",
+  "Mejor serie o miniserie",
+  "Mejor serie de animación",
+  "Mejor serie documental",
+  "Mejor obra de teatro",
+  "Mejor obra circense",
+  "Mejor videojuego",
+  "Mejor vodcast",
+  "Mejor video musical",
+  "Mejor spot publicitario"
+];
+
+export { CATEGORIES as C };

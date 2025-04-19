@@ -1,0 +1,1 @@
+import{d as s,b as a,g as t}from"./firebase.CkSkgTuA.js";async function c(r){const e=s(a,"jurados",r),o=await t(e);if(o.exists())return o.data().rol;throw new Error("No se encontró rol para este usuario.")}export{c as g};

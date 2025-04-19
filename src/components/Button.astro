@@ -1,11 +1,12 @@
 ---
+// Button.astro
 interface Props {
   text: string;
   href?: string;
   type?: "primary" | "secondary" | "tertiary";
   size?: "small" | "medium" | "large";
-  disabled?: boolean;
-  fontWeight?: "light" | "normal" | "medium" | "semibold" | "bold";
+  fullWidth?: boolean;
+  class?: string;
 }
 
 const {
@@ -13,45 +14,41 @@ const {
   href,
   type = "primary",
   size = "medium",
-  disabled = false,
-  fontWeight = "normal",
+  fullWidth = false,
+  class: customClass = "",
 } = Astro.props as Props;
 
-const typeClass = {
-  primary: "bg-gold-700 text-white hover:bg-gold-500 flex-1",
-  secondary: "bg-white text-blue-600 border border-blue-600 hover:bg-blue-50",
-  tertiary: "bg-transparent text-blue-600 hover:underline",
-}[type];
+const typeClasses = {
+  primary: "bg-gold-600 text-white hover:bg-gold-700",
+  secondary: "bg-white text-gold-600 border border-gold-600 hover:bg-gold-100",
+  tertiary: "bg-transparent text-gold-600 hover:underline",
+};
 
-const sizeClass = {
-  small: "text-sm py-1 px-3",
-  medium: "text-base py-2 px-16",
-  large: "text-xl py-2 px-16",
-}[size];
+const sizeClasses = {
+  small: "text-sm px-3 py-1.5",
+  medium: "text-base px-4 py-2",
+  large: "text-lg px-6 py-3",
+};
 
-const weightClass = {
-  light: "font-light",
-  normal: "font-normal",
-  medium: "font-medium",
-  semibold: "font-semibold",
-  bold: "font-bold",
-}[fontWeight];
+const baseClasses = "rounded-lg font-semibold transition text-center";
+const widthClass = fullWidth ? "w-full" : "";
 
-const stateClass = disabled
-  ? "opacity-50 pointer-events-none"
-  : "cursor-pointer";
-
-const classes = `flex items-center justify-center rounded-full transition ${typeClass} ${sizeClass} ${weightClass} ${stateClass}`;
+const classes = `${baseClasses} ${typeClasses[type]} ${sizeClasses[size]} ${widthClass} ${customClass}`;
 ---
 
 {
   href ? (
-    <a href={href} class={classes}>
-      <span>{text}</span>
+    <a
+      href={href}
+      target={href.endsWith(".pdf") ? "_blank" : undefined}
+      rel={href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
+      class={classes}
+    >
+      {text}
     </a>
   ) : (
-    <button class={classes} disabled={disabled}>
-      <span>{text}</span>
+    <button type="button" class={classes}>
+      {text}
     </button>
   )
 }
