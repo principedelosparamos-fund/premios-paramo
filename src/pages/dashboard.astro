@@ -1,12 +1,7 @@
 ---
-import LogoutButton from "../components/LogoutButton";
+import LogoutButton from "../components/auth/LogoutButton";
 import Layout from "../layouts/Layout.astro";
 ---
-
-<script>
-  import { checkAuth } from "../lib/authGuard";
-  checkAuth();
-</script>
 
 <Layout>
   <h1>Bienvenido Admin</h1>

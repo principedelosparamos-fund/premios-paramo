@@ -1,28 +1,14 @@
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from './firebase'; // Ajusta el path si es necesario
+// lib/getUserRole.ts
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
 
-export async function getUserRole(uid: string): Promise<string | null> {
-  try {
-    const userDoc = doc(db, 'jurados', uid);
-    const userSnap = await getDoc(userDoc);
+export async function getUserRole(uid: string) {
+  const userRef = doc(db, "jurados", uid);
+  const docSnap = await getDoc(userRef);
 
-    if (!userSnap.exists()) {
-      console.error('⚠️ No existe usuario en Firestore.');
-      return null;
-    }
-
-    const userData = userSnap.data();
-    const rol = userData?.rol || null;
-
-    if (rol !== 'admin' && rol !== 'jurado') {
-      console.error('⚠️ Rol inválido:', rol);
-      return null;
-    }
-
-    return rol;
-
-  } catch (error) {
-    console.error('❌ Error obteniendo rol:', error);
-    return null;
+  if (docSnap.exists()) {
+    return docSnap.data().rol; // 'admin' o 'jurado'
+  } else {
+    throw new Error("No se encontró rol para este usuario.");
   }
 }
