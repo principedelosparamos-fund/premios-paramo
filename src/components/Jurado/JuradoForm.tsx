@@ -1,22 +1,24 @@
-import { useState } from 'react';
-import { db } from '../../lib/firebase';
-import { doc, setDoc, getDoc, Timestamp } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { db, auth } from '../../lib/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
 import { CATEGORIES } from '../../lib/categories';
-
-// Función para formatear fecha
-const formatearFecha = (fechaInput: string) => {
-  const fecha = new Date(fechaInput);
-  const dia = fecha.getDate().toString().padStart(2, '0');
-  const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
-  const año = fecha.getFullYear();
-  const horas = fecha.getHours().toString().padStart(2, '0');
-  const minutos = fecha.getMinutes().toString().padStart(2, '0');
-  return `${dia}/${mes}/${año} ${horas}:${minutos}`;
-};
 
 export default function JuradoForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [accesoPermitido, setAccesoPermitido] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const rol = localStorage.getItem('userRole');
+      if (rol !== 'admin') {
+        window.location.href = '/'; // Redirigir si no es admin
+      } else {
+        setAccesoPermitido(true);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,21 +32,20 @@ export default function JuradoForm() {
     try {
       const correo = datos.email?.toString().toLowerCase().trim();
       const celular = datos.celular?.toString().trim();
-      const id = `${correo}-${celular}`;
 
-      const ref = doc(db, 'jurados', id);
-      const snap = await getDoc(ref);
+      const password = `*${celular}*`;
 
-      if (snap.exists()) {
-        setError('⚠️ Ya existe un jurado registrado con este correo y celular.');
-        setLoading(false);
-        return;
-      }
+      // 1. Crear usuario en Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, correo || '', password);
+      const user = userCredential.user;
 
+      // 2. Crear documento en Firestore con el UID
       const fechaRegistro = new Date().toLocaleString('es-CO', { hour12: false });
 
-      await setDoc(ref, {
-        ...datos,
+      await setDoc(doc(db, 'jurados', user.uid), {
+        nombreJurado: datos.nombreJurado,
+        email: correo,
+        celular,
         categorias: data.getAll('categorias'),
         rol: 'jurado',
         fechaRegistro,
@@ -52,12 +53,21 @@ export default function JuradoForm() {
       });
 
       window.location.href = '/jurado-gracias';
-    } catch (err) {
-      console.error(err);
-      setError('❌ No se pudo registrar el jurado. Intenta nuevamente.');
+
+    } catch (err: any) {
+      console.error('❌ Error al registrar jurado:', err);
+      if (err.code === 'auth/email-already-in-use') {
+        setError('⚠️ El correo ya está registrado como usuario.');
+      } else {
+        setError('❌ No se pudo registrar el jurado. Intenta nuevamente.');
+      }
       setLoading(false);
     }
   };
+
+  if (!accesoPermitido) {
+    return null;
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 max-w-2xl mx-auto p-6">
@@ -104,7 +114,7 @@ export default function JuradoForm() {
       <div className="flex justify-end gap-4">
         <button type="reset" className="border px-4 py-2 rounded text-gray-700">Cancelar</button>
         <button type="submit" disabled={loading} className="bg-gold-600 text-black font-semibold px-4 py-2 rounded disabled:opacity-50">
-          {loading ? 'Enviando...' : 'Registrarse'}
+          {loading ? 'Enviando...' : 'Registrar Jurado'}
         </button>
       </div>
     </form>

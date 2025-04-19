@@ -3,7 +3,6 @@ import { auth } from "../lib/firebase";
 import { getUserRole } from "../lib/getUserRole";
 
 const LoginForm = () => {
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -14,7 +13,7 @@ const LoginForm = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Leer el rol del usuario
+      // ✅ Ahora usamos UID para buscar rol
       const role = await getUserRole(user.uid);
 
       if (!role) {
@@ -23,10 +22,9 @@ const LoginForm = () => {
         return;
       }
 
-      // Guardar el rol en localStorage
       localStorage.setItem("userRole", role);
+      localStorage.setItem("userEmail", user.email || "");
 
-      // Redirigir según el rol
       if (role === "admin") {
         window.location.href = '/dashboard';
       } else if (role === "jurado") {
@@ -45,25 +43,28 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-    <input
-      type="email"
-      name="email"
-      placeholder="Correo electrónico"
-      required
-      className="border p-2 rounded"
-    />
-    <input
-      type="password"
-      name="password"
-      placeholder="Contraseña"
-      required
-      className="border p-2 rounded"
-    />
-    <button type="submit" className="bg-blue-600 text-white py-2 rounded">
-      Iniciar sesión
-    </button>
-  </form>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md mx-auto">
+      <input
+        type="email"
+        name="email"
+        placeholder="Correo electrónico"
+        required
+        className="border p-2 rounded"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Contraseña"
+        required
+        className="border p-2 rounded"
+      />
+      <button
+        type="submit"
+        className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+      >
+        Iniciar sesión
+      </button>
+    </form>
   );
 };
 

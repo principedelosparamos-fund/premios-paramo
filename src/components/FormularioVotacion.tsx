@@ -24,11 +24,7 @@ const preguntas = [
   'Coherencia con la categoría'
 ];
 
-export default function FormularioVotacion({
-  proyectoId
-}: {
-  proyectoId: string;
-}) {
+export default function FormularioVotacion({ proyectoId }: { proyectoId: string }) {
   const [respuestas, setRespuestas] = useState<number[]>(Array(preguntas.length).fill(0));
   const [enviado, setEnviado] = useState(false);
   const [yaVotado, setYaVotado] = useState(false);
@@ -42,13 +38,11 @@ export default function FormularioVotacion({
       const user = auth.currentUser;
       if (!user || !user.email) return;
 
-      // Obtener jurado
       const juradoSnap = await getDoc(doc(db, 'jurados', user.email));
       if (juradoSnap.exists()) {
         setNombreJurado(juradoSnap.data().nombre);
       }
 
-      // Verificar si ya votó
       const q = query(
         collection(db, 'votaciones'),
         where('proyectoId', '==', proyectoId),
@@ -57,10 +51,9 @@ export default function FormularioVotacion({
       const snap = await getDocs(q);
       if (!snap.empty) setYaVotado(true);
 
-      // Obtener nombre del proyecto
       const proyectoSnap = await getDoc(doc(db, 'proyectos', proyectoId));
       if (proyectoSnap.exists()) {
-        setNombreProyecto(proyectoSnap.data().nombreProyecto);
+        setNombreProyecto(proyectoSnap.data().nombreObra || proyectoSnap.data().nombreProyecto);
       }
     };
 
@@ -76,7 +69,7 @@ export default function FormularioVotacion({
     const validas = nuevas.filter((n) => n >= 1 && n <= 10);
     if (validas.length === preguntas.length) {
       const suma = validas.reduce((a, b) => a + b, 0);
-      setPromedio((suma / preguntas.length).toFixed(2) as unknown as number);
+      setPromedio(parseFloat((suma / preguntas.length).toFixed(2)));
     } else {
       setPromedio(null);
     }
@@ -91,7 +84,7 @@ export default function FormularioVotacion({
     }
 
     if (respuestas.includes(0)) {
-      setError('Responde todas las preguntas con calificaciones del 1 al 10.');
+      setError('Debes responder todas las preguntas.');
       return;
     }
 
@@ -124,33 +117,38 @@ export default function FormularioVotacion({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 mt-8">
-      <h3 className="text-xl font-bold">📝 Evaluación del jurado</h3>
-      {error && <p className="text-red-600">{error}</p>}
+      <h3 className="text-xl font-bold text-gold-600">📝 Evaluación del Jurado</h3>
 
-      {preguntas.map((pregunta, index) => (
-        <div key={index} className="flex items-center gap-4">
-          <label className="w-full">{pregunta}</label>
-          <input
-            type="number"
-            min={1}
-            max={10}
-            value={respuestas[index] || ''}
-            onChange={(e) => handleChange(index, e.target.value)}
-            required
-            className="w-20 p-2 border rounded text-center"
-          />
-        </div>
-      ))}
+      {error && <p className="text-red-600 font-semibold">{error}</p>}
+
+      <div className="space-y-4">
+        {preguntas.map((pregunta, index) => (
+          <div key={index} className="flex items-center gap-4">
+            <label className="w-full text-gray-700">{pregunta}</label>
+            <input
+              type="number"
+              min={1}
+              max={10}
+              value={respuestas[index] || ''}
+              onChange={(e) => handleChange(index, e.target.value)}
+              required
+              className="w-20 p-2 border rounded text-center"
+            />
+          </div>
+        ))}
+      </div>
 
       {promedio !== null && (
-        <p className="text-lg font-semibold text-blue-600">
-          Promedio total: {promedio}
-        </p>
+        <div className="text-right">
+          <p className="text-lg font-bold text-gold-600">Promedio final: {promedio}</p>
+        </div>
       )}
 
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
-        Enviar votación
-      </button>
+      <div className="flex justify-end">
+        <button type="submit" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+          Enviar votación
+        </button>
+      </div>
     </form>
   );
 }
