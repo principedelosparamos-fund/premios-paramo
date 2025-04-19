@@ -4,7 +4,7 @@
  * Verifica si el usuario está autenticado basándose en localStorage.
  * Si no está autenticado, lo redirige a /login.
  */
-export const checkAuth = () => {
+/* export const checkAuth = () => {
     if (typeof window !== 'undefined') {
       const role = localStorage.getItem('userRole');
 
@@ -14,3 +14,4 @@ export const checkAuth = () => {
       }
     }
   };
+ */

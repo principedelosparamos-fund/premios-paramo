@@ -11,6 +11,9 @@ export default function LogoutButton() {
       localStorage.removeItem("userEmail");
       console.log("✅ LocalStorage limpiado.");
 
+      // 🥐 Borrar cookie manualmente
+      document.cookie = "userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
       window.location.href = "/login"; // Redirige a login
     } catch (error) {
       console.error("❌ Error cerrando sesión:", error);

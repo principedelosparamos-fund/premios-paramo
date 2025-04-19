@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { CATEGORIES } from "../../lib/categories"; // 👈 Importamos categorías
 
 export default function RegisterJuradoForm() {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ export default function RegisterJuradoForm() {
     apellido: "",
     email: "",
     celular: "",
-    categorias: "",
+    categorias: [] as string[],
   });
 
   const [error, setError] = useState("");
@@ -17,6 +18,19 @@ export default function RegisterJuradoForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    let updatedCategorias = [...formData.categorias];
+
+    if (checked) {
+      updatedCategorias.push(value);
+    } else {
+      updatedCategorias = updatedCategorias.filter((c) => c !== value);
+    }
+
+    setFormData({ ...formData, categorias: updatedCategorias });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,15 +51,23 @@ export default function RegisterJuradoForm() {
         fechaRegistro: new Date().toLocaleString("es-CO"),
         timestamp: Timestamp.now(),
       });
-
       console.log("✅ Documento creado en Firestore para el jurado.");
 
-      setSuccess("Jurado registrado exitosamente.");
-      setError("");
+      // 🥐 Refrescamos cookie del rol admin antes de redirigir
+      /* const response = await fetch("/api/setRole", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ role: "admin" }),
+      }); */
 
-      setTimeout(() => {
-        window.location.href = "/admin/jurado-inscrito";
-      }, 1000);
+      /* if (!response.ok) {
+        throw new Error("No se pudo refrescar la sesión del admin.");
+      } */
+
+      // 🔥 Redirigimos automáticamente para registrar la conversión en funnels
+      window.location.href = "/admin/jurado-inscrito";
 
     } catch (err: any) {
       console.error("❌ Error al registrar jurado:", err);
@@ -113,17 +135,26 @@ export default function RegisterJuradoForm() {
 
       {/* Categorías */}
       <div className="flex flex-col space-y-2">
-        <label htmlFor="categorias" className="font-medium text-sm">Categorías</label>
-        <input
-          id="categorias"
-          name="categorias"
-          value={formData.categorias}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-2 border rounded-md"
-        />
+        <label className="font-medium text-sm mb-2">Categorías que puede calificar</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {CATEGORIES.map((category) => (
+            <div key={category} className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id={category}
+                value={category}
+                checked={formData.categorias.includes(category)}
+                onChange={handleCategoryChange}
+                className="w-4 h-4"
+              />
+              <label htmlFor={category} className="text-sm">{category}</label>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-gray-500">Selecciona una o varias categorías.</p>
       </div>
 
+      {/* Mensajes */}
       {error && <div className="text-red-600 font-semibold">{error}</div>}
       {success && <div className="text-green-600 font-semibold">{success}</div>}
 
