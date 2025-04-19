@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { db, auth } from '../lib/firebase';
+import { getUserRole } from '../lib/getUserRole'; // Agregamos import
 import {
   collection,
   setDoc,
@@ -38,22 +39,36 @@ export default function FormularioVotacion({ proyectoId }: { proyectoId: string 
       const user = auth.currentUser;
       if (!user || !user.email) return;
 
-      const juradoSnap = await getDoc(doc(db, 'jurados', user.email));
-      if (juradoSnap.exists()) {
-        setNombreJurado(juradoSnap.data().nombre);
-      }
+      try {
+        const rol = await getUserRole(user.email);
 
-      const q = query(
-        collection(db, 'votaciones'),
-        where('proyectoId', '==', proyectoId),
-        where('juradoEmail', '==', user.email)
-      );
-      const snap = await getDocs(q);
-      if (!snap.empty) setYaVotado(true);
+        if (rol === 'jurado') {
+          const juradoSnap = await getDoc(doc(db, 'jurados', user.email));
+          if (juradoSnap.exists()) {
+            setNombreJurado(juradoSnap.data().nombre);
+          }
+        } else if (rol === 'admin') {
+          setNombreJurado('Admin');
+        } else {
+          setError('No tienes permisos para votar.');
+          return;
+        }
 
-      const proyectoSnap = await getDoc(doc(db, 'proyectos', proyectoId));
-      if (proyectoSnap.exists()) {
-        setNombreProyecto(proyectoSnap.data().nombreObra || proyectoSnap.data().nombreProyecto);
+        const q = query(
+          collection(db, 'votaciones'),
+          where('proyectoId', '==', proyectoId),
+          where('juradoEmail', '==', user.email)
+        );
+        const snap = await getDocs(q);
+        if (!snap.empty) setYaVotado(true);
+
+        const proyectoSnap = await getDoc(doc(db, 'proyectos', proyectoId));
+        if (proyectoSnap.exists()) {
+          setNombreProyecto(proyectoSnap.data().nombreObra || proyectoSnap.data().nombreProyecto);
+        }
+      } catch (error) {
+        console.error('Error verificando jurado o admin:', error);
+        setError('Error interno al verificar usuario.');
       }
     };
 
@@ -79,7 +94,7 @@ export default function FormularioVotacion({ proyectoId }: { proyectoId: string 
     e.preventDefault();
     const user = auth.currentUser;
     if (!user || !user.email || !nombreJurado) {
-      setError('Debes estar autenticado y registrado como jurado.');
+      setError('Debes estar autenticado y registrado como jurado o admin.');
       return;
     }
 

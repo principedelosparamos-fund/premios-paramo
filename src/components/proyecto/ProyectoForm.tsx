@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { db } from '../lib/firebase';
+import { db } from '../../lib/firebase';
 import { doc, setDoc, getDoc, Timestamp } from 'firebase/firestore';
-import { CATEGORIES } from '../lib/categories';
+import { CATEGORIES } from '../../lib/categories';
 
 // 🔥 Función para formatear fecha tipo "31/03/2025 19:00"
 const formatearFecha = (fechaInput: string) => {

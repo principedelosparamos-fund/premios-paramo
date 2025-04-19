@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { db } from '../../lib/firebase';
 import { collection, getDocs, doc, getDoc, query, where } from 'firebase/firestore';
-import ProyectoCard from '../../components/Jurado/ProyectoCard'; // El componente independiente de las cards
+import ProyectoCard from '../../components/jurado/ProyectoCard'; // Asegúrate de que el caso sea consistente
 
 const DashboardJurado = () => {
   const [proyectos, setProyectos] = useState<any[]>([]);

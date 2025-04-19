@@ -1,7 +1,10 @@
 ---
+export const prerender = false;
+
 import Layout from "../../layouts/Layout.astro";
-import ProyectoFicha from "../../components/Jurado/ProyectoFicha";
+import ProyectoFicha from "../../components/jurado/ProyectoFicha";
 import FormularioVotacion from "../../components/FormularioVotacion";
+
 const { id } = Astro.params;
 const projectId = id || "defaultId";
 ---
