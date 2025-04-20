@@ -2,8 +2,10 @@
 export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
 import RegisterJuradoForm from "../../components/admin/RegisterJurado";
+import AdminDashboard from "../../components/admin/AdminDashboard";
 ---
 
 <Layout>
-  <RegisterJuradoForm client:load />
+  <!--  <RegisterJuradoForm client:load /> -->
+  <AdminDashboard client:load />
 </Layout>

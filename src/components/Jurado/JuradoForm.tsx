@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { db, auth } from '../../lib/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { doc, setDoc, Timestamp } from 'firebase/firestore/lite';
 import { CATEGORIES } from '../../lib/categories';
 
 export default function JuradoForm() {

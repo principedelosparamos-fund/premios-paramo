@@ -1,0 +1,97 @@
+---
+export const prerender = false;
+
+import Layout from "../../../layouts/Layout.astro";
+import { doc, getDoc, collection } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
+
+const { id } = Astro.params;
+
+let proyecto = null;
+
+try {
+  const docRef = doc(collection(db, "proyectos"), id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    proyecto = docSnap.data();
+  }
+} catch (error) {
+  console.error("Error al cargar proyecto:", error);
+}
+---
+
+<Layout>
+  <div class="p-6 max-w-4xl mx-auto space-y-6">
+    <a
+      href="/admin"
+      class="inline-block mb-4 text-sm text-gold-500 hover:underline"
+    >
+      ← Volver al Dashboard
+    </a>
+
+    {
+      proyecto ? (
+        <div class="bg-white rounded-xl shadow p-6 space-y-4">
+          <h1 class="text-2xl font-bold text-black">
+            {proyecto.nombreObra || "Sin nombre"}
+          </h1>
+
+          <div class="text-sm text-gray-500">
+            Postulado por: {proyecto.nombrePostulante || "No disponible"}
+          </div>
+
+          <div class="flex flex-col gap-2 text-sm text-gray-700">
+            <div>
+              <strong>Categoría:</strong> {proyecto.categorias || "No asignada"}
+            </div>
+            <div>
+              <strong>Perfil:</strong> {proyecto.perfil || "No disponible"}
+            </div>
+            <div>
+              <strong>Fecha de Registro:</strong>{" "}
+              {proyecto.fechaRegistro || "No disponible"}
+            </div>
+            <div>
+              <strong>Sinopsis:</strong> {proyecto.sinopsis || "No disponible"}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4 mt-6">
+            {proyecto.linkImagen && (
+              <a
+                href={proyecto.linkImagen}
+                target="_blank"
+                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+              >
+                📷 Ver Imagen
+              </a>
+            )}
+
+            {proyecto.linkVideo && (
+              <a
+                href={proyecto.linkVideo}
+                target="_blank"
+                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+              >
+                🎬 Ver Video
+              </a>
+            )}
+
+            {proyecto.linkLibreto && (
+              <a
+                href={proyecto.linkLibreto}
+                target="_blank"
+                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+              >
+                📄 Ver Libreto
+              </a>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div class="text-center text-gray-600">Proyecto no encontrado.</div>
+      )
+    }
+  </div>
+</Layout>

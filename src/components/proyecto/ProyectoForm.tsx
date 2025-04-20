@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { db } from '../../lib/firebase';
-import { doc, setDoc, getDoc, Timestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, Timestamp } from 'firebase/firestore';
 import { CATEGORIES } from '../../lib/categories';
 
 // 🔥 Función para formatear fecha tipo "31/03/2025 19:00"
@@ -27,7 +27,6 @@ export default function ProyectoForm() {
     const data = new FormData(form);
     const datos = Object.fromEntries(data.entries());
 
-    // ✅ Validación de consentimientos
     if (
       !data.get('aceptaReglamento') ||
       !data.get('contactoAutorizado') ||
@@ -41,12 +40,13 @@ export default function ProyectoForm() {
     try {
       const correo = datos.email?.toString().toLowerCase().trim();
       const celular = datos.celular?.toString().trim();
-      const id = `${correo}-${celular}`;
 
-      const ref = doc(db, 'proyectos', id);
-      const snap = await getDoc(ref);
+      // 🔍 Validar que no exista ya una obra con ese correo y celular
+      const proyectosRef = collection(db, 'proyectos');
+      const q = query(proyectosRef, where('email', '==', correo), where('celular', '==', celular));
+      const querySnapshot = await getDocs(q);
 
-      if (snap.exists()) {
+      if (!querySnapshot.empty) {
         setError('⚠️ Ya existe una postulación con este correo y celular.');
         setLoading(false);
         return;
@@ -54,8 +54,11 @@ export default function ProyectoForm() {
 
       const fechaRegistro = new Date().toLocaleString('es-CO', { hour12: false });
 
-      await setDoc(ref, {
+      // 🔥 Agregar proyecto con ID automático
+      await addDoc(proyectosRef, {
         ...datos,
+        email: correo, // Guardamos email limpio
+        celular: celular, // Guardamos celular limpio
         fechaEstreno: formatearFecha(datos.fechaEstreno.toString()),
         fechaRegistro,
         timestamp: Timestamp.now(),
