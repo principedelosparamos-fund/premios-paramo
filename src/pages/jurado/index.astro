@@ -1,8 +1,10 @@
 ---
 export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
+import DashboardJurado from "../../components/jurado/DashboardJurado";
 ---
 
 <Layout>
+  <DashboardJurado client:load />
   <h1>Hola Jurado</h1>
 </Layout>

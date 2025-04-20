@@ -12,3 +12,13 @@ export async function getUserRole(uid: string) {
     throw new Error("No se encontró rol para este usuario.");
   }
 }
+
+export function getUserInfoFromLocalStorage() {
+  if (typeof window !== "undefined") {
+    const email = localStorage.getItem("userEmail") || "";
+    const rol = localStorage.getItem("userRole") || "";
+    const nombre = localStorage.getItem("userNombre") || "";
+    return { email, rol, nombre };
+  }
+  return { email: "", rol: "", nombre: "" };
+}

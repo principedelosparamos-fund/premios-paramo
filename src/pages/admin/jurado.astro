@@ -1,0 +1,11 @@
+---
+export const prerender = false; // 🔥 muy importante
+import Layout from "../../layouts/Layout.astro";
+import RegisterJuradoForm from "../../components/admin/RegisterJurado"; // o la ruta donde tengas tu componente
+---
+
+<Layout>
+  <div class="max-w-3xl mx-auto py-10">
+    <RegisterJuradoForm client:load />
+  </div>
+</Layout>

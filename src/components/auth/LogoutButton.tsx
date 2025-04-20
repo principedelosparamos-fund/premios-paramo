@@ -4,24 +4,34 @@ import { auth } from "../../lib/firebase";
 export default function LogoutButton() {
   async function handleLogout() {
     try {
-      await signOut(auth); // Cierra sesión de Firebase
-      console.log("✅ Usuario deslogueado.");
+      // 🔥 Cerrar sesión en Firebase
+      await signOut(auth);
+      console.log("✅ Usuario deslogueado de Firebase.");
 
-      localStorage.removeItem("userRole");
+      // 🔥 Limpiar localStorage
       localStorage.removeItem("userEmail");
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userNombre");
+
       console.log("✅ LocalStorage limpiado.");
 
-      // 🥐 Borrar cookie manualmente
+      // 🔥 Limpiar cookie
       document.cookie = "userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-      window.location.href = "/login"; // Redirige a login
+      console.log("✅ Cookie userRole eliminada.");
+
+      // 🔥 Redirigir al login
+      window.location.href = "/login"; // o la ruta que uses para login
     } catch (error) {
       console.error("❌ Error cerrando sesión:", error);
     }
   }
 
   return (
-    <button onClick={handleLogout} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+    <button
+      onClick={handleLogout}
+      className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+    >
       Cerrar Sesión
     </button>
   );

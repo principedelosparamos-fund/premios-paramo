@@ -53,19 +53,6 @@ export default function RegisterJuradoForm() {
       });
       console.log("✅ Documento creado en Firestore para el jurado.");
 
-      // 🥐 Refrescamos cookie del rol admin antes de redirigir
-      /* const response = await fetch("/api/setRole", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ role: "admin" }),
-      }); */
-
-      /* if (!response.ok) {
-        throw new Error("No se pudo refrescar la sesión del admin.");
-      } */
-
       // 🔥 Redirigimos automáticamente para registrar la conversión en funnels
       window.location.href = "/admin/jurado-inscrito";
 
