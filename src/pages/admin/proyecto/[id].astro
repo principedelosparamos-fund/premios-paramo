@@ -1,0 +1,167 @@
+---
+export const prerender = false;
+import Layout from "../../../layouts/Layout.astro";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { db } from "../../../lib/firebase";
+
+const { id } = Astro.params;
+
+let proyecto = null;
+let votacion = null;
+
+const preguntas = [
+  "Calidad técnica del video",
+  "Narrativa o guion",
+  "Relevancia del mensaje",
+  "Creatividad",
+  "Impacto visual",
+  "Dirección",
+  "Edición",
+  "Diseño sonoro",
+  "Aporte a la biodiversidad",
+  "Coherencia con la categoría",
+];
+
+try {
+  // 1. Traer proyecto
+  const docRef = doc(collection(db, "proyectos"), id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    proyecto = docSnap.data();
+  }
+
+  // 2. Traer votación asociada
+  const votacionesRef = collection(db, "votaciones");
+  const q = query(votacionesRef, where("idProyecto", "==", id));
+  const votacionesSnap = await getDocs(q);
+
+  if (!votacionesSnap.empty) {
+    votacion = votacionesSnap.docs[0].data();
+  }
+} catch (error) {
+  console.error("Error al cargar datos:", error);
+}
+---
+
+<Layout>
+  <div class="p-6 max-w-4xl mx-auto space-y-6">
+    <a
+      href="/admin"
+      class="inline-block mb-4 text-sm text-gold-500 hover:underline"
+    >
+      ← Volver al Dashboard
+    </a>
+
+    {
+      proyecto ? (
+        <div class="bg-white rounded-xl shadow p-6 space-y-4">
+          <h1 class="text-2xl font-bold text-black">
+            {proyecto.nombreObra || "Sin nombre"}
+          </h1>
+
+          <div class="text-sm text-gray-500">
+            Postulado por: {proyecto.nombrePostulante || "No disponible"}
+          </div>
+
+          <div class="flex flex-col gap-2 text-sm text-gray-700">
+            <div>
+              <strong>Categoría:</strong> {proyecto.categorias || "No asignada"}
+            </div>
+            <div>
+              <strong>Perfil:</strong> {proyecto.perfil || "No disponible"}
+            </div>
+            <div>
+              <strong>Fecha de Registro:</strong>{" "}
+              {proyecto.fechaRegistro || "No disponible"}
+            </div>
+            <div>
+              <strong>Sinopsis:</strong> {proyecto.sinopsis || "No disponible"}
+            </div>
+          </div>
+
+          {/* Links */}
+          <div class="flex flex-col gap-4 mt-6">
+            {proyecto.linkImagen && (
+              <a
+                href={proyecto.linkImagen}
+                target="_blank"
+                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+              >
+                📷 Ver Imagen
+              </a>
+            )}
+
+            {proyecto.linkVideo && (
+              <a
+                href={proyecto.linkVideo}
+                target="_blank"
+                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+              >
+                🎬 Ver Video
+              </a>
+            )}
+
+            {proyecto.linkLibreto && (
+              <a
+                href={proyecto.linkLibreto}
+                target="_blank"
+                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+              >
+                📄 Ver Libreto
+              </a>
+            )}
+          </div>
+
+          {/* 🔥 Resumen de votación */}
+          {votacion ? (
+            <div class="mt-8 p-6 bg-gray-100 rounded-xl space-y-4">
+              <h2 class="text-xl font-bold text-black">Resumen de Votación</h2>
+
+              <div class="text-sm text-gray-700">
+                <strong>Jurado:</strong>{" "}
+                {votacion.nombreJurado || "Nombre no disponible"}
+              </div>
+              <div class="text-sm text-gray-700">
+                <strong>Promedio otorgado:</strong>{" "}
+                {votacion.promedio || "No disponible"}
+              </div>
+              <div class="text-sm text-gray-700">
+                <strong>Fecha de votación:</strong>{" "}
+                {votacion.fechaVotacion || "Fecha no disponible"}
+              </div>
+
+              {/* 🔥 Listado de criterios */}
+              <div class="mt-4 space-y-2">
+                <h3 class="font-semibold text-black mb-2">
+                  Detalle de calificación:
+                </h3>
+                {preguntas.map((pregunta, index) => (
+                  <div class="flex justify-between text-sm text-gray-700">
+                    <span>{pregunta}</span>
+                    <span class="font-semibold">
+                      {votacion.respuestas?.[`criterio${index + 1}`] ?? "-"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div class="mt-6 text-sm text-gray-500 italic">
+              Proyecto aún no ha sido calificado.
+            </div>
+          )}
+        </div>
+      ) : (
+        <div class="text-center text-gray-600">Proyecto no encontrado.</div>
+      )
+    }
+  </div>
+</Layout>

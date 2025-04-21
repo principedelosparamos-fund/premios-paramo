@@ -1,0 +1,57 @@
+---
+import hero1920 from "../../assets/img/hero-photo-1920.jpg";
+import hero1024 from "../../assets/img/hero-photo-1024.jpg";
+import heroMobile from "../../assets/img/hero-photo-700.jpg";
+
+import hero1920wp from "../../assets/img/hero-photo-1920.webp";
+import hero1024wp from "../../assets/img/hero-photo-1024.webp";
+import heroMobilewp from "../../assets/img/hero-photo-700.webp";
+---
+
+<section
+  class="bg-black-500 w-full h-[90vh] md:h-[70vh] xl:h-[85vh] overflow-hidden"
+>
+  <picture class="w-full h-full">
+    <!-- Fuentes en WebP optimizadas -->
+    <source
+      srcset={hero1920wp.src}
+      media="(min-width: 1280px)"
+      type="image/webp"
+    />
+    <source
+      srcset={hero1024wp.src}
+      media="(min-width: 768px)"
+      type="image/webp"
+    />
+    <source
+      srcset={heroMobilewp.src}
+      media="(max-width: 767px)"
+      type="image/webp"
+    />
+
+    <!-- Fuentes en JPG como fallback -->
+    <source
+      srcset={hero1920.src}
+      media="(min-width: 1280px)"
+      type="image/jpeg"
+    />
+    <source
+      srcset={hero1024.src}
+      media="(min-width: 768px)"
+      type="image/jpeg"
+    />
+    <source
+      srcset={heroMobile.src}
+      media="(max-width: 767px)"
+      type="image/jpeg"
+    />
+
+    <img
+      src={heroMobile.src}
+      alt="Portada de los Premios Príncipe de los Páramos"
+      class="w-full h-full object-cover object-bottom"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+</section>

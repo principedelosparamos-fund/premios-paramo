@@ -1,0 +1,39 @@
+---
+import Button from "../ui/Button.astro";
+---
+
+<section class="bg-gradient-to-r from-[#191300] to-[#6D5500] py-24">
+  <div class="container mx-auto grid grid-cols-1 lg:grid-cols-[.5fr_1fr]">
+    <div class="flex justify-center">
+      <!-- Imagen simple -->
+      <img
+        src="/src/assets/img/premio-pluma.png"
+        alt="Texto embebido visualmente"
+        class="w-[400px]"
+        loading="lazy"
+      />
+    </div>
+    <div class="">
+      <div class="h-full flex flex-col justify-center items-center p-6">
+        <h2
+          class="text-5xl text-center leading-16 text-white font-paramo font-bold"
+        >
+          Postula tu proyecto a los Premios Príncipe de los Páramos y marca la
+          estatuilla con tu nombre.
+        </h2>
+        <div
+          class="py-10 min-w-[300px] w-[100%] md:w-[80%] grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          <Button
+            type="primary"
+            size="large"
+            text="Reglamento"
+            href="pdf/reglamento.pdf"
+            fullWidth
+          />
+          <Button size="large" text="Postular" href="/proyecto" fullWidth />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
