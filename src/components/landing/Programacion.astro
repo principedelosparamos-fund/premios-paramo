@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import festival from "../../assets/img/imagen-festival.png";
 import Button from "../ui/Button.astro";
 ---
 
@@ -12,12 +14,7 @@ import Button from "../ui/Button.astro";
   <div class="container mx-auto">
     <div class="">
       <!-- Imagen simple -->
-      <img
-        src="/src/assets/img/imagen-festival.png"
-        alt="Texto embebido visualmente"
-        class="w-full"
-        loading="lazy"
-      />
+      <Image src={festival} alt="Imagen festival" loading="lazy" />
       <div class="w-full flex justify-center py-5">
         <Button
           text="Programación"

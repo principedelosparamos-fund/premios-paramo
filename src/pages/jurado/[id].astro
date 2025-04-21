@@ -3,6 +3,7 @@ import FormularioVotacion from "../../components/jurado/FormularioVotacion.tsx";
 import Layout from "../../layouts/Layout.astro";
 import { doc, getDoc, collection } from "firebase/firestore";
 import { db } from "../../lib/firebase";
+import LayoutFormularios from "../../layouts/LayoutFormularios.astro";
 
 const { id } = Astro.params;
 
@@ -20,18 +21,17 @@ try {
 }
 ---
 
-<Layout>
+<LayoutFormularios>
   <div class="p-6 max-w-4xl mx-auto space-y-6">
-    <a
-      href="/jurado"
-      class="inline-block mb-4 text-sm text-gold-500 hover:underline"
-    >
-      ← Volver al Dashboard
-    </a>
+    <header class="p-5">
+      <a href="/jurado" class="px-4 py-2 bg-gold-600 text-white rounded-lg">
+        ← Volver al Dashboard
+      </a>
+    </header>
 
     {
       proyecto ? (
-        <div class="bg-white rounded-xl shadow p-6 space-y-4">
+        <div class="bg-white rounded-xl p-6 space-y-4">
           <h1 class="text-2xl font-bold text-black">
             {proyecto.nombreObra || "Sin nombre"}
           </h1>
@@ -111,4 +111,4 @@ try {
       )
     }
   </div>
-</Layout>
+</LayoutFormularios>

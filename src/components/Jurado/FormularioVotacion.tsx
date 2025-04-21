@@ -87,9 +87,9 @@ const FormularioVotacion = ({ idProyecto, nombreProyecto }: FormularioVotacionPr
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="bg-white p-4 rounded-lg">
       <h2 className="text-lg font-semibold mb-4">Califica este proyecto</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {PREGUNTAS.map((pregunta, index) => {
           const criterio = `criterio${index + 1}`;
           return (

@@ -176,7 +176,7 @@ const DashboardJurado = () => {
           Actualizar proyectos
         </button>
       </div>
-      <div className="grid gap-6">
+      <div className="grid grid-cols-3 gap-6">
         {proyectos.map((proyecto) => (
           <ProyectoCard
             key={proyecto.id}

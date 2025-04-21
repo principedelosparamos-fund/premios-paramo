@@ -38,7 +38,7 @@ const ProyectoCard = ({
               ✅ Ya calificado - Tu Promedio: {promedioVotacionJurado?.toFixed(1)}
             </div>
           ) : (
-            <div className="text-yellow-600 font-semibold mb-2">
+            <div className="text-yellow-800 font-semibold mb-2">
               ⚡ Sin calificar
             </div>
           )}

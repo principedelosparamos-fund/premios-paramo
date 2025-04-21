@@ -1,9 +1,10 @@
 ---
-import LayoutFormularios from "../../layouts/LayoutFormularios.astro";
 import DashboardJurado from "../../components/jurado/Dashboardjurado.tsx";
-import LogoutButton from "../../components/auth/LogoutButton";
+import LayoutUser from "../../layouts/LayoutUser.astro";
 ---
 
-<LayoutFormularios>
-  <DashboardJurado client:load />
-</LayoutFormularios>
+<LayoutUser>
+  <div class="container mx-auto">
+    <DashboardJurado client:load />
+  </div>
+</LayoutUser>

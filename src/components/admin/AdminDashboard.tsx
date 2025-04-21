@@ -73,7 +73,7 @@ export default function AdminDashboard(props: AdminDashboardProps) {
   }
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-4 space-y-6 container mx-auto">
       {/* Encabezado */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <div>
@@ -85,9 +85,9 @@ export default function AdminDashboard(props: AdminDashboardProps) {
 
         <button
           onClick={handleRefresh}
-          className="mt-4 md:mt-0 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
+          className="px-4 py-2 bg-gold-600 text-white rounded-lg"
         >
-          🔄 Actualizar Datos Manualmente
+          Actualizar Datos Manualmente
         </button>
       </div>
 

@@ -1,13 +1,8 @@
 ---
-export const prerender = false;
-import Layout from "../../layouts/Layout.astro";
+import LayoutUser from "../../layouts/LayoutUser.astro";
 import AdminDashboard from "../../components/admin/AdminDashboard.tsx";
-import LogoutButton from "../../components/auth/LogoutButton";
 ---
 
-<Layout>
-  <header>
-    <LogoutButton client:load />
-  </header>
+<LayoutUser>
   <AdminDashboard client:load />
-</Layout>
+</LayoutUser>

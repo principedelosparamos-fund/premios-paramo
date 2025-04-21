@@ -41,7 +41,7 @@ export default function ProyectoCard({
 
       <a
         href={`/admin/proyecto/${id}`}
-        className="mt-auto text-center py-2 px-4 bg-gold-500 text-white rounded hover:bg-gold-600 text-sm"
+        className="mt-4 font-semibold color-black-500 text-center py-2 px-4 bg-gold-500 text-white rounded hover:bg-gold-600 text-sm"
       >
         Ver Detalle
       </a>
