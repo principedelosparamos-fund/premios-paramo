@@ -1,8 +1,31 @@
 import { defineMiddleware } from "astro/middleware";
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const role = context.cookies.get("userRole")?.value || "";
   const pathname = context.url.pathname;
+
+  // Lista de rutas que son estáticas y no necesitan middleware
+  const staticRoutes = [
+    '/',
+    '/index.html',
+    '/programacion',
+    '/programacion/',
+    '/reglamento',
+    '/reglamento/',
+    '/interna',
+    '/interna/',
+    '/gracias',
+    '/gracias/',
+    '/proyecto-gracias',
+    '/proyecto-gracias/'
+  ];
+
+  // Si es una ruta estática, simplemente continuamos sin procesar cookies ni cabeceras
+  if (staticRoutes.includes(pathname)) {
+    return next();
+  }
+
+  // Para todas las demás rutas, procesamos normalmente
+  const role = context.cookies.get("userRole")?.value || "";
 
   console.log("📩 [Middleware] Nueva solicitud:");
   console.log("🔍 - Rol detectado:", role || "Sin rol");

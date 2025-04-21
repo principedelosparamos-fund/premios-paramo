@@ -74,14 +74,16 @@ export default function ProyectoForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 max-w-2xl mx-auto p-6">
+    <div className="bg-white mx-auto max-w-2xl p-2 py-8 lg:p-8 shadow-lg rounded-xl">
+    <form onSubmit={handleSubmit} className="space-y-8 mx-auto p-6">
       {/* 📝 Instrucciones de postulación */}
-      <section className="space-y-4">
+      <section className="space-y-4 leading-[1.8]">
+        <h1 className='font-semibold text-xl'>Formulario de postulación proyecto</h1>
         <p>
           Si usted está aquí es porque quiere postular una obra a los Premios Príncipe de los Páramos 2025, ha leído el reglamento y está de acuerdo con su contenido.
         </p>
         <p>
-          Si no ha leído el reglamento, puede visualizarlo <a href="/reglamento" className="text-blue-600 underline" target="_blank">aquí</a>.
+          Si no ha leído el reglamento, puede visualizarlo <a href="/pdf/reglamento.pdf" className="text-blue-600 underline" target="_blank">aquí</a>.
         </p>
         <p>
           Ahora que está de acuerdo con las reglas y condiciones para postular una obra, por favor diligencie los siguientes datos. Todos los campos son obligatorios.
@@ -93,7 +95,7 @@ export default function ProyectoForm() {
 
       {/* 🧍 Datos del postulante */}
       <fieldset className="space-y-4">
-        <legend className="font-semibold text-lg text-gold-500">🧍 Datos del postulante</legend>
+        <legend className="font-semibold text-lg text-gold-900">Datos del postulante</legend>
 
         <label className="block">
           Nombre y apellido de quien postula:
@@ -123,7 +125,7 @@ export default function ProyectoForm() {
 
       {/* 🎬 Información de la obra */}
       <fieldset className="space-y-4">
-        <legend className="font-semibold text-lg text-gold-500">🎬 Información de la obra</legend>
+        <legend className="font-semibold text-lg text-gold-900">Información de la obra</legend>
 
         <label className="block">
           Nombre de la obra:
@@ -150,23 +152,23 @@ export default function ProyectoForm() {
 
       {/* 🔗 Enlaces */}
       <fieldset className="space-y-4">
-        <legend className="font-semibold text-lg text-gold-500">🔗 Enlaces de postulación</legend>
+        <legend className="font-semibold text-lg text-gold-900">Enlaces de postulación</legend>
 
         <label className="block">
           Imagen oficial:
-          <input type="url" name="linkImagen" required className="w-full p-2 border rounded" />
+          <input type="url" name="linkImagen" required className="w-full p-2 border rounded mt-2" />
           <small className="text-gray-600 block">Link a imagen cuadrada en Drive sin solicitud de acceso.</small>
         </label>
 
         <label className="block">
           Libreto oficial:
-          <input type="url" name="linkLibreto" required className="w-full p-2 border rounded" />
+          <input type="url" name="linkLibreto" required className="w-full p-2 border rounded mt-2" />
           <small className="text-gray-600 block">Debe coincidir con el capítulo que se envía.</small>
         </label>
 
         <label className="block">
           Obra audiovisual o tráiler:
-          <input type="url" name="linkVideo" required className="w-full p-2 border rounded" />
+          <input type="url" name="linkVideo" required className="w-full p-2 border rounded mt-2" />
           <small className="text-gray-600 block">
             Puede ser link de Drive (sin solicitud), Vimeo, YouTube, plataforma gratuita o de pago.
             No obligatorio para teatro, circo o videojuego.
@@ -176,7 +178,7 @@ export default function ProyectoForm() {
 
       {/* 🏆 Categorías */}
       <fieldset className="space-y-2">
-        <legend className="font-semibold text-lg text-gold-500">🏆 Categoría de postulación</legend>
+        <legend className="font-semibold text-lg text-gold-900">Categoría de postulación</legend>
         {CATEGORIES.map((categoria) => (
           <label key={categoria} className="block">
             <input
@@ -192,7 +194,7 @@ export default function ProyectoForm() {
 
       {/* ✅ Consentimientos */}
       <fieldset className="space-y-2">
-        <legend className="font-semibold text-lg text-gold-500">✅ Consentimientos</legend>
+        <legend className="font-semibold text-lg text-gold-900">Consentimientos</legend>
 
         <label className="block">
           <input type="checkbox" name="aceptaReglamento" required className="mr-2" />
@@ -216,5 +218,6 @@ export default function ProyectoForm() {
         </button>
       </div>
     </form>
+    </div>
   );
 }

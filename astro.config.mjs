@@ -9,6 +9,10 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   integrations: [react()],
 
+  // Configuramos todas las páginas para renderizado en servidor por defecto
+  // Para páginas estáticas, usar "export const prerender = true;" en el archivo .astro
+  output: "server",
+
   vite: {
     plugins: [tailwindcss()]
   },

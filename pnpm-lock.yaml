@@ -59,10 +59,6 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
-    devDependencies:
-      lightningcss:
-        specifier: ^1.29.3
-        version: 1.29.3
 
 packages:
 
@@ -1086,6 +1082,7 @@ packages:
 
   '@rollup/rollup-win32-x64-msvc@4.40.0':
     resolution: {integrity: sha512-lpPE1cLfP5oPzVjKMx10pgBmKELQnFJXHgvtHCtuJWOv8MxqdEIMNtgHgBFf7Ea2/7EuVwa9fodWUfXAlXZLZQ==}
+    cpu: [x64]
     os: [win32]
 
   '@shikijs/core@3.2.2':
@@ -7960,6 +7957,7 @@ snapshots:
       lightningcss-linux-x64-musl: 1.29.3
       lightningcss-win32-arm64-msvc: 1.29.3
       lightningcss-win32-x64-msvc: 1.29.3
+    optional: true
 
   lodash._objecttypes@2.4.1: {}
 
