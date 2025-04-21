@@ -1,9 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import DashboardJurado from "../../components/jurado/DashboardJurado";
+import LogoutButton from "../../components/auth/LogoutButton";
 ---
 
 <Layout>
+  <header>
+    <LogoutButton client:load />
+  </header>
   <DashboardJurado client:load />
   <h1>Hola Jurado</h1>
 </Layout>

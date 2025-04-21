@@ -78,10 +78,13 @@ const DashboardJurado = () => {
           proyectosList.push({
             id: doc.id,
             nombre: data.nombreObra,
-            categorias: data.categorias || [],
+            categorias: Array.isArray(data.categorias)
+              ? data.categorias
+              : (typeof data.categorias === "string" ? [data.categorias] : []), // 🔥 aquí el cambio
           });
         }
       });
+
 
       console.log("[DEBUG] Proyectos disponibles en la base de datos:", proyectosList);
 

@@ -12,6 +12,10 @@ export default function LogoutButton() {
       localStorage.removeItem("userEmail");
       localStorage.removeItem("userRole");
       localStorage.removeItem("userNombre");
+      localStorage.removeItem("adminDashboardData");
+      localStorage.removeItem("adminDashboardLastUpdate");
+      localStorage.removeItem("proyectosJurado");
+      localStorage.removeItem("votacionesJurado");
 
       console.log("✅ LocalStorage limpiado.");
 
