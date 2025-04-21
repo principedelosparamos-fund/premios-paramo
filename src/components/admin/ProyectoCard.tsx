@@ -4,9 +4,21 @@ interface ProyectoCardProps {
   fechaRegistro: string;
   id: string;
   nombrePostulante?: string;
+  calificado?: boolean;
+  nombreJurado?: string | null;
+  promedio?: number | null; // 🔥 corregido
 }
 
-export default function ProyectoCard({ nombre, categoria, fechaRegistro, id, nombrePostulante }: ProyectoCardProps) {
+export default function ProyectoCard({
+  nombre,
+  categoria,
+  fechaRegistro,
+  id,
+  nombrePostulante,
+  calificado,
+  nombreJurado,
+  promedio
+}: ProyectoCardProps) {
   return (
     <div className="border p-4 rounded-xl bg-white shadow mb-4 flex flex-col">
       <div className="text-lg font-bold text-black">{nombre}</div>
@@ -15,6 +27,18 @@ export default function ProyectoCard({ nombre, categoria, fechaRegistro, id, nom
       )}
       <div className="text-sm text-gray-600">{categoria}</div>
       <div className="text-xs text-gray-400 mb-2">{fechaRegistro}</div>
+
+      {/* 🔥 Estado de votación */}
+      {calificado ? (
+        <div className="text-green-600 text-sm mt-2">
+          ✅ Calificado por {nombreJurado} - Promedio: {promedio}
+        </div>
+      ) : (
+        <div className="text-red-600 text-sm mt-2">
+          ⏳ Pendiente de calificación
+        </div>
+      )}
+
       <a
         href={`/admin/proyecto/${id}`}
         className="mt-auto text-center py-2 px-4 bg-gold-500 text-white rounded hover:bg-gold-600 text-sm"

@@ -8,6 +8,9 @@ interface Proyecto {
   categoria: string;
   fechaRegistro: string;
   nombrePostulante?: string;
+  calificado?: boolean; // 🔥 añadir
+  nombreJurado?: string | null; // 🔥 añadir
+  promedio?: number | null; // 🔥 añadir (corregí tipo, no string)
 }
 
 export default function AdminDashboard() {
@@ -116,14 +119,17 @@ export default function AdminDashboard() {
       {/* Listado de Proyectos */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.proyectos.map((proyecto) => (
-          <ProyectoCard
-            key={proyecto.id}
-            id={proyecto.id}
-            nombre={proyecto.nombre}
-            categoria={proyecto.categoria}
-            fechaRegistro={proyecto.fechaRegistro}
-            nombrePostulante={proyecto.nombrePostulante}
-          />
+           <ProyectoCard
+           key={proyecto.id}
+           id={proyecto.id}
+           nombre={proyecto.nombre}
+           categoria={proyecto.categoria}
+           fechaRegistro={proyecto.fechaRegistro}
+           nombrePostulante={proyecto.nombrePostulante}
+           calificado={proyecto.calificado}        // 🔥 nuevo
+           nombreJurado={proyecto.nombreJurado}     // 🔥 nuevo
+           promedio={proyecto.promedio}             // 🔥 nuevo
+         />
         ))}
       </div>
     </div>
