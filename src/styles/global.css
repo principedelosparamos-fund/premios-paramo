@@ -2,7 +2,6 @@
 @import "tailwindcss";
 
 @theme {
-    --font-paramo: "Cinzel", serif;
     --font-body: "Raleway", sans-serif;
     /* Negros y grises */
     --color-black-700: oklch(0.13 0 0);
