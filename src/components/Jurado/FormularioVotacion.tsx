@@ -1,5 +1,3 @@
-// src/components/jurado/FormularioVotacion.tsx
-
 import { useState } from "react";
 import { db } from "../../lib/firebase";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
