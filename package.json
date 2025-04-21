@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "node ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.10"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -37,5 +39,9 @@
       "re2",
       "sharp"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "@firebase/util",
+    "protobufjs"
+  ]
 }

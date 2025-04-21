@@ -1,3 +1,4 @@
+export const prerender = false;
 import { useEffect, useState } from "react";
 import ProyectoCard from "./ProyectoCard";
 import { getAdminDashboardData } from "../../lib/getAdminDashboardData";
@@ -5,7 +6,7 @@ import { getAdminDashboardData } from "../../lib/getAdminDashboardData";
 interface Proyecto {
   id: string;
   nombre: string;
-  categoria: string;
+  categoria?: string;
   fechaRegistro: string;
   nombrePostulante?: string;
   calificado?: boolean; // 🔥 añadir
@@ -13,7 +14,13 @@ interface Proyecto {
   promedio?: number | null; // 🔥 añadir (corregí tipo, no string)
 }
 
-export default function AdminDashboard() {
+// Añadir interfaz para props incluyendo las directivas de cliente de Astro
+interface AdminDashboardProps {
+  "client:load"?: boolean;
+  "client:only"?: string;
+}
+
+export default function AdminDashboard(props: AdminDashboardProps) {
   const [data, setData] = useState<{
     proyectos: Proyecto[];
     juradosCount: number;
@@ -123,7 +130,7 @@ export default function AdminDashboard() {
            key={proyecto.id}
            id={proyecto.id}
            nombre={proyecto.nombre}
-           categoria={proyecto.categoria}
+           categoria={proyecto.categoria || "Sin Categoría"}
            fechaRegistro={proyecto.fechaRegistro}
            nombrePostulante={proyecto.nombrePostulante}
            calificado={proyecto.calificado}        // 🔥 nuevo
