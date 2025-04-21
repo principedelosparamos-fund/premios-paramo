@@ -1,5 +1,4 @@
 ---
-export const prerender = true;
 import Layout from "../layouts/Layout.astro";
 const { searchParams } = new URL(Astro.request.url);
 const nombre = searchParams.get("nombre") || "Postulante";
