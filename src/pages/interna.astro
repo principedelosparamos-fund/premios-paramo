@@ -514,40 +514,4 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
   </footer>
-
-  <!-- JavaScript for Calculating Average Score -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Get all number inputs
-      const scoreInputs = document.querySelectorAll('input[type="number"]');
-      const finalScoreElement = document.querySelector(
-        ".text-2xl.font-bold.text-green-700"
-      );
-
-      // Function to calculate average score
-      function calculateAverageScore() {
-        let total = 0;
-        let count = 0;
-
-        scoreInputs.forEach((input) => {
-          const value = parseInt(input.value);
-          if (!isNaN(value)) {
-            total += value;
-            count++;
-          }
-        });
-
-        const average = count > 0 ? total / count : 0;
-        finalScoreElement.textContent = average.toFixed(1);
-      }
-
-      // Add event listeners to all inputs
-      scoreInputs.forEach((input) => {
-        input.addEventListener("input", calculateAverageScore);
-      });
-
-      // Calculate initial score
-      calculateAverageScore();
-    });
-  </script>
 </Layout>
