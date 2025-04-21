@@ -43,9 +43,9 @@ try {
           <div class="flex flex-col gap-2 text-sm text-gray-700">
             <div>
               <strong>Categoría:</strong>{" "}
-              {proyecto.categorias
+              {Array.isArray(proyecto.categorias)
                 ? proyecto.categorias.join(", ")
-                : "No asignada"}
+                : proyecto.categorias || "No asignada"}
             </div>
             <div>
               <strong>Perfil:</strong> {proyecto.perfil || "No disponible"}
