@@ -1,13 +1,9 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import DashboardJurado from "../../components/jurado/DashboardJurado";
+import LayoutFormularios from "../../layouts/LayoutFormularios.astro";
+import DashboardJurado from "../../components/jurado/Dashboardjurado.tsx";
 import LogoutButton from "../../components/auth/LogoutButton";
 ---
 
-<Layout>
-  <header>
-    <LogoutButton client:load />
-  </header>
+<LayoutFormularios>
   <DashboardJurado client:load />
-  <h1>Hola Jurado</h1>
-</Layout>
+</LayoutFormularios>
