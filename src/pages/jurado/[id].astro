@@ -1,13 +1,11 @@
 ---
+export const prerender = false;
 interface FormularioVotacionProps {
   idProyecto: string;
   nombreProyecto: string;
   onVotacionExitosa: () => void; // <-- OBLIGATORIO
 }
-
-export const prerender = false;
-
-import FormularioVotacion from "../../components/jurado/FormularioVotacion";
+import FormularioVotacion from "../../components/jurado/FormularioVotacion.tsx";
 import Layout from "../../layouts/Layout.astro";
 import { doc, getDoc, collection } from "firebase/firestore";
 import { db } from "../../lib/firebase";
