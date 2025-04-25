@@ -1,39 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-    --font-body: "Raleway", sans-serif;
-    /* Negros y grises */
-    --color-black-700: oklch(0.13 0 0);
-    --color-black-600: oklch(0.18 0 0);
-    --color-black-500: oklch(0.27 0 0);
-    --color-gray-300: oklch(0.75 0 0);
-    --color-gray-100: oklch(0.95 0 0);
-    --color-white: oklch(1 0 0);
+  --font-body: 'Raleway', sans-serif;
+  /* Negros y grises */
+  --color-black-700: oklch(0.13 0 0);
+  --color-black-600: oklch(0.18 0 0);
+  --color-black-500: oklch(0.27 0 0);
+  --color-gray-300: oklch(0.75 0 0);
+  --color-gray-100: oklch(0.95 0 0);
+  --color-white: oklch(1 0 0);
 
-    /* Dorado */
-    --color-gold-900: oklch(0.5 0.18 95);
-    --color-gold-800: oklch(0.6 0.19 95);
-    --color-gold-700: oklch(0.7 0.2 95);
-    --color-gold-600: oklch(0.72 0.21 95);
-    --color-gold-500: oklch(0.8 0.18 95);
-    --color-gold-300: oklch(0.88 0.14 95);
+  /* Dorado */
+  --color-gold-900: oklch(0.5 0.18 95);
+  --color-gold-800: oklch(0.6 0.19 95);
+  --color-gold-700: oklch(0.7 0.2 95);
+  --color-gold-600: oklch(0.72 0.21 95);
+  --color-gold-500: oklch(0.8 0.18 95);
+  --color-gold-300: oklch(0.88 0.14 95);
 
-    /* Rojo cobre */
-    --color-copper-700: oklch(0.35 0.2 30);
-    --color-copper-600: oklch(0.45 0.22 30);
-    --color-copper-500: oklch(0.58 0.22 30);
-    --color-copper-300: oklch(0.74 0.15 30);
+  /* Rojo cobre */
+  --color-copper-700: oklch(0.35 0.2 30);
+  --color-copper-600: oklch(0.45 0.22 30);
+  --color-copper-500: oklch(0.58 0.22 30);
+  --color-copper-300: oklch(0.74 0.15 30);
 
-    /* Amarillo brillante */
-    --color-yellow-700: oklch(0.72 0.18 95);
-    --color-yellow-600: oklch(0.9 0.17 95);
-    --color-yellow-500: oklch(0.95 0.14 95);
-    --color-yellow-300: oklch(0.98 0.08 95);
+  /* Amarillo brillante */
+  --color-yellow-700: oklch(0.72 0.18 95);
+  --color-yellow-600: oklch(0.9 0.17 95);
+  --color-yellow-500: oklch(0.95 0.14 95);
+  --color-yellow-300: oklch(0.98 0.08 95);
 
-    /* Complementarios */
-    --color-olive-500: oklch(0.58 0.08 130);
-    --color-olive-300: oklch(0.75 0.05 130);
-    --color-sky-200: oklch(0.85 0.03 250);
-    --color-midnight-700: oklch(0.18 0.04 280);
+  /* Complementarios */
+  --color-olive-500: oklch(0.58 0.08 130);
+  --color-olive-300: oklch(0.75 0.05 130);
+  --color-sky-200: oklch(0.85 0.03 250);
+  --color-midnight-700: oklch(0.18 0.04 280);
 }

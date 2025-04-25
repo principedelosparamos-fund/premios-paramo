@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
@@ -873,62 +873,62 @@ import Layout from "../layouts/Layout.astro";
 
     <!-- JavaScript -->
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener('DOMContentLoaded', function () {
         // Tab functionality for desktop
-        const tabButtons = document.querySelectorAll('[id^="tab-"]');
-        const scheduleContents = document.querySelectorAll(".schedule-content");
+        const tabButtons = document.querySelectorAll('[id^="tab-"]')
+        const scheduleContents = document.querySelectorAll('.schedule-content')
 
         function showTab(dayId: string) {
           // Hide all schedule contents
           scheduleContents.forEach((content) => {
-            content.classList.add("hidden");
-          });
+            content.classList.add('hidden')
+          })
 
           // Remove active state from all tabs
           tabButtons.forEach((tab) => {
-            tab.classList.remove("border-green-700", "text-green-700");
-            tab.classList.add("border-transparent", "text-gray-500");
-            tab.removeAttribute("aria-current");
-          });
+            tab.classList.remove('border-green-700', 'text-green-700')
+            tab.classList.add('border-transparent', 'text-gray-500')
+            tab.removeAttribute('aria-current')
+          })
 
           // Show selected schedule content
-          const selectedContent = document.getElementById("schedule-" + dayId);
+          const selectedContent = document.getElementById('schedule-' + dayId)
           if (selectedContent) {
-            selectedContent.classList.remove("hidden");
+            selectedContent.classList.remove('hidden')
           }
 
           // Set active state for selected tab
-          const selectedTab = document.getElementById("tab-" + dayId);
+          const selectedTab = document.getElementById('tab-' + dayId)
           if (selectedTab) {
-            selectedTab.classList.remove("border-transparent", "text-gray-500");
-            selectedTab.classList.add("border-green-700", "text-green-700");
-            selectedTab.setAttribute("aria-current", "page");
+            selectedTab.classList.remove('border-transparent', 'text-gray-500')
+            selectedTab.classList.add('border-green-700', 'text-green-700')
+            selectedTab.setAttribute('aria-current', 'page')
           }
         }
 
         // Add click event to tab buttons
         tabButtons.forEach((tab) => {
-          tab.addEventListener("click", (event) => {
+          tab.addEventListener('click', (event) => {
             const dayId = (event.currentTarget as HTMLElement).id.replace(
-              "tab-",
-              ""
-            );
-            showTab(dayId);
-          });
-        });
+              'tab-',
+              ''
+            )
+            showTab(dayId)
+          })
+        })
 
         // Mobile dropdown functionality
-        const daySelect = document.getElementById("day-select");
+        const daySelect = document.getElementById('day-select')
         if (daySelect) {
-          daySelect.addEventListener("change", function () {
-            const selectElement = this as HTMLSelectElement;
-            showTab(selectElement.value);
-          });
+          daySelect.addEventListener('change', function () {
+            const selectElement = this as HTMLSelectElement
+            showTab(selectElement.value)
+          })
         }
 
         // Initialize with Monday selected
-        showTab("monday");
-      });
+        showTab('monday')
+      })
     </script>
   </body>
 </Layout>

@@ -1,11 +1,11 @@
 ---
-import LandingLayout from "../layouts/LandingLayout.astro";
-import Header from "../components/landing/Header.astro";
-import Hero from "../components/landing/Hero.astro";
-import Programacion from "../components/landing/Programacion.astro";
-import Postula from "../components/landing/Postula.astro";
-import Gallery from "../components/landing/Gallery.astro";
-import About from "../components/landing/About.astro";
+import LandingLayout from '../layouts/LandingLayout.astro'
+import Header from '../components/landing/Header.astro'
+import Hero from '../components/landing/Hero.astro'
+import Programacion from '../components/landing/Programacion.astro'
+import Postula from '../components/landing/Postula.astro'
+import Gallery from '../components/landing/Gallery.astro'
+import About from '../components/landing/About.astro'
 ---
 
 <LandingLayout>
@@ -13,6 +13,6 @@ import About from "../components/landing/About.astro";
   <Hero />
   <Programacion />
   <Postula />
-  <Gallery />
+  <Gallery client:load />
   <About />
 </LandingLayout>

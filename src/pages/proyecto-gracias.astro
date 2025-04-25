@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-const { searchParams } = new URL(Astro.request.url);
-const nombre = searchParams.get("nombre") || "Postulante";
-const obra = searchParams.get("obra") || "tu obra";
+import Layout from '../layouts/Layout.astro'
+const { searchParams } = new URL(Astro.request.url)
+const nombre = searchParams.get('nombre') || 'Postulante'
+const obra = searchParams.get('obra') || 'tu obra'
 ---
 
 <Layout>
