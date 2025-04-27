@@ -27,22 +27,23 @@ const imageSet3 = [
 ]
 ---
 
-<section id="gallery" class="py-16 md:py-24 bg-gray-50">
+<section id="gallery" class="bg-gray-50 py-16 md:py-24">
   <div class="container mx-auto px-4">
     <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Galería</h2>
+    <div class="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+      <h2 class="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Galería</h2>
       <p class="text-lg text-gray-600">Eventos Anteriores</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      class="grid grid-cols-1 items-center gap-6 md:grid-cols-2 lg:grid-cols-2"
+    >
       <GalleryCard
         images={imageSet1}
         title="Presentación en FICCO"
         client:load
       />
       <GalleryCard images={imageSet2} title="Cineclub" client:load />
-      <GalleryCard images={imageSet3} title="Set 3" client:load />
     </div>
   </div>
 </section>
