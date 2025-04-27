@@ -1,24 +1,30 @@
 ---
 // pages/index.astro
-import GalleryCard from '../../components/gallery/GalleryCard.tsx';
 
-const imageSet1 = [
-  'https://placehold.co/600x450?text=Card+1',
-  'https://placehold.co/600x450?text=Card+2',
-  'https://placehold.co/600x450?text=Card+3',
-];
+// Lanzamiento
+import foto1 from '../../assets/img/lanzamiento/1.jpg'
+import foto2 from '../../assets/img/lanzamiento/2.jpg'
+import foto3 from '../../assets/img/lanzamiento/3.jpg'
+import foto4 from '../../assets/img/lanzamiento/4.jpg'
+import foto5 from '../../assets/img/lanzamiento/5.jpg'
 
-const imageSet2 = [
-  'https://placehold.co/600x450?text=Card+1',
-  'https://placehold.co/600x450?text=Card+2',
-  'https://placehold.co/600x450?text=Card+3',
-];
+//Cineclub
+import cine1 from '../../assets/img/cine/1.jpg'
+import cine2 from '../../assets/img/cine/2.jpg'
+import cine3 from '../../assets/img/cine/3.jpg'
+import cine4 from '../../assets/img/cine/4.jpg'
+
+import GalleryCard from '../../components/gallery/GalleryCard.tsx'
+
+const imageSet1 = [foto1.src, foto2.src, foto3.src, foto4.src, foto5.src]
+
+const imageSet2 = [cine1.src, cine2.src, cine3.src, cine4.src]
 
 const imageSet3 = [
   'https://placehold.co/600x450?text=Card+1',
   'https://placehold.co/600x450?text=Card+2',
   'https://placehold.co/600x450?text=Card+3',
-];
+]
 ---
 
 <section id="gallery" class="py-16 md:py-24 bg-gray-50">
@@ -29,10 +35,14 @@ const imageSet3 = [
       <p class="text-lg text-gray-600">Eventos Anteriores</p>
     </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  <GalleryCard images={imageSet1} title="Set 1" client:load />
-  <GalleryCard images={imageSet2} title="Set 2" client:load />
-  <GalleryCard images={imageSet3} title="Set 3" client:load />
-</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <GalleryCard
+        images={imageSet1}
+        title="Presentación en FICCO"
+        client:load
+      />
+      <GalleryCard images={imageSet2} title="Cineclub" client:load />
+      <GalleryCard images={imageSet3} title="Set 3" client:load />
+    </div>
   </div>
 </section>

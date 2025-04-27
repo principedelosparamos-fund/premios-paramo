@@ -1,10 +1,11 @@
 ---
-import hero1920 from '../../assets/img/hero-photo-1920.jpg'
+import { Image } from 'astro:assets'
 import hero1024 from '../../assets/img/hero-photo-1024.jpg'
+import hero1920 from '../../assets/img/hero-photo-1920.jpg'
 import heroMobile from '../../assets/img/hero-photo-700.jpg'
 
-import hero1920wp from '../../assets/img/hero-photo-1920.webp'
 import hero1024wp from '../../assets/img/hero-photo-1024.webp'
+import hero1920wp from '../../assets/img/hero-photo-1920.webp'
 import heroMobilewp from '../../assets/img/hero-photo-700.webp'
 ---
 
@@ -46,12 +47,14 @@ import heroMobilewp from '../../assets/img/hero-photo-700.webp'
       type="image/jpeg"
     />
 
-    <img
-      src={heroMobile.src}
+    <Image
+      src={hero1920}
       alt="Portada de los Premios Príncipe de los Páramos"
       class="w-full h-full object-cover object-bottom"
       loading="lazy"
       decoding="async"
+      width="1920"
+      height="1080"
     />
   </picture>
 </section>

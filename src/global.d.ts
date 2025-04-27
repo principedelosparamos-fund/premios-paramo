@@ -1,8 +1,8 @@
 // src/global.d.ts
-export {};
+export {}
 
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: any[]
   }
 }
