@@ -2,8 +2,8 @@
 // pages/index.astro
 
 // Lanzamiento
-import foto1 from '../../assets/img/lanzamiento/1.jpg'
-import foto2 from '../../assets/img/lanzamiento/2.jpg'
+import foto2 from '../../assets/img/lanzamiento/1.jpg'
+import foto1 from '../../assets/img/lanzamiento/2.jpg'
 import foto3 from '../../assets/img/lanzamiento/3.jpg'
 import foto4 from '../../assets/img/lanzamiento/4.jpg'
 import foto5 from '../../assets/img/lanzamiento/5.jpg'
@@ -37,7 +37,11 @@ const imageSet2 = [cine1.src, cine2.src, cine3.src, cine4.src]
         title="Presentación en FICCO"
         client:load
       />
-      <GalleryCard images={imageSet2} title="Cineclub" client:load />
+      <GalleryCard
+        images={imageSet2}
+        title="Cine Club en Guadalupe, Santander"
+        client:load
+      />
     </div>
   </div>
 </section>
