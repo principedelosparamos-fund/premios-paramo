@@ -10,9 +10,9 @@ import heroMobilewp from '../../assets/img/hero-photo-700.webp'
 ---
 
 <section
-  class="bg-black-500 w-full h-[90vh] md:h-[70vh] xl:h-[85vh] overflow-hidden"
+  class="bg-black-500 h-[90vh] w-full overflow-hidden md:h-[70vh] xl:h-[85vh]"
 >
-  <picture class="w-full h-full">
+  <picture class="h-full w-full">
     <!-- Fuentes en WebP optimizadas -->
     <source
       srcset={hero1920wp.src}
@@ -50,11 +50,9 @@ import heroMobilewp from '../../assets/img/hero-photo-700.webp'
     <Image
       src={hero1920}
       alt="Portada de los Premios Príncipe de los Páramos"
-      class="w-full h-full object-cover object-bottom"
+      class="h-full w-full object-cover object-bottom"
       loading="lazy"
       decoding="async"
-      width="1920"
-      height="1080"
     />
   </picture>
 </section>

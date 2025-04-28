@@ -1,32 +1,15 @@
 ---
-import '../styles/global.css'
+import Analytics from '@vercel/analytics/astro'
 import LogoutButton from '../components/auth/LogoutButton'
+import Head from '../components/Head.astro'
+import '../styles/global.css'
 ---
 
 <!doctype html>
 <html lang="es">
-  <head>
-    <!-- Google Tag Manager -->
-    <script>
-      ;(function (w, d, s, l, i) {
-        w[l] = w[l] || []
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : ''
-        j.async = true
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
-        f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', 'GTM-WWLZDKKP')
-    </script>
-    <!-- End Google Tag Manager -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Premios Paramo</title>
-  </head>
+  <Head title="Premios Paramo" description="" />
   <body class="font-body">
+    <Analytics />
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -36,7 +19,7 @@ import LogoutButton from '../components/auth/LogoutButton'
         style="display:none;visibility:hidden"></iframe></noscript
     >
     <!-- End Google Tag Manager (noscript) -->
-    <header class="p-3 bg-black-500 flex justify-end mb-8">
+    <header class="bg-black-500 mb-8 flex justify-end p-3">
       <LogoutButton client:load />
     </header>
     <slot />
