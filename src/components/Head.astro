@@ -1,0 +1,66 @@
+---
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+  url?: string
+}
+
+const { title, description, image, url } = Astro.props
+const siteName = 'Premios Príncipe de los Páramos 2025'
+const generalDesc =
+  'Plataforma oficial de los Premios Príncipe de los Páramos 2025. Inscribe tu obra audiovisual sobre biodiversidad en Colombia y sé parte del reconocimiento al talento creativo que protege nuestra naturaleza.'
+const baseUrl = 'https://www.principedelosparamos.org'
+---
+
+<head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    ;(function (w, d, s, l, i) {
+      w[l] = w[l] || []
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : ''
+      j.async = true
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+      f.parentNode.insertBefore(j, f)
+    })(window, document, 'script', 'dataLayer', 'GTM-WWLZDKKP')
+  </script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Título y descripción -->
+  <title>{title || siteName}</title>
+  <meta name="description" content={description || generalDesc} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={url || baseUrl} />
+  {image && <meta property="og:image" content={image} />}
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  {image && <meta name="twitter:image" content={image} />}
+
+  <!-- Canonical -->
+  <link rel="canonical" href={url || baseUrl} />
+
+  <!-- Preconnect a recursos externos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <!-- Otros ejemplos comunes -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>

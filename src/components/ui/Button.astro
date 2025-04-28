@@ -1,47 +1,49 @@
 ---
 // Button.astro
 interface Props {
-  text: string;
-  href?: string;
-  type?: "primary" | "secondary" | "tertiary";
-  size?: "small" | "medium" | "large";
-  fullWidth?: boolean;
-  class?: string;
+  text: string
+  href?: string
+  type?: 'primary' | 'secondary' | 'tertiary'
+  size?: 'small' | 'medium' | 'large'
+  fullWidth?: boolean
+  class?: string
+  target?: '_self' | '_blank'
 }
 
 const {
   text,
   href,
-  type = "primary",
-  size = "medium",
+  type = 'primary',
+  size = 'medium',
   fullWidth = false,
-  class: customClass = "",
-} = Astro.props as Props;
+  class: customClass = '',
+  target = '_self',
+} = Astro.props as Props
 
 const typeClasses = {
-  primary: "bg-gold-600 text-white hover:bg-gold-700",
-  secondary: "bg-white text-gold-600 border border-gold-600 hover:bg-gold-100",
-  tertiary: "bg-transparent text-gold-600 hover:underline",
-};
+  primary: 'bg-gold-600 text-white hover:bg-gold-700',
+  secondary: 'bg-white text-gold-600 border border-gold-600 hover:bg-gold-100',
+  tertiary: 'bg-transparent text-gold-600 hover:underline',
+}
 
 const sizeClasses = {
-  small: "text-sm px-3 py-1.5",
-  medium: "text-base px-4 py-2",
-  large: "text-lg px-6 py-3",
-};
+  small: 'text-sm px-3 py-1.5',
+  medium: 'text-base px-4 py-2',
+  large: 'text-lg px-6 py-3',
+}
 
-const baseClasses = "rounded-lg font-semibold transition text-center";
-const widthClass = fullWidth ? "w-full" : "";
+const baseClasses = 'rounded-lg font-semibold transition text-center'
+const widthClass = fullWidth ? 'w-full' : ''
 
-const classes = `${baseClasses} ${typeClasses[type]} ${sizeClasses[size]} ${widthClass} ${customClass}`;
+const classes = `${baseClasses} ${typeClasses[type]} ${sizeClasses[size]} ${widthClass} ${customClass}`
 ---
 
 {
   href ? (
     <a
       href={href}
-      target={href.endsWith(".pdf") ? "_blank" : undefined}
-      rel={href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
+      target={target}
+      rel={href.endsWith('.pdf') ? 'noopener noreferrer' : undefined}
       class={classes}
     >
       {text}

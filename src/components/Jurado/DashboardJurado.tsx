@@ -1,153 +1,164 @@
-import { useEffect, useState } from "react";
-import { db, auth } from "../../lib/firebase";
-import { collection, doc, getDocs, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
-import { getUserInfoFromLocalStorage } from "../../lib/getUserRole";
-import ProyectoCard from "./ProyectoCard";
+import { useEffect, useState } from 'react'
+import { db, auth } from '../../lib/firebase'
+import { collection, doc, getDocs, getDoc } from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
+import { getUserInfoFromLocalStorage } from '../../lib/getUserRole'
+import ProyectoCard from './ProyectoCard'
 
 interface Proyecto {
-  id: string;
-  nombre: string;
-  categorias: string[];
-  promedioGeneral?: number;
-  calificado?: boolean; // 🔥 ahora trae el campo de firestore
+  id: string
+  nombre: string
+  categorias: string[]
+  promedioGeneral?: number
+  calificado?: boolean // 🔥 ahora trae el campo de firestore
 }
 
-const LOCAL_STORAGE_PROYECTOS = "proyectosJurado";
-const LOCAL_STORAGE_VOTACIONES = "votacionesJurado";
+const LOCAL_STORAGE_PROYECTOS = 'proyectosJurado'
+const LOCAL_STORAGE_VOTACIONES = 'votacionesJurado'
 
 const DashboardJurado = () => {
-  const [proyectos, setProyectos] = useState<Proyecto[]>([]);
-  const [votaciones, setVotaciones] = useState<Record<string, number>>({});
-  const [categoriasAsignadas, setCategoriasAsignadas] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [proyectos, setProyectos] = useState<Proyecto[]>([])
+  const [votaciones, setVotaciones] = useState<Record<string, number>>({})
+  const [categoriasAsignadas, setCategoriasAsignadas] = useState<string[]>([])
+  const [loading, setLoading] = useState(true)
 
   const cargarDatos = async (forzarActualizacion = false) => {
-    setLoading(true);
+    setLoading(true)
 
-    const user = auth.currentUser;
+    const user = auth.currentUser
     if (!user) {
-      console.error("[ERROR] Usuario no autenticado.");
-      setLoading(false);
-      return;
+      console.error('[ERROR] Usuario no autenticado.')
+      setLoading(false)
+      return
     }
 
-    console.log("[DEBUG] Usuario autenticado:", user.uid);
+    console.log('[DEBUG] Usuario autenticado:', user.uid)
 
     try {
-      const userInfo = getUserInfoFromLocalStorage();
-      const nombre = userInfo?.nombre || "";
+      const userInfo = getUserInfoFromLocalStorage()
+      const nombre = userInfo?.nombre || ''
 
-      const juradoRef = doc(db, "jurados", user.uid);
-      const juradoSnap = await getDoc(juradoRef);
+      const juradoRef = doc(db, 'jurados', user.uid)
+      const juradoSnap = await getDoc(juradoRef)
 
-      let categorias: string[] = [];
+      let categorias: string[] = []
 
       if (juradoSnap.exists()) {
-        const juradoData = juradoSnap.data();
-        categorias = juradoData.categorias || [];
-        console.log("[DEBUG] Categorías asignadas al jurado:", categorias);
+        const juradoData = juradoSnap.data()
+        categorias = juradoData.categorias || []
+        console.log('[DEBUG] Categorías asignadas al jurado:', categorias)
       } else {
-        console.warn("[WARN] Documento de jurado no encontrado.");
+        console.warn('[WARN] Documento de jurado no encontrado.')
       }
 
-      setCategoriasAsignadas(categorias);
+      setCategoriasAsignadas(categorias)
 
       // 🔥 Intenta cargar de localStorage si no forzamos actualización
-      const proyectosLocal = localStorage.getItem(LOCAL_STORAGE_PROYECTOS);
-      const votacionesLocal = localStorage.getItem(LOCAL_STORAGE_VOTACIONES);
+      const proyectosLocal = localStorage.getItem(LOCAL_STORAGE_PROYECTOS)
+      const votacionesLocal = localStorage.getItem(LOCAL_STORAGE_VOTACIONES)
 
       if (proyectosLocal && votacionesLocal && !forzarActualizacion) {
-        console.log("[CACHE] Usando proyectos y votaciones del localStorage");
-        setProyectos(JSON.parse(proyectosLocal));
-        setVotaciones(JSON.parse(votacionesLocal));
-        setLoading(false);
-        return;
+        console.log('[CACHE] Usando proyectos y votaciones del localStorage')
+        setProyectos(JSON.parse(proyectosLocal))
+        setVotaciones(JSON.parse(votacionesLocal))
+        setLoading(false)
+        return
       }
 
       // 🔥 Si no hay en localStorage o se fuerza actualización
       const [proyectosSnap, votacionesSnap] = await Promise.all([
-        getDocs(collection(db, "proyectos")),
-        getDocs(collection(db, "votaciones")),
-      ]);
+        getDocs(collection(db, 'proyectos')),
+        getDocs(collection(db, 'votaciones')),
+      ])
 
-      const proyectosList: Proyecto[] = [];
+      const proyectosList: Proyecto[] = []
       proyectosSnap.forEach((doc) => {
-        const data = doc.data();
+        const data = doc.data()
         if (data.nombreObra) {
           proyectosList.push({
             id: doc.id,
             nombre: data.nombreObra,
             categorias: Array.isArray(data.categorias)
               ? data.categorias
-              : (typeof data.categorias === "string" ? [data.categorias] : []), // 🔥 aquí el cambio
-          });
+              : typeof data.categorias === 'string'
+                ? [data.categorias]
+                : [], // 🔥 aquí el cambio
+          })
         }
-      });
+      })
 
-
-      console.log("[DEBUG] Proyectos disponibles en la base de datos:", proyectosList);
+      console.log(
+        '[DEBUG] Proyectos disponibles en la base de datos:',
+        proyectosList
+      )
 
       const proyectosFiltrados = proyectosList.filter((proyecto) =>
         proyecto.categorias.some((cat) => categorias.includes(cat))
-      );
+      )
 
-      console.log("[DEBUG] Proyectos filtrados por categoría:", proyectosFiltrados);
-      const votos: Record<string, number> = {};
+      console.log(
+        '[DEBUG] Proyectos filtrados por categoría:',
+        proyectosFiltrados
+      )
+      const votos: Record<string, number> = {}
       votacionesSnap.forEach((doc) => {
-        const data = doc.data();
+        const data = doc.data()
         if (data.nombreJurado === nombre) {
-          votos[data.idProyecto] = data.promedio;
+          votos[data.idProyecto] = data.promedio
         }
-      });
+      })
 
       // 🔥 Actualizar proyectos para marcar cuáles están votados
       const proyectosActualizados = proyectosFiltrados.map((proyecto) => ({
         ...proyecto,
         calificado: !!votos[proyecto.id], // si existe un voto para ese proyecto, está calificado
-      }));
+      }))
 
-      console.log("[DEBUG] Votaciones del jurado:", votos);
-      console.log("[DEBUG] Proyectos actualizados con estado de votación:", proyectosActualizados);
+      console.log('[DEBUG] Votaciones del jurado:', votos)
+      console.log(
+        '[DEBUG] Proyectos actualizados con estado de votación:',
+        proyectosActualizados
+      )
 
-      setProyectos(proyectosActualizados);
-      setVotaciones(votos);
+      setProyectos(proyectosActualizados)
+      setVotaciones(votos)
 
       // 🔥 Guardar en localStorage
-      localStorage.setItem(LOCAL_STORAGE_PROYECTOS, JSON.stringify(proyectosActualizados));
-      localStorage.setItem(LOCAL_STORAGE_VOTACIONES, JSON.stringify(votos));
-
-
+      localStorage.setItem(
+        LOCAL_STORAGE_PROYECTOS,
+        JSON.stringify(proyectosActualizados)
+      )
+      localStorage.setItem(LOCAL_STORAGE_VOTACIONES, JSON.stringify(votos))
     } catch (error) {
-      console.error("[ERROR] Error cargando datos de jurado:", error);
+      console.error('[ERROR] Error cargando datos de jurado:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        cargarDatos();
+        cargarDatos()
       } else {
-        setLoading(false);
+        setLoading(false)
       }
-    });
+    })
 
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe()
+  }, [])
 
   const actualizarManualmente = () => {
-    console.log("[DEBUG] Actualización manual solicitada");
-    cargarDatos(true); // 🔥 Forzar nueva carga desde Firestore
-  };
+    console.log('[DEBUG] Actualización manual solicitada')
+    cargarDatos(true) // 🔥 Forzar nueva carga desde Firestore
+  }
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
         <span className="text-gray-600">Cargando proyectos...</span>
       </div>
-    );
+    )
   }
 
   if (proyectos.length === 0) {
@@ -163,7 +174,7 @@ const DashboardJurado = () => {
           Actualizar
         </button>
       </div>
-    );
+    )
   }
 
   return (
@@ -176,7 +187,7 @@ const DashboardJurado = () => {
           Actualizar proyectos
         </button>
       </div>
-      <div className="grid gap-6">
+      <div className="grid grid-cols-3 gap-6">
         {proyectos.map((proyecto) => (
           <ProyectoCard
             key={proyecto.id}
@@ -193,7 +204,7 @@ const DashboardJurado = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardJurado;
+export default DashboardJurado

@@ -1,67 +1,43 @@
-<!-- Gallery Section -->
-<section id="gallery" class="py-16 md:py-24 bg-gray-50">
+---
+// pages/index.astro
+
+// Lanzamiento
+import foto1 from '../../assets/img/lanzamiento/1.jpg'
+import foto2 from '../../assets/img/lanzamiento/2.jpg'
+import foto3 from '../../assets/img/lanzamiento/3.jpg'
+import foto4 from '../../assets/img/lanzamiento/4.jpg'
+import foto5 from '../../assets/img/lanzamiento/5.jpg'
+
+//Cineclub
+import cine1 from '../../assets/img/cine/1.jpg'
+import cine2 from '../../assets/img/cine/2.jpg'
+import cine3 from '../../assets/img/cine/3.jpg'
+import cine4 from '../../assets/img/cine/4.jpg'
+
+import GalleryCard from '../../components/gallery/GalleryCard.tsx'
+
+const imageSet1 = [foto1.src, foto2.src, foto3.src, foto4.src, foto5.src]
+
+const imageSet2 = [cine1.src, cine2.src, cine3.src, cine4.src]
+---
+
+<section id="gallery" class="bg-gray-50 py-16 md:py-24">
   <div class="container mx-auto px-4">
     <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Galería</h2>
+    <div class="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+      <h2 class="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Galería</h2>
       <p class="text-lg text-gray-600">Eventos Anteriores</p>
     </div>
 
-    <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Gallery Item 1 -->
-      <div
-        class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-      >
-        <div class="aspect-video w-full overflow-hidden">
-          <img
-            src="https://placehold.co/600x400"
-            alt="Cine Club en Guadalupe, Santander"
-            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-        <div class="p-4">
-          <h3 class="text-lg font-semibold text-gray-900">
-            Cine Club en Guadalupe, Santander
-          </h3>
-        </div>
-      </div>
-
-      <!-- Gallery Item 2 -->
-      <div
-        class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-      >
-        <div class="aspect-video w-full overflow-hidden">
-          <img
-            src="https://placehold.co/600x400"
-            alt="Lanzamiento Festival BIO"
-            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-        <div class="p-4">
-          <h3 class="text-lg font-semibold text-gray-900">
-            Lanzamiento Festival BIO
-          </h3>
-        </div>
-      </div>
-
-      <!-- Gallery Item 3 -->
-      <div
-        class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-      >
-        <div class="aspect-video w-full overflow-hidden">
-          <img
-            src="https://placehold.co/600x400"
-            alt="Montaje lanzamiento Festival BIO"
-            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-        <div class="p-4">
-          <h3 class="text-lg font-semibold text-gray-900">
-            Montaje lanzamiento Festival BIO
-          </h3>
-        </div>
-      </div>
+    <div
+      class="grid grid-cols-1 items-center gap-6 md:grid-cols-2 lg:grid-cols-2"
+    >
+      <GalleryCard
+        images={imageSet1}
+        title="Presentación en FICCO"
+        client:load
+      />
+      <GalleryCard images={imageSet2} title="Cineclub" client:load />
     </div>
   </div>
 </section>

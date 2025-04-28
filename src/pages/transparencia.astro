@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Footer from '../components/Footer.astro'
+import Header from '../components/landing/Header.astro'
+import CardDocument from '../components/transparencia/CardDocument.astro'
+import Heading from '../components/ui/Heading.astro'
+
+const documents = [
+  {
+    title: 'Cámara de Comercio',
+    description:
+      'Documento que acredita la existencia legal y representación de la fundación.',
+    url: '/pdf/camara-comercio.pdf',
+  },
+  {
+    title: 'RUT Registro Unico Tributario',
+    description:
+      'Identificación fiscal de la fundación ante las autoridades tributarias.',
+    url: '/pdf/rut-fundacion.pdf',
+  },
+  {
+    title: 'Código de Ética',
+    description:
+      'Documento que establece los principios y valores que guían nuestra actuación.',
+    url: '/pdf/codigo-etica.pdf',
+  },
+  {
+    title: 'Política de Tratamiento de Datos',
+    description:
+      'Documento que detalla cómo protegemos y gestionamos los datos personales.',
+    url: '/pdf/politica-de-datos.pdf',
+  },
+]
+---
+
+<Layout>
+  <Header />
+  <Heading
+    title="Transparencia"
+    description="Ponemos a tu disposición los documentos clave que reflejan nuestro compromiso con la transparencia."
+  />
+  <section class="container mx-auto px-4 h-[calc(100vh-100px)] mt-10">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-lg font-semibold text-black/90">
+        Documentos Disponibles
+      </h2>
+    </div>
+
+    <!-- Document Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        documents.map((document) => (
+          <CardDocument
+            title={document.title}
+            description={document.description}
+            url={document.url}
+          />
+        ))
+      }
+    </div>
+  </section>
+  <Footer />
+</Layout>

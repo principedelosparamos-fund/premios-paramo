@@ -1,0 +1,76 @@
+<!-- Header -->
+<header class="fixed w-full bg-white border-b border-gold/30 z-50">
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex justify-between items-center">
+      <a href="/" class="flex items-center">
+        <span class="text-xl font-bold text-gold"
+          >Premios Príncipe de los Páramos</span
+        >
+      </a>
+
+      <nav class="hidden md:flex space-x-6">
+        <a href="/" class="text-black">Inicio</a>
+        <a href="#sobre-fundacion" class="text-black">Fundación</a>
+        <a href="#sobre-fundador" class="text-black">Fundador</a>
+        <a href="#sobre-premios" class="text-black">Premios</a>
+        <a href="#otras-acciones" class="text-black">Iniciativas</a>
+      </nav>
+
+      <a
+        href="/contacto"
+        class="hidden md:inline-flex px-4 py-2 bg-transparent border border-gold text-gold rounded-md"
+      >
+        Contáctanos
+      </a>
+
+      <!-- Mobile menu button -->
+      <button class="md:hidden text-gold">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div class="md:hidden hidden bg-white border-b border-gold/30">
+    <div class="container mx-auto px-4 py-4">
+      <nav class="flex flex-col space-y-4">
+        <a href="/" class="text-black/80 hover:text-gold transition-colors py-2"
+          >Inicio</a
+        >
+        <a
+          href="#sobre-fundacion"
+          class="text-black/80 hover:text-gold transition-colors py-2"
+          >Fundación</a
+        >
+        <a
+          href="#sobre-fundador"
+          class="text-black/80 hover:text-gold transition-colors py-2"
+          >Fundador</a
+        >
+        <a
+          href="#sobre-premios"
+          class="text-black/80 hover:text-gold transition-colors py-2"
+          >Premios</a
+        >
+        <a
+          href="#otras-acciones"
+          class="text-black/80 hover:text-gold transition-colors py-2"
+          >Iniciativas</a
+        >
+        <a href="/contacto" class="text-gold py-2">Contáctanos</a>
+      </nav>
+    </div>
+  </div>
+</header>

@@ -1,70 +1,67 @@
 ---
-import FormularioVotacion from "../../components/jurado/FormularioVotacion.tsx";
-import Layout from "../../layouts/Layout.astro";
-import { doc, getDoc, collection } from "firebase/firestore";
-import { db } from "../../lib/firebase";
+import { collection, doc, getDoc } from 'firebase/firestore'
+import Head from '../../components/Head.astro'
+import FormularioVotacion from '../../components/jurado/FormularioVotacion.tsx'
+import LayoutFormularios from '../../layouts/LayoutFormularios.astro'
+import { db } from '../../lib/firebase'
+const { id } = Astro.params
 
-const { id } = Astro.params;
-
-let proyecto = null;
+let proyecto = null
 
 try {
-  const docRef = doc(collection(db, "proyectos"), id);
-  const docSnap = await getDoc(docRef);
+  const docRef = doc(collection(db, 'proyectos'), id)
+  const docSnap = await getDoc(docRef)
 
   if (docSnap.exists()) {
-    proyecto = docSnap.data();
+    proyecto = docSnap.data()
   }
 } catch (error) {
-  console.error("Error al cargar proyecto:", error);
+  console.error('Error al cargar proyecto:', error)
 }
 ---
 
-<Layout>
-  <div class="p-6 max-w-4xl mx-auto space-y-6">
-    <a
-      href="/jurado"
-      class="inline-block mb-4 text-sm text-gold-500 hover:underline"
-    >
-      ← Volver al Dashboard
-    </a>
-
+<Head
+  title="Votar Proyecto"
+  description="Vota por el proyecto que más te guste"
+/>
+<LayoutFormularios>
+  <div class="mx-auto max-w-4xl space-y-6 p-6">
     {
       proyecto ? (
-        <div class="bg-white rounded-xl shadow p-6 space-y-4">
+        <div class="space-y-4 rounded-xl bg-white p-6">
           <h1 class="text-2xl font-bold text-black">
-            {proyecto.nombreObra || "Sin nombre"}
+            {proyecto.nombreObra || 'Sin nombre'}
           </h1>
 
           <div class="text-sm text-gray-500">
-            Postulado por: {proyecto.nombrePostulante || "No disponible"}
+            Postulado por: {proyecto.nombrePostulante || 'No disponible'}
           </div>
 
           <div class="flex flex-col gap-2 text-sm text-gray-700">
             <div>
-              <strong>Categoría:</strong>{" "}
-              {proyecto.categorias
-                ? proyecto.categorias.join(", ")
-                : "No asignada"}
+              <strong>Categoría:</strong>{' '}
+              {Array.isArray(proyecto.categorias)
+                ? proyecto.categorias.join(', ')
+                : proyecto.categorias || 'No asignada'}
             </div>
             <div>
-              <strong>Perfil:</strong> {proyecto.perfil || "No disponible"}
+              <strong>Perfil:</strong> {proyecto.perfil || 'No disponible'}
             </div>
             <div>
-              <strong>Fecha de Registro:</strong>{" "}
-              {proyecto.fechaRegistro || "No disponible"}
+              <strong>Fecha de Registro:</strong>{' '}
+              {proyecto.fechaRegistro || 'No disponible'}
             </div>
             <div>
-              <strong>Sinopsis:</strong> {proyecto.sinopsis || "No disponible"}
+              <strong>Sinopsis:</strong> {proyecto.sinopsis || 'No disponible'}
             </div>
           </div>
 
-          <div class="flex flex-col gap-4 mt-6">
+          <div class="mt-6 flex flex-col gap-4">
             {proyecto.linkImagen && (
               <a
                 href={proyecto.linkImagen}
                 target="_blank"
-                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+                class="bg-gold-500 hover:bg-gold-600 rounded px-4 py-2 text-center text-white"
               >
                 📷 Ver Imagen
               </a>
@@ -74,7 +71,7 @@ try {
               <a
                 href={proyecto.linkVideo}
                 target="_blank"
-                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+                class="bg-gold-500 hover:bg-gold-600 rounded px-4 py-2 text-center text-white"
               >
                 🎬 Ver Video
               </a>
@@ -84,7 +81,7 @@ try {
               <a
                 href={proyecto.linkLibreto}
                 target="_blank"
-                class="py-2 px-4 bg-gold-500 text-white text-center rounded hover:bg-gold-600"
+                class="bg-gold-500 hover:bg-gold-600 rounded px-4 py-2 text-center text-white"
               >
                 📄 Ver Libreto
               </a>
@@ -93,13 +90,13 @@ try {
           {proyecto && (
             <div class="mt-8">
               {proyecto.calificado ? (
-                <div class="p-4 bg-green-100 text-green-700 rounded-lg">
+                <div class="rounded-lg bg-green-100 p-4 text-green-700">
                   ✅ ¡Ya has calificado este proyecto!
                 </div>
               ) : (
                 <FormularioVotacion
-                  idProyecto={id ?? ""}
-                  nombreProyecto={proyecto.nombreObra ?? "Sin nombre"}
+                  idProyecto={id ?? ''}
+                  nombreProyecto={proyecto.nombreObra ?? 'Sin nombre'}
                   client:load
                 />
               )}
@@ -111,4 +108,4 @@ try {
       )
     }
   </div>
-</Layout>
+</LayoutFormularios>

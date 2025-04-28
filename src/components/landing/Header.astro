@@ -1,28 +1,128 @@
 ---
-import { Image } from "astro:assets";
-import burgerNav from "../../assets/icons/burguer-nav.svg";
-import instagramIcon from "../../assets/icons/InstagramIcon.svg";
-import whatsappIcon from "../../assets/icons/WhatsappIcon.svg";
+import { Image } from 'astro:assets'
+import burgerNav from '../../assets/icons/burguer-nav.svg'
+import instagramIcon from '../../assets/icons/InstagramIcon.svg'
+import whatsappIcon from '../../assets/icons/WhatsappIcon.svg'
 ---
 
 <header class="bg-white">
-  <div class="container mx-auto flex gap-4 justify-between items-center p-4">
-    <!-- Logo -->
-    <div class="">
-      <Image src={burgerNav} alt="Icono Menú" />
+  <div class="container mx-auto flex items-center justify-between gap-4 p-4">
+    <div class="group relative">
+      <button
+        id="burger-button"
+        class="cursor-pointer text-gray-800 hover:text-gray-600 focus:outline-none"
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+      >
+        <Image
+          src={burgerNav}
+          alt="Icono Menú"
+          width="24"
+          height="24"
+          loading="eager"
+        />
+      </button>
+
+      <ul
+        id="dropdown-menu"
+        class="invisible absolute top-11 left-0 z-20 flex w-48 origin-top scale-95 transform flex-col gap-0 rounded-md bg-white py-2 opacity-0 shadow-lg transition-all duration-300 ease-out group-hover:visible group-hover:scale-100 group-hover:opacity-100"
+      >
+        <li class="p-4 hover:bg-blue-100">
+          <a href="/" aria-label="Inicio">Inicio</a>
+        </li>
+        <li class="p-4 hover:bg-blue-100">
+          <a href="/proyecto" aria-label="Postulate">Postulate</a>
+        </li>
+        <li class="p-4 hover:bg-blue-100">
+          <a href="/transparencia" aria-label="Transparencia">Transparencia</a>
+        </li>
+      </ul>
     </div>
-    <!-- Nombre -->
-    <div class="text-lg md:text-2xl leading-5.5 text-center font-semibold">
-      <h1 class="font-paramo font-bold">Fundación Príncipe de los Páramos</h1>
-    </div>
-    <!-- Iconos Redes -->
-    <div class="flex gap-4">
-      <a href="">
-        <Image src={instagramIcon} alt=" Icono Instagram" />
+
+    <div class="text-center text-lg leading-5.5 font-semibold md:text-2xl">
+      <a href="/">
+        <h1 class="font-paramo font-bold">Fundación Príncipe de los Páramos</h1>
       </a>
-      <a href="">
-        <Image src={whatsappIcon} alt="Icono Whatsapp" />
+    </div>
+
+    <div class="flex gap-4">
+      <a
+        href="https://www.instagram.com/principedelosparamos/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          src={instagramIcon}
+          alt="Icono Instagram"
+          width="24"
+          height="24"
+          loading="eager"
+        />
+      </a>
+      <a
+        href="https://wa.me/573107805883?text=Hola%20quiero%20saber%20m%C3%A1s%20de%20los%20Premios%20Pr%C3%ADncipe%20de%20los%20P%C3%A1ramos"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          src={whatsappIcon}
+          alt="Icono Whatsapp"
+          width="24"
+          height="24"
+          loading="eager"
+        />
       </a>
     </div>
   </div>
 </header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    const burgerButton = document.getElementById('burger-button')
+    const dropdownMenu = document.getElementById('dropdown-menu')
+
+    function toggleMenu() {
+      const isClosed = dropdownMenu.classList.contains('invisible')
+
+      if (isClosed) {
+        dropdownMenu.classList.remove('opacity-0', 'scale-95', 'invisible')
+        dropdownMenu.classList.add('opacity-100', 'scale-100', 'visible')
+        burgerButton.setAttribute('aria-expanded', 'true')
+      } else {
+        dropdownMenu.classList.remove('opacity-100', 'scale-100', 'visible')
+        dropdownMenu.classList.add('opacity-0', 'scale-95', 'invisible')
+        burgerButton.setAttribute('aria-expanded', 'false')
+      }
+    }
+
+    burgerButton.addEventListener('click', function (event) {
+      event.stopPropagation()
+      toggleMenu()
+    })
+
+    window.addEventListener('click', function (event) {
+      const isClickInsideButton = burgerButton.contains(event.target)
+      const isClickInsideMenu = dropdownMenu.contains(event.target)
+      const isOpen = dropdownMenu.classList.contains('visible')
+
+      if (isOpen && !isClickInsideButton && !isClickInsideMenu) {
+        toggleMenu()
+      }
+    })
+
+    document.addEventListener('keydown', function (event) {
+      const isOpen = dropdownMenu.classList.contains('visible')
+      if (event.key === 'Escape' && isOpen) {
+        toggleMenu()
+        burgerButton.focus()
+      }
+    })
+
+    // Opcional: Cerrar menú al hacer click en uno de los enlaces internos
+    // dropdownMenu.querySelectorAll('a').forEach(link => {
+    //     link.addEventListener('click', function() {
+    //         toggleMenu();
+    //     });
+    // });
+  })
+</script>

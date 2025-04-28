@@ -1,10 +1,9 @@
 <button
-  onclick="history.back()"
-  class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+  class="back-btn inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5 mr-2"
+    class="mr-2 h-5 w-5"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -17,3 +16,18 @@
   </svg>
   Volver
 </button>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.back-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (window.history.length > 1) {
+          history.back()
+          console.log('Volver atrás')
+        } else {
+          window.location.href = '/'
+          console.log('Ir al inicio')
+        }
+      })
+    })
+  })
+</script>
