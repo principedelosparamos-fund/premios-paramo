@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro'
+import Head from '../components/Head.astro'
 import About from '../components/landing/About.astro'
 import Gallery from '../components/landing/Gallery.astro'
 import Header from '../components/landing/Header.astro'
@@ -9,12 +10,18 @@ import Programacion from '../components/landing/Programacion.astro'
 import LandingLayout from '../layouts/LandingLayout.astro'
 ---
 
+<Head
+  title="Premios Príncipe de los Páramos | Celebramos la biodiversidad de Colombia"
+  description="Premios Príncipe de los Páramos celebra y promueve la diversidad y biodiversidad de Colombia a través del cine, la televisión, el teatro, el circo y los videojuegos. Únete y deja tu huella."
+  image="/og-image.png"
+  url="https://www.principedelosparamos.org"
+/>
 <LandingLayout>
   <Header />
   <Hero />
   <Programacion />
   <Postula />
-  <Gallery />
+  <Gallery client:load />
   <About />
   <Footer />
 </LandingLayout>

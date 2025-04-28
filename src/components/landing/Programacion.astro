@@ -6,7 +6,7 @@ import Button from '../ui/Button.astro'
 
 <section class="bg-[#1E1E1E] py-16">
   <div class="container mx-auto pb-16">
-    <h2 class="text-2xl text-center leading-10 text-white md:text-3xl">
+    <h2 class="text-center text-2xl leading-10 text-white md:text-3xl">
       Reconocemos y celebramos la diversidad y la biodiversidad de nuestra
       Colombia.
     </h2>
@@ -15,13 +15,14 @@ import Button from '../ui/Button.astro'
     <div class="">
       <!-- Imagen simple -->
       <Image src={festival} alt="Imagen festival" loading="lazy" />
-      <div class="w-full flex justify-center py-5">
+      <div class="flex w-full justify-center py-5">
         <Button
           text="Programación"
           type="primary"
           size="large"
-          href="#"
+          href="/proximamente"
           class="w-[300px]"
+          target="_blank"
         />
       </div>
     </div>

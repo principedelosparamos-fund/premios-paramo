@@ -1,13 +1,11 @@
 ---
 import Analytics from '@vercel/analytics/astro'
-import Head from '../components/Head.astro'
 import BackButton from '../components/ui/BackButton.astro'
 import '../styles/global.css'
 ---
 
 <!doctype html>
 <html lang="es">
-  <Head title="Premios Paramo" description="" />
   <body class="font-body">
     <Analytics />
     <!-- Google Tag Manager (noscript) -->
@@ -24,7 +22,7 @@ import '../styles/global.css'
         <BackButton />
       </div>
     </header>
-    <div class="h-full bg-gray-200">
+    <div class="min-h-screen bg-gray-200">
       <div class="mx-auto max-w-3xl py-16">
         <slot />
       </div>

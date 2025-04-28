@@ -68,10 +68,13 @@ export default function ProyectoForm() {
       })
 
       // 🔥 Agregar proyecto con ID automático
+      // Ajuste: guardar la categoría seleccionada como array
+      const { categoria, ...restDatos } = datos
       await addDoc(proyectosRef, {
-        ...datos,
+        ...restDatos,
         email: correo, // Guardamos email limpio
         celular: celular, // Guardamos celular limpio
+        categorias: categoria ? [categoria] : [],
         fechaEstreno: formatearFecha(datos.fechaEstreno.toString()),
         fechaRegistro,
         timestamp: Timestamp.now(),
@@ -279,10 +282,11 @@ export default function ProyectoForm() {
           {CATEGORIES.map((categoria) => (
             <label key={categoria} className="block">
               <input
-                type="checkbox"
-                name="categorias"
+                type="radio"
+                name="categoria"
                 value={categoria}
                 className="mr-2"
+                required
               />
               {categoria}
             </label>

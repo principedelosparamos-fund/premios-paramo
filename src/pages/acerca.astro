@@ -3,43 +3,47 @@ import { Image } from 'astro:assets'
 import frailejon from '../assets/img/frailejon.jpg'
 import fundador from '../assets/img/fundador.jpg'
 import premio from '../assets/img/premio-pluma.png'
+import Footer from '../components/Footer.astro'
+import Head from '../components/Head.astro'
 import Header from '../components/landing/Header.astro'
 import Heading from '../components/ui/Heading.astro'
 import Layout from '../layouts/Layout.astro'
 ---
 
+<Head
+  title="Sobre Nosotros | Protegiendo la biodiversidad y celebrando la diversidad de Colombia a través del arte y la cultura"
+  description="Protegiendo la biodiversidad y celebrando la diversidad de Colombia a través del arte y la cultura"
+/>
 <Layout>
   <Header />
-  <body class="bg-white text-black">
+  <body class="bg-gray-100 text-black">
     <!-- Hero Section -->
     <Heading
       title="Sobre Nosotros"
       description="Protegiendo la biodiversidad y celebrando la diversidad de Colombia a través del arte y la cultura"
     />
     <!-- Main Content -->
-    <main>
+    <main class="bg-gray-100">
       <!-- Acerca de la Fundación -->
       <section id="sobre-fundacion" class="py-20 md:py-28">
         <div class="container mx-auto px-4">
-          <div class="max-w-5xl mx-auto">
-            <div class="flex items-center justify-center mb-12">
-              <div class="h-px w-12 bg-black"></div>
-              <h2 class="text-3xl md:text-4xl font-bold text-black px-6">
+          <div class="mx-auto max-w-5xl">
+            <div class="mb-12 flex items-center justify-center">
+              <h2 class="px-6 text-2xl font-bold text-black md:text-4xl">
                 Acerca de la Fundación
               </h2>
-              <div class="h-px w-12 bg-black"></div>
             </div>
 
-            <div class="bg-white rounded-2xl p-8 md:p-12 border border-black">
-              <div class="flex flex-col md:flex-row gap-8 items-center">
+            <div class="rounded-2xl bg-white p-8 md:p-12">
+              <div class="flex flex-col items-center gap-8 md:flex-row">
                 <!-- Imagen decorativa -->
                 <div class="">
                   <div class="">
-                    <div class="aspect-square rounded-lg overflow-hidden">
+                    <div class="aspect-square overflow-hidden rounded-lg">
                       <Image
                         src={frailejon}
                         alt="Frailejón en páramo colombiano"
-                        class="w-full h-full object-cover"
+                        class="h-full w-full object-cover"
                         width={600}
                         height={600}
                       />
@@ -49,8 +53,8 @@ import Layout from '../layouts/Layout.astro'
 
                 <!-- Texto de la fundación -->
                 <div class="md:w-2/3">
-                  <p class="text-lg text-black leading-relaxed mb-6">
-                    La <span class="text-black font-medium"
+                  <p class="mb-6 text-lg leading-relaxed text-black">
+                    La <span class="font-medium text-black"
                       >Fundación Príncipe de los Páramos</span
                     > nace con el propósito de generar conciencia sobre el reconocimiento,
                     respeto y cuidado de la diversidad y la biodiversidad de Colombia.
@@ -59,13 +63,13 @@ import Layout from '../layouts/Layout.astro'
                     especies en vía de extinción.
                   </p>
 
-                  <p class="text-lg text-black leading-relaxed mb-6">
+                  <p class="mb-6 text-lg leading-relaxed text-black">
                     También abarca nuestra riqueza humana: la diversidad de
                     lenguas (incluida la lengua de señas colombiana), razas,
                     identidades, orientaciones y capacidades.
                   </p>
 
-                  <p class="text-lg text-black leading-relaxed">
+                  <p class="text-lg leading-relaxed text-black">
                     Nuestra misión se realiza a través de las artes
                     audiovisuales y escénicas como herramientas para contar lo
                     que somos: <span class="text-black italic"
@@ -83,53 +87,49 @@ import Layout from '../layouts/Layout.astro'
       <div class="section-divider mx-auto w-1/2 max-w-2xl"></div>
 
       <!-- Sobre su fundador -->
-      <section id="sobre-fundador" class="py-20 md:py-28 bg-white">
+      <section id="sobre-fundador" class="bg-gray-100 py-20 md:py-28">
         <div class="container mx-auto px-4">
-          <div class="max-w-5xl mx-auto">
-            <div class="flex items-center justify-center mb-12">
-              <div class="h-px w-12 bg-black"></div>
-              <h2 class="text-3xl md:text-4xl font-bold text-black px-6">
+          <div class="mx-auto max-w-5xl">
+            <div class="mb-12 flex items-center justify-center">
+              <h2 class="px-6 text-3xl font-bold text-black md:text-4xl">
                 Sobre su fundador
               </h2>
-              <div class="h-px w-12 bg-black"></div>
             </div>
 
-            <div
-              class="bg-white rounded-2xl overflow-hidden border border-black"
-            >
+            <div class="overflow-hidden rounded-2xl bg-white">
               <div class="md:flex">
                 <!-- Imagen del fundador -->
-                <div class="md:w-2/5 h-96 md:h-auto">
+                <div class="h-96 md:h-auto md:w-2/5">
                   <Image
                     src={fundador}
                     alt="Jesús Arley López, fundador de Premios Príncipe de los Páramos"
-                    class="w-full h-full object-cover"
+                    class="h-full w-full object-cover"
                     width={600}
                     height={600}
                   />
                 </div>
 
                 <!-- Información del fundador -->
-                <div class="p-8 md:p-12 md:w-3/5">
+                <div class="p-8 md:w-3/5 md:p-12">
                   <!-- Nombre solo visible en desktop -->
-                  <div class="hidden md:block mb-6">
+                  <div class="mb-6 hidden md:block">
                     <h3 class="text-3xl font-semibold text-black">
                       Jesús Arley López
                     </h3>
                     <p class="text-black">Director, productor y escritor</p>
                   </div>
 
-                  <p class="text-black mb-6">
+                  <p class="mb-6 text-black">
                     La Fundación fue creada por Jesús Arley López, con una
                     amplia trayectoria en medios nacionales e internacionales.
                     Ha trabajado en 15 producciones para National Geographic,
                     entre ellas:
                   </p>
 
-                  <ul class="space-y-4 mb-6">
+                  <ul class="mb-6 space-y-4">
                     <li class="flex items-start">
                       <div
-                        class="flex-shrink-0 h-6 w-6 rounded-full bg-black/20 flex items-center justify-center mt-0.5 mr-3"
+                        class="mt-0.5 mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-black/20"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -147,14 +147,14 @@ import Layout from '../layouts/Layout.astro'
                         <span class="font-medium text-black"
                           >Tabú Latinoamérica</span
                         >
-                        <p class="text-black text-sm">
+                        <p class="text-sm text-black">
                           Reconocida serie documental de gran alcance regional.
                         </p>
                       </div>
                     </li>
                     <li class="flex items-start">
                       <div
-                        class="flex-shrink-0 h-6 w-6 rounded-full bg-black/20 flex items-center justify-center mt-0.5 mr-3"
+                        class="mt-0.5 mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-black/20"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -170,14 +170,14 @@ import Layout from '../layouts/Layout.astro'
                       </div>
                       <div>
                         <span class="font-medium text-black">Arrepentidos</span>
-                        <p class="text-black text-sm">
+                        <p class="text-sm text-black">
                           Proyecto ganador del Premio Emmy Internacional (2015).
                         </p>
                       </div>
                     </li>
                     <li class="flex items-start">
                       <div
-                        class="flex-shrink-0 h-6 w-6 rounded-full bg-black/20 flex items-center justify-center mt-0.5 mr-3"
+                        class="mt-0.5 mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-black/20"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +193,7 @@ import Layout from '../layouts/Layout.astro'
                       </div>
                       <div>
                         <span class="font-medium text-black">Lost Roads</span>
-                        <p class="text-black text-sm">
+                        <p class="text-sm text-black">
                           Documental sobre el Caquetá, galardonado con el León
                           de Oro en los Cannes Lions Awards 2021.
                         </p>
@@ -201,12 +201,12 @@ import Layout from '../layouts/Layout.astro'
                     </li>
                   </ul>
 
-                  <p class="text-black mb-4">
+                  <p class="mb-4 text-black">
                     También ha sido jurado de los Premios Emmy Internacionales
                     durante cinco años.
                   </p>
 
-                  <p class="text-black mb-4">
+                  <p class="mb-4 text-black">
                     Entre sus obras personales se destaca <span
                       class="font-medium text-black">Miss Meta</span
                     >, cortometraje documental que ganó la beca del Ministerio
@@ -233,26 +233,24 @@ import Layout from '../layouts/Layout.astro'
       <div class="section-divider mx-auto w-1/2 max-w-2xl"></div>
 
       <!-- Sobre los premios -->
-      <section id="sobre-premios" class="py-20 md:py-28 bg-white">
+      <section id="sobre-premios" class="bg-gray-100 py-20 md:py-28">
         <div class="container mx-auto px-4">
-          <div class="max-w-5xl mx-auto">
-            <div class="flex items-center justify-center mb-12">
-              <div class="h-px w-12 bg-black"></div>
-              <h2 class="text-3xl md:text-4xl font-bold text-black px-6">
+          <div class="mx-auto max-w-5xl">
+            <div class="mb-12 flex items-center justify-center">
+              <h2 class="px-6 text-3xl font-bold text-black md:text-4xl">
                 Sobre los premios
               </h2>
-              <div class="h-px w-12 bg-black"></div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
               <!-- Imagen de los premios -->
               <div class="order-2 lg:order-1">
                 <div class="h-full">
-                  <div class="h-full rounded-xl overflow-hidden bg-black">
+                  <div class="h-full overflow-hidden rounded-xl bg-black">
                     <Image
                       src={premio}
                       alt="Estatuilla de los Premios Príncipe de los Páramos"
-                      class="w-full h-full object-cover"
+                      class="h-full w-full object-cover"
                       width={600}
                       height={600}
                     />
@@ -261,35 +259,33 @@ import Layout from '../layouts/Layout.astro'
               </div>
 
               <!-- Información de los premios -->
-              <div class="order-1 lg:order-2 flex flex-col justify-center">
-                <div
-                  class="bg-white rounded-xl p-8 shadow-lg border border-black"
-                >
-                  <h3 class="text-2xl font-semibold text-black mb-6">
+              <div class="order-1 flex flex-col justify-center lg:order-2">
+                <div class="rounded-xl bg-white p-8 shadow-lg">
+                  <h3 class="mb-6 text-xl font-semibold text-black">
                     Celebrando la diversidad a través del arte
                   </h3>
 
-                  <p class="text-black mb-4">
+                  <p class="mb-4 text-black">
                     Los Premios Príncipe de los Páramos celebran lo mejor de la
                     escritura en cine, televisión, teatro, circo y videojuegos,
                     con un enfoque especial en diversidad y biodiversidad.
                   </p>
 
-                  <p class="text-black mb-4">
+                  <p class="mb-4 text-black">
                     Con una estructura de 16 categorías, su primera edición se
                     llevará a cabo en 2025 como parte del Festival Biodiverso
                     Príncipe de los Páramos.
                   </p>
 
-                  <p class="text-black mb-6">
+                  <p class="mb-6 text-black">
                     Esta ceremonia es un acto de reconocimiento, pero también un
                     espacio de conversación intercultural, creado para
                     visibilizar y proteger nuestra riqueza humana y natural.
                   </p>
 
                   <!-- Beneficiarios -->
-                  <div class="bg-black/10 rounded-lg p-4 border border-black">
-                    <p class="text-black text-center">
+                  <div class="rounded-lg bg-black/10 p-4">
+                    <p class="text-center text-black">
                       El festival beneficia tanto a personas diversas por su
                       orientación, identidad, capacidades, raza y lengua, como a
                       nuestros territorios y especies en riesgo de desaparecer.
@@ -298,11 +294,9 @@ import Layout from '../layouts/Layout.astro'
 
                   <!-- Fecha del evento -->
                   <div class="mt-8 flex items-center justify-center">
-                    <div
-                      class="px-6 py-3 bg-black/20 rounded-lg border border-black text-center"
-                    >
-                      <p class="text-black font-medium">Primera edición</p>
-                      <p class="text-black text-xl font-bold">Julio 2025</p>
+                    <div class="rounded-lg bg-black/20 px-6 py-3 text-center">
+                      <p class="font-medium text-black">Primera edición</p>
+                      <p class="text-xl font-bold text-black">Julio 2025</p>
                     </div>
                   </div>
                 </div>
@@ -313,36 +307,30 @@ import Layout from '../layouts/Layout.astro'
       </section>
 
       <!-- Separador visual -->
-      <div class="section-divider mx-auto w-1/2 max-w-2xl"></div>
+      <!-- <div class="section-divider mx-auto w-1/2 max-w-2xl"></div>
 
-      <!-- Otras acciones de la Fundación -->
-      <section id="otras-acciones" class="py-20 md:py-28 bg-white">
+      <section id="otras-acciones" class="bg-gray-100 py-20 md:py-28">
         <div class="container mx-auto px-4">
-          <div class="max-w-5xl mx-auto">
-            <div class="flex items-center justify-center mb-12">
-              <div class="h-px w-12 bg-black"></div>
-              <h2 class="text-3xl md:text-4xl font-bold text-black px-6">
+          <div class="mx-auto max-w-5xl">
+            <div class="mb-12 flex items-center justify-center">
+              <h2 class="px-6 text-3xl font-bold text-black md:text-4xl">
                 Otras acciones de la Fundación
               </h2>
-              <div class="h-px w-12 bg-black"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <!-- Acción 1: Cineclubes -->
-              <div
-                class="bg-white rounded-xl overflow-hidden border border-black"
-              >
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+              <div class="overflow-hidden rounded-xl bg-gray-100">
                 <div class="h-56">
                   <img
                     src="/placeholder.svg?height=600&width=800&query=Niños viendo cine en zona rural"
                     alt="Cineclubes para niños en regiones apartadas"
-                    class="w-full h-full object-cover"
+                    class="h-full w-full object-cover"
                   />
                 </div>
                 <div class="p-6">
-                  <div class="flex items-center mb-4">
+                  <div class="mb-4 flex items-center">
                     <div
-                      class="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center mr-3"
+                      class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/20"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -369,11 +357,11 @@ import Layout from '../layouts/Layout.astro'
                     respeto por la diversidad cultural.
                   </p>
                   <div class="mt-6 flex justify-end">
-                    <a href="#" class="text-black flex items-center">
+                    <a href="#" class="flex items-center text-black">
                       <span>Conocer más</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 ml-1"
+                        class="ml-1 h-5 w-5"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -387,21 +375,18 @@ import Layout from '../layouts/Layout.astro'
                 </div>
               </div>
 
-              <!-- Acción 2: Asesorías -->
-              <div
-                class="bg-white rounded-xl overflow-hidden border border-black"
-              >
+              <div class="overflow-hidden rounded-xl bg-gray-100">
                 <div class="h-56">
                   <img
                     src="/placeholder.svg?height=600&width=800&query=Reunión de trabajo sobre biodiversidad"
                     alt="Asesorías sobre biodiversidad"
-                    class="w-full h-full object-cover"
+                    class="h-full w-full object-cover"
                   />
                 </div>
                 <div class="p-6">
-                  <div class="flex items-center mb-4">
+                  <div class="mb-4 flex items-center">
                     <div
-                      class="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center mr-3"
+                      class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/20"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -428,11 +413,11 @@ import Layout from '../layouts/Layout.astro'
                     sensibilicen sobre estos importantes temas.
                   </p>
                   <div class="mt-6 flex justify-end">
-                    <a href="#" class="text-black flex items-center">
+                    <a href="#" class="flex items-center text-black">
                       <span>Conocer más</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 ml-1"
+                        class="ml-1 h-5 w-5"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -448,41 +433,39 @@ import Layout from '../layouts/Layout.astro'
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
-      <!-- Call to Action -->
-      <section class="py-20 md:py-28 bg-white">
+      <!-- <section class="bg-gray-100 py-20 md:py-28">
         <div class="container mx-auto px-4">
-          <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-black mb-6">
+          <div class="mx-auto max-w-4xl text-center">
+            <h2 class="mb-6 text-3xl font-bold text-black md:text-4xl">
               Únete a nuestra misión
             </h2>
-            <p class="text-lg text-black mb-8 max-w-2xl mx-auto">
+            <p class="mx-auto mb-8 max-w-2xl text-lg text-black">
               Ayúdanos a proteger la biodiversidad y celebrar la diversidad de
               Colombia a través del arte y la cultura. Tu apoyo puede marcar la
               diferencia.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="flex flex-col justify-center gap-4 sm:flex-row">
               <a
                 href="/postular"
-                class="px-8 py-4 bg-black text-white font-medium rounded-md"
+                class="rounded-md bg-black px-8 py-4 font-medium text-white"
               >
                 Postular un proyecto
               </a>
               <a
                 href="/contacto"
-                class="px-8 py-4 bg-transparent border border-black text-black font-medium rounded-md"
+                class="rounded-md bg-transparent px-8 py-4 font-medium text-black"
               >
                 Contactar con nosotros
               </a>
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
     </main>
-
-    <!-- Footer -->
+    <Footer />
   </body>
 </Layout>
 

@@ -1,7 +1,7 @@
 ---
-import Button from '../ui/Button.astro'
 import { Image } from 'astro:assets'
 import premio from '../../assets/img/premio-pluma.png'
+import Button from '../ui/Button.astro'
 ---
 
 <section class="bg-gradient-to-r from-[#191300] to-[#6D5500] py-24">
@@ -11,24 +11,31 @@ import premio from '../../assets/img/premio-pluma.png'
       <Image src={premio} alt="Imagen premio" loading="lazy" />
     </div>
     <div class="">
-      <div class="h-full flex flex-col justify-center items-center p-6">
+      <div class="flex h-full flex-col items-center justify-center p-6">
         <h2
-          class="text-5xl text-center leading-16 text-white font-paramo font-bold"
+          class="font-paramo text-center text-5xl leading-16 font-bold text-white"
         >
           Postula tu proyecto a los Premios Príncipe de los Páramos y marca la
           estatuilla con tu nombre.
         </h2>
         <div
-          class="py-10 min-w-[300px] w-[100%] md:w-[80%] grid grid-cols-1 md:grid-cols-2 gap-8"
+          class="grid w-[100%] min-w-[300px] grid-cols-1 gap-8 py-10 md:w-[80%] md:grid-cols-2"
         >
           <Button
             type="primary"
             size="large"
             text="Reglamento"
             href="pdf/reglamento.pdf"
+            target="_blank"
             fullWidth
           />
-          <Button size="large" text="Postular" href="/proyecto" fullWidth />
+          <Button
+            size="large"
+            text="Postular"
+            href="/proyecto"
+            fullWidth
+            target="_blank"
+          />
         </div>
       </div>
     </div>

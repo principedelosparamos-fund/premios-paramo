@@ -18,15 +18,15 @@ const ProyectoCard = ({
   modo = 'jurado', // por defecto "jurado"
 }: ProyectoCardProps) => {
   return (
-    <div className="border border-gray-300 rounded-xl p-4 shadow-md bg-white">
-      <h2 className="text-lg font-bold mb-2">{proyecto.nombre}</h2>
+    <div className="rounded-xl border border-gray-300 bg-white p-4 shadow-md">
+      <h2 className="mb-2 text-lg font-bold">{proyecto.nombre}</h2>
 
-      <p className="text-sm text-gray-600 mb-2">
-        Categorías: {proyecto.categorias.join(', ')}
+      <p className="mb-2 text-sm text-gray-600">
+        Categoría: {proyecto.categorias.join(', ')}
       </p>
 
       {modo === 'admin' && (
-        <div className="text-blue-600 font-semibold mb-2">
+        <div className="mb-2 font-semibold text-blue-600">
           Promedio General:{' '}
           {proyecto.promedioGeneral
             ? proyecto.promedioGeneral.toFixed(1)
@@ -37,12 +37,12 @@ const ProyectoCard = ({
       {modo === 'jurado' && (
         <>
           {votado ? (
-            <div className="text-green-600 font-semibold mb-2">
+            <div className="mb-2 font-semibold text-green-600">
               ✅ Ya calificado - Tu Promedio:{' '}
               {promedioVotacionJurado?.toFixed(1)}
             </div>
           ) : (
-            <div className="text-yellow-800 font-semibold mb-2">
+            <div className="mb-2 font-semibold text-yellow-800">
               ⚡ Sin calificar
             </div>
           )}
@@ -56,7 +56,7 @@ const ProyectoCard = ({
             ? `/admin/proyecto/${proyecto.id}`
             : `/jurado/${proyecto.id}`
         }
-        className="mt-4 inline-block bg-gold-600 text-white text-center px-4 py-2 rounded-lg w-full"
+        className="bg-gold-600 mt-4 inline-block w-full rounded-lg px-4 py-2 text-center text-white"
       >
         Ver Proyecto
       </a>

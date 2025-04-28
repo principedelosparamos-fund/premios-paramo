@@ -7,6 +7,7 @@ interface Props {
   size?: 'small' | 'medium' | 'large'
   fullWidth?: boolean
   class?: string
+  target?: '_self' | '_blank'
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   size = 'medium',
   fullWidth = false,
   class: customClass = '',
+  target = '_self',
 } = Astro.props as Props
 
 const typeClasses = {
@@ -40,7 +42,7 @@ const classes = `${baseClasses} ${typeClasses[type]} ${sizeClasses[size]} ${widt
   href ? (
     <a
       href={href}
-      target={href.endsWith('.pdf') ? '_blank' : undefined}
+      target={target}
       rel={href.endsWith('.pdf') ? 'noopener noreferrer' : undefined}
       class={classes}
     >

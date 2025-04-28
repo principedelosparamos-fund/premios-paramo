@@ -1,7 +1,15 @@
 ---
-import LayoutFormularios from '../../layouts/LayoutFormularios.astro'
+import Head from '../../components/Head.astro'
 import ProyectoForm from '../../components/proyecto/ProyectoForm'
+import LayoutFormularios from '../../layouts/LayoutFormularios.astro'
 ---
+
+<Head
+  title="Premios Príncipe de los Páramos | Celebramos la biodiversidad de Colombia"
+  description="Premios Príncipe de los Páramos celebra y promueve la diversidad y biodiversidad de Colombia a través del cine, la televisión, el teatro, el circo y los videojuegos. Únete y deja tu huella."
+  image="/og-image.png"
+  url="https://www.principedelosparamos.org"
+/>
 
 <LayoutFormularios>
   <ProyectoForm client:load />
