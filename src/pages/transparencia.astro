@@ -1,9 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/landing/Header.astro'
 import CardDocument from '../components/transparencia/CardDocument.astro'
 import Heading from '../components/ui/Heading.astro'
+import Layout from '../layouts/Layout.astro'
 
 const documents = [
   {
@@ -39,15 +39,15 @@ const documents = [
     title="Transparencia"
     description="Ponemos a tu disposición los documentos clave que reflejan nuestro compromiso con la transparencia."
   />
-  <section class="container mx-auto px-4 h-[calc(100vh-100px)] mt-10">
-    <div class="flex justify-between items-center mb-6">
+  <section class="container mx-auto mt-10 mb-10 min-h-screen px-4 pb-10">
+    <div class="mb-6 flex items-center justify-between">
       <h2 class="text-lg font-semibold text-black/90">
         Documentos Disponibles
       </h2>
     </div>
 
     <!-- Document Cards Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         documents.map((document) => (
           <CardDocument

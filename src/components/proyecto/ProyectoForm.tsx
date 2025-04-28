@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import { db } from '../../lib/firebase'
 import {
-  collection,
-  query,
-  where,
-  getDocs,
   addDoc,
+  collection,
+  getDocs,
+  query,
   Timestamp,
+  where,
 } from 'firebase/firestore'
+import { useState } from 'react'
 import { CATEGORIES } from '../../lib/categories'
+import { db } from '../../lib/firebase'
 
 // 🔥 Función para formatear fecha tipo "31/03/2025 19:00"
 const formatearFecha = (fechaInput: string) => {
@@ -90,11 +90,11 @@ export default function ProyectoForm() {
   }
 
   return (
-    <div className="bg-white mx-auto max-w-2xl p-2 py-8 lg:p-8 shadow-lg rounded-xl">
-      <form onSubmit={handleSubmit} className="space-y-8 mx-auto p-6">
+    <div className="mx-auto max-w-2xl rounded-xl bg-white p-2 py-8 shadow-lg lg:p-8">
+      <form onSubmit={handleSubmit} className="mx-auto space-y-8 p-6">
         {/* 📝 Instrucciones de postulación */}
         <section className="space-y-4 leading-[1.8]">
-          <h1 className="font-semibold text-xl">
+          <h1 className="text-xl font-semibold">
             Formulario de postulación proyecto
           </h1>
           <p>
@@ -125,7 +125,7 @@ export default function ProyectoForm() {
 
         {/* 🧍 Datos del postulante */}
         <fieldset className="space-y-4">
-          <legend className="font-semibold text-lg text-gold-900">
+          <legend className="text-gold-900 text-lg font-semibold">
             Datos del postulante
           </legend>
 
@@ -134,7 +134,7 @@ export default function ProyectoForm() {
             <input
               name="nombrePostulante"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             />
           </label>
 
@@ -143,7 +143,7 @@ export default function ProyectoForm() {
             <select
               name="perfil"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             >
               <option value="">Seleccione una opción</option>
               <option value="autor">Autor(a) de la obra</option>
@@ -160,7 +160,7 @@ export default function ProyectoForm() {
               type="email"
               name="email"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             />
           </label>
 
@@ -170,14 +170,14 @@ export default function ProyectoForm() {
               type="tel"
               name="celular"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             />
           </label>
         </fieldset>
 
         {/* 🎬 Información de la obra */}
         <fieldset className="space-y-4">
-          <legend className="font-semibold text-lg text-gold-900">
+          <legend className="text-gold-900 text-lg font-semibold">
             Información de la obra
           </legend>
 
@@ -186,9 +186,9 @@ export default function ProyectoForm() {
             <input
               name="nombreObra"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             />
-            <small className="text-gray-600 block">
+            <small className="block text-gray-600">
               Si se trata de una temporada en especial, se debe mencionar.
             </small>
           </label>
@@ -198,9 +198,9 @@ export default function ProyectoForm() {
             <input
               name="escritores"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             />
-            <small className="text-gray-600 block">
+            <small className="block text-gray-600">
               Esta información debe coincidir con los créditos de la obra.
             </small>
           </label>
@@ -211,7 +211,7 @@ export default function ProyectoForm() {
               type="date"
               name="fechaEstreno"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-2"
             />
           </label>
 
@@ -221,64 +221,73 @@ export default function ProyectoForm() {
               name="sinopsis"
               rows={4}
               required
-              className="w-full p-2 border rounded resize-y"
+              className="w-full resize-y rounded border p-2"
             />
+            <small className="block text-gray-600">
+              Resalte los aspectos diversos y biodiversos
+            </small>
           </label>
         </fieldset>
 
         {/* 🔗 Enlaces */}
         <fieldset className="space-y-4">
-          <legend className="font-semibold text-lg text-gold-900">
+          <legend className="text-gold-900 text-lg font-semibold">
             Enlaces de postulación
           </legend>
 
           <label className="block">
-            Imagen oficial:
+            Link a una imagen cuadrada, representativa y oficial de la obra
             <input
               type="url"
               name="linkImagen"
               required
-              className="w-full p-2 border rounded mt-2"
+              className="mt-2 w-full rounded border p-2"
             />
-            <small className="text-gray-600 block">
-              Link a imagen cuadrada en Drive sin solicitud de acceso.
+            <small className="block text-gray-600">
+              Contenida en un drive sin solicitud de acceso
             </small>
           </label>
 
           <label className="block">
-            Libreto oficial:
+            Link a la versión final y oficial del libreto completo de la obra
             <input
               type="url"
               name="linkLibreto"
               required
-              className="w-full p-2 border rounded mt-2"
+              className="mt-2 w-full rounded border p-2"
             />
-            <small className="text-gray-600 block">
-              Debe coincidir con el capítulo que se envía.
+            <small className="block text-gray-600">
+              (contenido en un drive sin solicitud de acceso). El libreto debe
+              coincidir con el capítulo del cual se envía el link
             </small>
           </label>
 
           <label className="block">
-            Obra audiovisual o tráiler:
+            Link a la obra audiovisual completa.
             <input
               type="url"
               name="linkVideo"
               required
-              className="w-full p-2 border rounded mt-2"
+              className="mt-2 w-full rounded border p-2"
             />
-            <small className="text-gray-600 block">
-              Puede ser link de Drive (sin solicitud), Vimeo, YouTube,
-              plataforma gratuita o de pago. No obligatorio para teatro, circo o
-              videojuego.
+            <small className="block text-gray-600">
+              Puede ser un drive (sin solicitud de acceso), Vimeo (con o sin
+              clave), YouTube (público o privado), plataforma gratuita, o
+              incluso, pero no idealmente, plataforma de pago. Este no es un
+              requisito para las categorías de teatro, circo y videojuego. En
+              este caso, también se puede tratar de un tráiler
             </small>
           </label>
         </fieldset>
 
         {/* 🏆 Categorías */}
         <fieldset className="space-y-2">
-          <legend className="font-semibold text-lg text-gold-900">
-            Categoría de postulación
+          <legend className="text-gold-900 text-lg font-semibold">
+            Categoría a la cual postula la obra
           </legend>
+          <small className="block text-gray-600">
+            Solo se puede postular a una categoría
+          </small>
           {CATEGORIES.map((categoria) => (
             <label key={categoria} className="block">
               <input
@@ -295,7 +304,7 @@ export default function ProyectoForm() {
 
         {/* ✅ Consentimientos */}
         <fieldset className="space-y-2">
-          <legend className="font-semibold text-lg text-gold-900">
+          <legend className="text-gold-900 text-lg font-semibold">
             Consentimientos
           </legend>
 
@@ -333,14 +342,14 @@ export default function ProyectoForm() {
         <div className="flex justify-end gap-4">
           <button
             type="reset"
-            className="border px-4 py-2 rounded text-gray-700"
+            className="rounded border px-4 py-2 text-gray-700"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="bg-gold-600 text-black font-semibold px-4 py-2 rounded disabled:opacity-50"
+            className="bg-gold-600 rounded px-4 py-2 font-semibold text-black disabled:opacity-50"
           >
             {loading ? 'Enviando...' : 'Postular'}
           </button>

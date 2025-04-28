@@ -1,39 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 
 @theme {
   --font-body: 'Raleway', sans-serif;
-  /* Negros y grises */
-  --color-black-700: oklch(0.13 0 0);
-  --color-black-600: oklch(0.18 0 0);
-  --color-black-500: oklch(0.27 0 0);
-  --color-gray-300: oklch(0.75 0 0);
-  --color-gray-100: oklch(0.95 0 0);
-  --color-white: oklch(1 0 0);
+  /* Colores base */
+  --color-black: #0d0d0d;
+  --color-graylight: #e3e3e3;
+  --color-whitepure: #ffffff;
+  --color-golddark: #b48a1e;
+  --color-goldlight: #d5bf63;
 
-  /* Dorado */
-  --color-gold-900: oklch(0.5 0.18 95);
-  --color-gold-800: oklch(0.6 0.19 95);
-  --color-gold-700: oklch(0.7 0.2 95);
-  --color-gold-600: oklch(0.72 0.21 95);
-  --color-gold-500: oklch(0.8 0.18 95);
-  --color-gold-300: oklch(0.88 0.14 95);
+  /* Tonos extendidos */
+  --color-black-50: #2e2e2e;
+  --color-black-100: #262626;
+  --color-black-200: #1f1f1f;
+  --color-black-300: #191919;
+  --color-black-400: #121212;
+  --color-black-500: #0d0d0d;
+  --color-black-600: #0a0a0a;
+  --color-black-700: #080808;
+  --color-black-800: #050505;
+  --color-black-900: #030303;
 
-  /* Rojo cobre */
-  --color-copper-700: oklch(0.35 0.2 30);
-  --color-copper-600: oklch(0.45 0.22 30);
-  --color-copper-500: oklch(0.58 0.22 30);
-  --color-copper-300: oklch(0.74 0.15 30);
+  --color-graylight-50: #f9f9f9;
+  --color-graylight-100: #f0f0f0;
+  --color-graylight-200: #e7e7e7;
+  --color-graylight-300: #e3e3e3;
+  --color-graylight-400: #cfcfcf;
+  --color-graylight-500: #bebebe;
+  --color-graylight-600: #aaaaaa;
+  --color-graylight-700: #999999;
+  --color-graylight-800: #878787;
+  --color-graylight-900: #757575;
 
-  /* Amarillo brillante */
-  --color-yellow-700: oklch(0.72 0.18 95);
-  --color-yellow-600: oklch(0.9 0.17 95);
-  --color-yellow-500: oklch(0.95 0.14 95);
-  --color-yellow-300: oklch(0.98 0.08 95);
+  --color-whitepure-50: #ffffff;
+  --color-whitepure-100: #fafafa;
+  --color-whitepure-200: #f5f5f5;
+  --color-whitepure-300: #f0f0f0;
+  --color-whitepure-400: #ebebeb;
+  --color-whitepure-500: #e6e6e6;
+  --color-whitepure-600: #e0e0e0;
+  --color-whitepure-700: #dadada;
+  --color-whitepure-800: #d4d4d4;
+  --color-whitepure-900: #cfcfcf;
 
-  /* Complementarios */
-  --color-olive-500: oklch(0.58 0.08 130);
-  --color-olive-300: oklch(0.75 0.05 130);
-  --color-sky-200: oklch(0.85 0.03 250);
-  --color-midnight-700: oklch(0.18 0.04 280);
+  --color-golddark-50: #f5e3c3;
+  --color-golddark-100: #eac684;
+  --color-golddark-200: #dda73c;
+  --color-golddark-300: #c9941e;
+  --color-golddark-400: #b48a1e;
+  --color-golddark-500: #8f6c17;
+  --color-golddark-600: #6b510f;
+  --color-golddark-700: #473505;
+  --color-golddark-800: #241a02;
+  --color-golddark-900: #120d01;
+
+  --color-goldlight-50: #fbf7e1;
+  --color-goldlight-100: #f4ebc2;
+  --color-goldlight-200: #ecdea3;
+  --color-goldlight-300: #e3d285;
+  --color-goldlight-400: #d5bf63;
+  --color-goldlight-500: #b9a44e;
+  --color-goldlight-600: #9d893a;
+  --color-goldlight-700: #816f26;
+  --color-goldlight-800: #665412;
+  --color-goldlight-900: #4a3a00;
+
+  /* UI States */
+  --color-ui-primary: #b48a1e;
+  --color-ui-secondary: #d5bf63;
+  --color-ui-tertiary: #f5e3c3;
+  --color-ui-neutral: #cfcfcf;
+  --color-ui-error: #b44c3a;
+  --color-ui-success: #6b8a4b;
+  --color-ui-warning: #d69a2d;
+  --color-ui-info: #5c7aa3;
 }
