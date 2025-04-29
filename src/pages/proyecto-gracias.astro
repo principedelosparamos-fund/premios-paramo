@@ -1,8 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro'
-const { searchParams } = new URL(Astro.request.url)
-const nombre = searchParams.get('nombre') || 'Postulante'
-const obra = searchParams.get('obra') || 'tu obra'
 ---
 
 <Layout>
@@ -29,16 +26,14 @@ const obra = searchParams.get('obra') || 'tu obra'
   </style>
 
   <main
-    class="bg-black-700 text-white font-texto min-h-screen flex items-center justify-center p-6"
+    class="flex min-h-screen items-center justify-center bg-gray-200 p-6 text-white"
   >
     <div
-      class="bg-gold-600 text-black rounded-xl shadow-lg p-8 max-w-xl w-full text-center animate-fade-in"
+      class="animate-fade-in w-full max-w-xl rounded-xl bg-white p-8 text-center text-black shadow-lg"
     >
-      <div class="text-5xl mb-4 animate-bounce">🏆</div>
-      <h1 class="text-3xl font-bold mb-4">¡Gracias, {nombre}!</h1>
-      <p class="text-lg">
-        Tu postulación de <strong>{obra}</strong> ha sido registrada con éxito.
-      </p>
+      <div class="mb-4 animate-bounce text-5xl">🏆</div>
+      <h1 class="mb-4 text-3xl font-bold">¡Gracias!</h1>
+      <p class="text-lg">Tu postulación ha sido registrada con éxito.</p>
       <p class="mt-4 text-sm text-black/80">
         Pronto estaremos revisando tu postulación. Gracias por ser parte de los
         Premios Príncipe de los Páramos 2025.
@@ -47,15 +42,9 @@ const obra = searchParams.get('obra') || 'tu obra'
       <div class="mt-6 flex justify-center gap-4">
         <a
           href="/"
-          class="bg-black-500 text-white px-4 py-2 rounded hover:bg-black-600 transition"
+          class="bg-golddark rounded px-4 py-2 font-bold text-black transition"
         >
           Volver al inicio
-        </a>
-        <a
-          href="/registro"
-          class="bg-black-500 text-white px-4 py-2 rounded hover:bg-black-600 transition"
-        >
-          Registrar otra obra
         </a>
       </div>
     </div>

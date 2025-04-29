@@ -32,7 +32,7 @@ export default function ProyectoForm() {
     const data = new FormData(form)
     const datos = Object.fromEntries(data.entries())
     // Tomar el perfil de pago seleccionado desde el estado si no viene del form
-    const perfilPago = datos.perfilPago || perfilPostulante;
+    const perfilPago = datos.perfilPago || perfilPostulante
 
     if (
       !data.get('aceptaReglamento') ||
@@ -329,7 +329,7 @@ export default function ProyectoForm() {
             <option value="">Selecciona un perfil</option>
             <option value="1">Soy un postulante en general ($150.000)</option>
             <option value="2">
-              Soy un postulante con crédito en la Red Colombiana de Escritores
+              Soy un postulante socio de la Red Colombiana de Escritores
               Audiovisuales ($100.000)
             </option>
             <option value="3">
@@ -352,21 +352,22 @@ export default function ProyectoForm() {
                   </div>
                   <div className="mb-1">Tarifa general para postulantes.</div>
                   <div className="mb-2 text-lg font-bold">Valor: $150.000</div>
-                  <MercadoPagoButton preferenceId="171795971-f7b899fb-d14a-4b6a-b0b6-402eab095ce6" />
+                  <MercadoPagoButton preferenceId="2406839620-1fa987df-faf3-4bcf-a864-be8d734ae798" />
                 </>
               )}
               {perfilPostulante === '2' && (
                 <>
                   <div className="mb-1 font-semibold">
-                    Postulante con crédito en la Red Colombiana de Escritores
+                    Postulante socio en la Red Colombiana de Escritores
                     Audiovisuales
                   </div>
                   <div className="mb-1">
-                    Tarifa especial para miembros de la Red Colombiana de
-                    Escritores Audiovisuales.
+                    Soy un postulante con crédito como escritor en la obra que
+                    hace parte de la Red Colombiana de Escritores Audiovisuales
+                    (se revisará el nombre del postulante con Redes)
                   </div>
                   <div className="mb-2 text-lg font-bold">Valor: $100.000</div>
-                  <MercadoPagoButton preferenceId="171795971-f7b899fb-d14a-4b6a-b0b6-402eab095ce6" />
+                  <MercadoPagoButton preferenceId="2406839620-2d5862ad-0b8a-4490-867f-f75178b65c29" />
                 </>
               )}
               {perfilPostulante === '3' && (
@@ -376,11 +377,13 @@ export default function ProyectoForm() {
                     universidad/institución reconocida
                   </div>
                   <div className="mb-1">
-                    Tarifa para postulantes de universidades o instituciones
-                    reconocidas.
+                    Soy un postulante con crédito como escritor en la obra y en
+                    los créditos aparece que se trata de una realización de una
+                    universidad o institución técnica o tecnológica reconocida
+                    ante el Ministerio de Educación (se validará la información)
                   </div>
                   <div className="mb-2 text-lg font-bold">Valor: $50.000</div>
-                  <MercadoPagoButton preferenceId="171795971-f7b899fb-d14a-4b6a-b0b6-402eab095ce6" />
+                  <MercadoPagoButton preferenceId="2406839620-bd13ec6d-bf29-4aad-80aa-5b956ff71d2d" />
                 </>
               )}
               {perfilPostulante === '4' && (
@@ -390,8 +393,10 @@ export default function ProyectoForm() {
                     la Universidad Central
                   </div>
                   <div className="mb-1">
-                    Participación gratuita para el Programa de Cine de la
-                    Universidad Central.
+                    Soy un postulante con crédito como escritor en la obra y en
+                    los créditos aparece que se trata de una producción del
+                    Programa de Cine de la Universidad Central (se revisará la
+                    información con la dirección del programa) 
                   </div>
                   <div className="mb-2 text-lg font-bold text-green-700">
                     Gratis
@@ -414,7 +419,15 @@ export default function ProyectoForm() {
           <legend className="text-gold-900 text-lg font-semibold">
             Consentimientos
           </legend>
-
+          <label className="block">
+            <input
+              type="checkbox"
+              name="pagoRealizado"
+              required
+              className="mr-2"
+            />
+            He realizado el pago de la postulación de la obra
+          </label>
           <label className="block">
             <input
               type="checkbox"
@@ -454,14 +467,14 @@ export default function ProyectoForm() {
         <div className="flex justify-end gap-4">
           <button
             type="reset"
-            className="rounded border px-4 py-2 text-gray-700"
+            className="bg-ui-error rounded border px-4 py-2 text-white"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="bg-gold-600 rounded px-4 py-2 font-semibold text-black disabled:opacity-50"
+            className="bg-golddark rounded px-4 py-2 font-semibold text-black disabled:opacity-50"
           >
             {loading ? 'Enviando...' : 'Postular'}
           </button>

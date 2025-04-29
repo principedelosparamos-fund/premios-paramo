@@ -1,6 +1,7 @@
 ---
 import Analytics from '@vercel/analytics/astro'
-import BackButton from '../components/ui/BackButton.astro'
+import Footer from '../components/Footer.astro'
+import Header from '../components/landing/Header.astro'
 import '../styles/global.css'
 ---
 
@@ -17,15 +18,12 @@ import '../styles/global.css'
         style="display:none;visibility:hidden"></iframe></noscript
     >
     <!-- End Google Tag Manager (noscript) -->
-    <header class="flex justify-start bg-black p-4">
-      <div class="container mx-auto">
-        <BackButton />
-      </div>
-    </header>
+    <Header />
     <div class="min-h-screen bg-gray-200">
       <div class="mx-auto max-w-3xl py-16">
         <slot />
       </div>
     </div>
+    <Footer />
   </body>
 </html>
