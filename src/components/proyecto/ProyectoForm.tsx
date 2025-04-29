@@ -1,14 +1,8 @@
-import {
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  Timestamp,
-  where,
-} from 'firebase/firestore'
+import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
 import { CATEGORIES } from '../../lib/categories'
 import { db } from '../../lib/firebase'
+import MercadoPagoButton from './MercadoPagoButton'
 
 // 🔥 Función para formatear fecha tipo "31/03/2025 19:00"
 const formatearFecha = (fechaInput: string) => {
@@ -24,6 +18,7 @@ const formatearFecha = (fechaInput: string) => {
 export default function ProyectoForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [perfilPostulante, setPerfilPostulante] = useState('')
 
   // Agregado: referencia a la colección 'proyectos' en Firestore para registrar los proyectos
   const proyectosRef = collection(db, 'proyectos')
@@ -36,6 +31,8 @@ export default function ProyectoForm() {
     const form = e.target as HTMLFormElement
     const data = new FormData(form)
     const datos = Object.fromEntries(data.entries())
+    // Tomar el perfil de pago seleccionado desde el estado si no viene del form
+    const perfilPago = datos.perfilPago || perfilPostulante;
 
     if (
       !data.get('aceptaReglamento') ||
@@ -72,7 +69,6 @@ export default function ProyectoForm() {
        * // }
        */
 
-
       const fechaRegistro = new Date().toLocaleString('es-CO', {
         hour12: false,
       })
@@ -85,6 +81,7 @@ export default function ProyectoForm() {
         email: correo, // Guardamos email limpio
         celular: celular, // Guardamos celular limpio
         categorias: categoria ? [categoria] : [],
+        perfilPago, // Guardamos el perfil de pago seleccionado
         fechaEstreno: formatearFecha(datos.fechaEstreno.toString()),
         fechaRegistro,
         timestamp: Timestamp.now(),
@@ -153,7 +150,7 @@ export default function ProyectoForm() {
           </label>
 
           <label className="block">
-            Perfil del postulante:
+            Rol del postulante en la obra:
             <select
               name="perfil"
               required
@@ -315,6 +312,102 @@ export default function ProyectoForm() {
             </label>
           ))}
         </fieldset>
+
+        {/* Select de perfil del postulante */}
+        <div className="mt-8">
+          <label htmlFor="perfil" className="mb-2 block font-semibold">
+            Perfil del postulante:
+          </label>
+          <select
+            id="perfilPago"
+            name="perfilPago"
+            required
+            className="mb-4 w-full rounded border p-2"
+            value={perfilPostulante}
+            onChange={(e) => setPerfilPostulante(e.target.value)}
+          >
+            <option value="">Selecciona un perfil</option>
+            <option value="1">Soy un postulante en general ($150.000)</option>
+            <option value="2">
+              Soy un postulante con crédito en la Red Colombiana de Escritores
+              Audiovisuales ($100.000)
+            </option>
+            <option value="3">
+              Soy un postulante con crédito y la obra es de una
+              universidad/institución reconocida ($50.000)
+            </option>
+            <option value="4">
+              Soy un postulante con crédito y la obra es del Programa de Cine de
+              la Universidad Central (Gratis)
+            </option>
+          </select>
+
+          {/* Fragmento de información y botón según perfil */}
+          {perfilPostulante && (
+            <div className="mb-4 rounded border bg-gray-50 p-4">
+              {perfilPostulante === '1' && (
+                <>
+                  <div className="mb-1 font-semibold">
+                    Postulante en general
+                  </div>
+                  <div className="mb-1">Tarifa general para postulantes.</div>
+                  <div className="mb-2 text-lg font-bold">Valor: $150.000</div>
+                  <MercadoPagoButton preferenceId="171795971-f7b899fb-d14a-4b6a-b0b6-402eab095ce6" />
+                </>
+              )}
+              {perfilPostulante === '2' && (
+                <>
+                  <div className="mb-1 font-semibold">
+                    Postulante con crédito en la Red Colombiana de Escritores
+                    Audiovisuales
+                  </div>
+                  <div className="mb-1">
+                    Tarifa especial para miembros de la Red Colombiana de
+                    Escritores Audiovisuales.
+                  </div>
+                  <div className="mb-2 text-lg font-bold">Valor: $100.000</div>
+                  <MercadoPagoButton preferenceId="171795971-f7b899fb-d14a-4b6a-b0b6-402eab095ce6" />
+                </>
+              )}
+              {perfilPostulante === '3' && (
+                <>
+                  <div className="mb-1 font-semibold">
+                    Postulante con crédito y la obra es de una
+                    universidad/institución reconocida
+                  </div>
+                  <div className="mb-1">
+                    Tarifa para postulantes de universidades o instituciones
+                    reconocidas.
+                  </div>
+                  <div className="mb-2 text-lg font-bold">Valor: $50.000</div>
+                  <MercadoPagoButton preferenceId="171795971-f7b899fb-d14a-4b6a-b0b6-402eab095ce6" />
+                </>
+              )}
+              {perfilPostulante === '4' && (
+                <>
+                  <div className="mb-1 font-semibold">
+                    Postulante con crédito y la obra es del Programa de Cine de
+                    la Universidad Central
+                  </div>
+                  <div className="mb-1">
+                    Participación gratuita para el Programa de Cine de la
+                    Universidad Central.
+                  </div>
+                  <div className="mb-2 text-lg font-bold text-green-700">
+                    Gratis
+                  </div>
+                  <button
+                    type="button"
+                    className="cursor-not-allowed rounded bg-gray-400 px-4 py-2 text-white"
+                    disabled
+                  >
+                    Sin pago requerido
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* ✅ Consentimientos */}
         <fieldset className="space-y-2">
