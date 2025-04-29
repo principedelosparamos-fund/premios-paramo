@@ -38,7 +38,7 @@ const ProyectoCard = ({
         <>
           {votado ? (
             <div className="mb-2 font-semibold text-green-600">
-              ✅ Ya calificado - Tu Promedio:{' '}
+              ✅ Ya calificado - Puntuación total:{' '}
               {promedioVotacionJurado?.toFixed(1)}
             </div>
           ) : (

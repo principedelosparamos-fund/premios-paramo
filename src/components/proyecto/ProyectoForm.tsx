@@ -25,6 +25,9 @@ export default function ProyectoForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  // Agregado: referencia a la colección 'proyectos' en Firestore para registrar los proyectos
+  const proyectosRef = collection(db, 'proyectos')
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
@@ -48,20 +51,27 @@ export default function ProyectoForm() {
       const correo = datos.email?.toString().toLowerCase().trim()
       const celular = datos.celular?.toString().trim()
 
-      // 🔍 Validar que no exista ya una obra con ese correo y celular
-      const proyectosRef = collection(db, 'proyectos')
-      const q = query(
-        proyectosRef,
-        where('email', '==', correo),
-        where('celular', '==', celular)
-      )
-      const querySnapshot = await getDocs(q)
+      /**
+       * VALIDACIÓN POR CORREO Y CELULAR (DESACTIVADA)
+       * ------------------------------------------------------
+       * Este bloque valida que no exista ya una obra registrada
+       * con el mismo correo y celular, previniendo postulaciones duplicadas.
+       * Para reactivar esta validación, descomenta el siguiente bloque:
+       *
+       * // const proyectosRef = collection(db, 'proyectos')
+       * // const q = query(
+       * //   proyectosRef,
+       * //   where('email', '==', correo),
+       * //   where('celular', '==', celular)
+       * // )
+       * // const querySnapshot = await getDocs(q)
+       * // if (!querySnapshot.empty) {
+       * //   setError('⚠️ Ya existe una postulación con este correo y celular.')
+       * //   setLoading(false)
+       * //   return
+       * // }
+       */
 
-      if (!querySnapshot.empty) {
-        setError('⚠️ Ya existe una postulación con este correo y celular.')
-        setLoading(false)
-        return
-      }
 
       const fechaRegistro = new Date().toLocaleString('es-CO', {
         hour12: false,
@@ -95,7 +105,7 @@ export default function ProyectoForm() {
         {/* 📝 Instrucciones de postulación */}
         <section className="space-y-4 leading-[1.8]">
           <h1 className="text-xl font-semibold">
-            Formulario de postulación proyecto
+            Formulario de postulación de la obra
           </h1>
           <p>
             Si usted está aquí es porque quiere postular una obra a los Premios
@@ -117,6 +127,10 @@ export default function ProyectoForm() {
             Ahora que está de acuerdo con las reglas y condiciones para postular
             una obra, por favor diligencie los siguientes datos. Todos los
             campos son obligatorios.
+          </p>
+          <p>
+            Cada obra se debe postular con datos (correo,celular) de usuario
+            independientes.
           </p>
         </section>
 
@@ -286,7 +300,7 @@ export default function ProyectoForm() {
             Categoría a la cual postula la obra
           </legend>
           <small className="block text-gray-600">
-            Solo se puede postular a una categoría
+            Solo se puede postular una obra en una categoría
           </small>
           {CATEGORIES.map((categoria) => (
             <label key={categoria} className="block">
@@ -324,7 +338,9 @@ export default function ProyectoForm() {
               required
               className="mr-2"
             />
-            La organización puede usar mis datos para contactarme.
+            La organización puede usar mis datos para ponerse en contacto
+            conmigo en caso de requerirlo, solo en función de la postulación y
+            participación en los Premios Príncipe de los Páramos.
           </label>
           <label className="block">
             <input
@@ -333,8 +349,11 @@ export default function ProyectoForm() {
               required
               className="mr-2"
             />
-            Garantizo que la información es veraz y tengo facultad para postular
-            esta obra.
+            Garantizo que la información diligenciada es veraz, tengo la
+            facultad para hacer esta postulación de acuerdo con el reglamento, y
+            mantendré ajena a la organización de los Premios Príncipe de los
+            Páramos ante cualquier reclamación por concepto de derechos de
+            autor.
           </label>
         </fieldset>
 
