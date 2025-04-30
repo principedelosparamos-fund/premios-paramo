@@ -6,7 +6,7 @@ export const CATEGORIES = [
   'Mejor cortometraje documental',
   'Mejor cortometraje de animación',
   'Mejor telenovela',
-  'Mejor serie o miniserie',
+  'Mejor serie o miniserie de ficción',
   'Mejor serie de animación',
   'Mejor serie documental',
   'Mejor obra de teatro',

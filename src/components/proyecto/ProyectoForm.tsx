@@ -125,10 +125,10 @@ export default function ProyectoForm() {
             una obra, por favor diligencie los siguientes datos. Todos los
             campos son obligatorios.
           </p>
-          <p>
+          {/* <p>
             Cada obra se debe postular con datos (correo,celular) de usuario
             independientes.
-          </p>
+          </p> */}
         </section>
 
         {error && <p className="text-red-600">{error}</p>}
@@ -327,16 +327,18 @@ export default function ProyectoForm() {
             onChange={(e) => setPerfilPostulante(e.target.value)}
           >
             <option value="">Selecciona un perfil</option>
-            <option value="1">Soy un postulante en general ($150.000)</option>
-            <option value="2">
+            <option value="150.000-General">
+              Soy un postulante en general ($150.000)
+            </option>
+            <option value="100.000-Socio">
               Soy un postulante socio de la Red Colombiana de Escritores
               Audiovisuales ($100.000)
             </option>
-            <option value="3">
+            <option value="50.000-Estudiante">
               Soy un postulante con crédito y la obra es de una
               universidad/institución reconocida ($50.000)
             </option>
-            <option value="4">
+            <option value="0-Central">
               Soy un postulante con crédito y la obra es del Programa de Cine de
               la Universidad Central (Gratis)
             </option>
@@ -345,7 +347,7 @@ export default function ProyectoForm() {
           {/* Fragmento de información y botón según perfil */}
           {perfilPostulante && (
             <div className="mb-4 rounded border bg-gray-50 p-4">
-              {perfilPostulante === '1' && (
+              {perfilPostulante === '150.000-General' && (
                 <>
                   <div className="mb-1 font-semibold">
                     Postulante en general
@@ -355,7 +357,7 @@ export default function ProyectoForm() {
                   <MercadoPagoButton preferenceId="2406839620-1fa987df-faf3-4bcf-a864-be8d734ae798" />
                 </>
               )}
-              {perfilPostulante === '2' && (
+              {perfilPostulante === '100.000-Socio' && (
                 <>
                   <div className="mb-1 font-semibold">
                     Postulante socio en la Red Colombiana de Escritores
@@ -370,7 +372,7 @@ export default function ProyectoForm() {
                   <MercadoPagoButton preferenceId="2406839620-2d5862ad-0b8a-4490-867f-f75178b65c29" />
                 </>
               )}
-              {perfilPostulante === '3' && (
+              {perfilPostulante === '50.000-Estudiante' && (
                 <>
                   <div className="mb-1 font-semibold">
                     Postulante con crédito y la obra es de una
@@ -386,7 +388,7 @@ export default function ProyectoForm() {
                   <MercadoPagoButton preferenceId="2406839620-bd13ec6d-bf29-4aad-80aa-5b956ff71d2d" />
                 </>
               )}
-              {perfilPostulante === '4' && (
+              {perfilPostulante === '0-Central' && (
                 <>
                   <div className="mb-1 font-semibold">
                     Postulante con crédito y la obra es del Programa de Cine de
