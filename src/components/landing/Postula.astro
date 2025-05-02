@@ -4,18 +4,20 @@ import premio from '../../assets/img/premio-pluma.png'
 import Button from '../ui/Button.astro'
 ---
 
-<section class="bg-gradient-to-r from-[#191300] to-[#6D5500] py-24">
+<section
+  class="overflow-x-hidden bg-gradient-to-r from-[#191300] to-[#6D5500] py-24"
+>
   <div class="container mx-auto grid grid-cols-1 lg:grid-cols-[.5fr_1fr]">
     <div
       id="postula-img"
-      class="flex translate-x-[-20px] justify-center opacity-0 transition-all duration-700 ease-out"
+      class="flex translate-x-[-20px] justify-center opacity-0 transition-all delay-300 duration-700 ease-out"
     >
       <!-- Imagen simple -->
       <Image src={premio} alt="Imagen premio" loading="lazy" />
     </div>
     <div
       id="postula-texto"
-      class="translate-x-[20px] opacity-0 transition-all duration-700 ease-out"
+      class="translate-x-[20px] opacity-0 transition-all duration-1500 ease-out"
     >
       <div class="flex h-full flex-col items-center justify-center p-6">
         <h2

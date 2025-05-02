@@ -49,21 +49,62 @@ const imageSet3 = [
     <div
       class="grid grid-cols-1 items-center gap-6 md:grid-cols-1 lg:grid-cols-3"
     >
-      <GalleryCard
-        images={imageSet3}
-        title="Lanzamiento Premios Príncipe de los Páramos"
-        client:load
-      />
-      <GalleryCard
-        images={imageSet1}
-        title="Presentación en FICCO"
-        client:load
-      />
-      <GalleryCard
-        images={imageSet2}
-        title="Cine Club en Guadalupe, Santander"
-        client:load
-      />
+      <div
+        id="gallery-card-1"
+        class="translate-y-6 opacity-0 transition-all delay-200 duration-1500 ease-out"
+      >
+        <GalleryCard
+          images={imageSet3}
+          title="Lanzamiento Premios Príncipe de los Páramos"
+          client:load
+        />
+      </div>
+      <div
+        id="gallery-card-2"
+        class="translate-y-6 opacity-0 transition-all delay-400 duration-1500 ease-out"
+      >
+        <GalleryCard
+          images={imageSet1}
+          title="Presentación en FICCO"
+          client:load
+        />
+      </div>
+      <div
+        id="gallery-card-3"
+        class="translate-y-6 opacity-0 transition-all delay-600 duration-1500 ease-out"
+      >
+        <GalleryCard
+          images={imageSet2}
+          title="Cine Club en Guadalupe, Santander"
+          client:load
+        />
+      </div>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    const fadeIn = (id, threshold = 0.1) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              el.classList.remove('opacity-0', 'translate-y-6')
+              el.classList.add('opacity-100', 'translate-y-0')
+              obs.unobserve(entry.target) // evita repetición
+            }
+          })
+        },
+        { threshold }
+      )
+      observer.observe(el)
+    }
+
+    fadeIn('gallery-card-1')
+    fadeIn('gallery-card-2')
+    fadeIn('gallery-card-3')
+  })
+</script>
