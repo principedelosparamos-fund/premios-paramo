@@ -17,10 +17,7 @@ export default function Snackbar({ message, type, onClose }: Props) {
 
   return (
     <div
-      className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg
-      ${type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}
-      transition-opacity duration-300
-    `}
+      className={`fixed bottom-6 left-1/2 -translate-x-1/2 transform rounded-lg px-6 py-3 shadow-lg ${type === 'success' ? 'bg-ui-success text-white' : 'bg-ui-error text-white'} transition-opacity duration-300`}
     >
       {message}
     </div>

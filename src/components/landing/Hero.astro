@@ -9,10 +9,24 @@ import hero1920wp from '../../assets/img/hero-photo-1920.webp'
 import heroMobilewp from '../../assets/img/hero-photo-700.webp'
 ---
 
+<style>
+  @keyframes slowZoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.18);
+    }
+  }
+</style>
 <section
-  class="bg-black-500 h-[30vh] w-full overflow-hidden md:h-[70vh] xl:h-[85vh]"
+  id="hero"
+  class="bg-black-500 relative h-[30vh] w-full overflow-hidden md:h-[70vh] xl:h-[85vh]"
 >
-  <picture class="h-full w-full">
+  <picture
+    id="hero-picture"
+    class="h-full w-full object-cover object-bottom opacity-0 transition-opacity duration-1000 ease-out"
+  >
     <!-- Fuentes en WebP optimizadas -->
     <source
       srcset={hero1920wp.src}
@@ -50,9 +64,20 @@ import heroMobilewp from '../../assets/img/hero-photo-700.webp'
     <Image
       src={hero1920}
       alt="Portada de los Premios Príncipe de los Páramos"
-      class="h-full w-full object-cover object-bottom"
+      class="h-full w-full animate-[slowZoom_15s_ease-in-out_infinite_alternate] object-cover object-bottom"
       loading="lazy"
       decoding="async"
     />
   </picture>
 </section>
+<script is:inline>
+  const pic = document.getElementById('hero-picture')
+  window.addEventListener('DOMContentLoaded', () => {
+    pic.classList.remove('opacity-0')
+    pic.classList.add('opacity-100')
+  })
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY
+    pic.style.transform = `translateY(${y * 0.15}px) scale(1.02)`
+  })
+</script>

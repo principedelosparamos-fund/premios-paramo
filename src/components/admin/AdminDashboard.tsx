@@ -1,7 +1,8 @@
 export const prerender = false
 import { useEffect, useState } from 'react'
-import ProyectoCard from './ProyectoCard'
 import { getAdminDashboardData } from '../../lib/getAdminDashboardData'
+import ProyectoCard from './ProyectoCard'
+import ProyectosCategoria from './ProyectosCategoria'
 
 interface Proyecto {
   id: string
@@ -66,20 +67,22 @@ export default function AdminDashboard(props: AdminDashboardProps) {
 
   if (!data) {
     return (
-      <div className="flex justify-center items-center h-40">
+      <div className="flex h-40 items-center justify-center">
         <p className="text-gray-600">Cargando datos...</p>
       </div>
     )
   }
 
   return (
-    <div className="p-4 space-y-6 container mx-auto">
+    <div className="container mx-auto space-y-6 p-4">
       {/* Encabezado */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-xl font-bold mb-2">Dashboard Administrativo</h1>
+          <h1 className="mb-2 text-2xl font-bold md:text-3xl">
+            Dashboard Administrativo
+          </h1>
           {lastUpdate && (
-            <p className="text-sm text-gray-500">
+            <p className="text-md text-gray-500">
               Última actualización: {lastUpdate}
             </p>
           )}
@@ -87,59 +90,78 @@ export default function AdminDashboard(props: AdminDashboardProps) {
 
         <button
           onClick={handleRefresh}
-          className="px-4 py-2 bg-gold-600 text-white rounded-lg"
+          className="bg-golddark-400 hover:bg-golddark-500 rounded-lg px-4 py-2 text-white"
         >
-          Actualizar Datos Manualmente
+          Actualizar Datos
         </button>
       </div>
 
       {/* Cards resumen */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-black text-white p-6 rounded-2xl flex flex-col items-center">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="bg-goldlight-100 text-goldlight-900 flex flex-col items-center rounded-2xl p-6">
           <div className="text-3xl font-bold">{data.proyectos.length}</div>
-          <div className="text-sm">Proyectos Registrados</div>
+          <div className="text-md">Proyectos Registrados</div>
         </div>
-        <div className="bg-black text-white p-6 rounded-2xl flex flex-col items-center">
+        <div className="bg-goldlight-100 text-goldlight-900 flex flex-col items-center rounded-2xl p-6">
           <div className="text-3xl font-bold">{data.juradosCount}</div>
-          <div className="text-sm">Jurados Registrados</div>
+          <div className="text-md">Jurados Registrados</div>
         </div>
-        <div className="bg-black text-white p-6 rounded-2xl flex flex-col items-center">
+        <div className="bg-goldlight-100 text-goldlight-900 flex flex-col items-center rounded-2xl p-6">
           <div className="text-3xl font-bold">{data.proyectosVotadosCount}</div>
-          <div className="text-sm">Proyectos Votados</div>
+          <div className="text-md">Proyectos Votados</div>
         </div>
       </div>
 
       {/* Botones de Reportes */}
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col gap-4 md:flex-row">
         <a
           href="/reportes/proyectos"
-          className="flex-1 text-center py-3 bg-gold-500 rounded-xl text-white font-semibold hover:bg-gold-600"
+          className="bg-goldlight-100 hover:bg-goldlight-300 text-goldlight-900 flex-1 rounded-xl py-3 text-center font-semibold"
         >
           📄 Reporte Proyectos
         </a>
         <a
           href="/reportes/calificaciones"
-          className="flex-1 text-center py-3 bg-gold-500 rounded-xl text-white font-semibold hover:bg-gold-600"
+          className="bg-goldlight-100 hover:bg-goldlight-300 text-goldlight-900 flex-1 rounded-xl py-3 text-center font-semibold"
         >
           📊 Reporte Calificaciones
         </a>
       </div>
 
       {/* Listado de Proyectos */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.proyectos.map((proyecto) => (
-          <ProyectoCard
-            key={proyecto.id}
-            id={proyecto.id}
-            nombre={proyecto.nombre}
-            categoria={proyecto.categoria || 'Sin Categoría'}
-            fechaRegistro={proyecto.fechaRegistro}
-            nombrePostulante={proyecto.nombrePostulante}
-            calificado={proyecto.calificado} // 🔥 nuevo
-            nombreJurado={proyecto.nombreJurado} // 🔥 nuevo
-            promedio={proyecto.promedio} // 🔥 nuevo
-          />
-        ))}
+      <div className="container mx-auto grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="col-span-2 mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
+          {data.proyectos.map((proyecto) => (
+            <ProyectoCard
+              key={proyecto.id}
+              id={proyecto.id}
+              nombre={proyecto.nombre}
+              categoria={proyecto.categoria || 'Sin Categoría'}
+              fechaRegistro={proyecto.fechaRegistro}
+              nombrePostulante={proyecto.nombrePostulante}
+              calificado={proyecto.calificado} // 🔥 nuevo
+              nombreJurado={proyecto.nombreJurado} // 🔥 nuevo
+              promedio={proyecto.promedio} // 🔥 nuevo
+            />
+          ))}
+        </div>
+        <div className="rounded-2xl bg-gray-100 p-4 shadow">
+          {/* Tabla de proyectos por categoría */}
+          <div className="">
+            <ProyectosCategoria
+              data={Object.entries(
+                data.proyectos.reduce(
+                  (acc: Record<string, number>, proyecto) => {
+                    const cat = proyecto.categoria || 'Sin Categoría'
+                    acc[cat] = (acc[cat] || 0) + 1
+                    return acc
+                  },
+                  {}
+                )
+              ).map(([categoria, cantidad]) => ({ categoria, cantidad }))}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )

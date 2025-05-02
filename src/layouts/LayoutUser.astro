@@ -19,8 +19,13 @@ import '../styles/global.css'
         style="display:none;visibility:hidden"></iframe></noscript
     >
     <!-- End Google Tag Manager (noscript) -->
-    <header class="bg-black-500 mb-8 flex justify-end p-3">
-      <LogoutButton client:load />
+    <header class="bg-black-500 mb-8 p-3">
+      <div class="container mx-auto flex items-center justify-between">
+        <h1 class="text-lg font-bold text-white">
+          Premios Príncipe de los Páramos
+        </h1>
+        <LogoutButton client:load />
+      </div>
     </header>
     <slot />
   </body>

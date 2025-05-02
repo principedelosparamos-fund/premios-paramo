@@ -14,11 +14,28 @@ import cine2 from '../../assets/img/cine/2.jpg'
 import cine3 from '../../assets/img/cine/3.jpg'
 import cine4 from '../../assets/img/cine/4.jpg'
 
+//Lanzamiento evento
+import evento from '../../assets/img/premios/1.jpg'
+import evento2 from '../../assets/img/premios/2.jpg'
+import evento3 from '../../assets/img/premios/3.jpg'
+import evento4 from '../../assets/img/premios/4.jpg'
+import evento5 from '../../assets/img/premios/5.jpg'
+import evento6 from '../../assets/img/premios/6.jpg'
+
 import GalleryCard from '../../components/gallery/GalleryCard.tsx'
 
 const imageSet1 = [foto1.src, foto2.src, foto3.src, foto4.src, foto5.src]
 
 const imageSet2 = [cine1.src, cine2.src, cine3.src, cine4.src]
+
+const imageSet3 = [
+  evento.src,
+  evento2.src,
+  evento3.src,
+  evento4.src,
+  evento5.src,
+  evento6.src,
+]
 ---
 
 <section id="gallery" class="bg-gray-50 py-16 md:py-24">
@@ -30,8 +47,13 @@ const imageSet2 = [cine1.src, cine2.src, cine3.src, cine4.src]
     </div>
 
     <div
-      class="grid grid-cols-1 items-center gap-6 md:grid-cols-2 lg:grid-cols-2"
+      class="grid grid-cols-1 items-center gap-6 md:grid-cols-1 lg:grid-cols-3"
     >
+      <GalleryCard
+        images={imageSet3}
+        title="Lanzamiento Premios Príncipe de los Páramos"
+        client:load
+      />
       <GalleryCard
         images={imageSet1}
         title="Presentación en FICCO"

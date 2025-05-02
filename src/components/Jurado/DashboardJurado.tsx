@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { db, auth } from '../../lib/firebase'
-import { collection, doc, getDocs, getDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { auth, db } from '../../lib/firebase'
 import { getUserInfoFromLocalStorage } from '../../lib/getUserRole'
 import ProyectoCard from './ProyectoCard'
 
@@ -155,7 +155,7 @@ const DashboardJurado = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex h-64 items-center justify-center">
         <span className="text-gray-600">Cargando proyectos...</span>
       </div>
     )
@@ -163,13 +163,13 @@ const DashboardJurado = () => {
 
   if (proyectos.length === 0) {
     return (
-      <div className="flex flex-col justify-center items-center h-64 text-center p-4">
-        <p className="text-lg font-semibold text-gray-700 mb-2">
+      <div className="flex h-64 flex-col items-center justify-center p-4 text-center">
+        <p className="mb-2 text-lg font-semibold text-gray-700">
           No tienes proyectos asignados todavía
         </p>
         <button
           onClick={actualizarManualmente}
-          className="mt-4 px-4 py-2 bg-gold-600 text-white rounded-lg"
+          className="bg-golddark-400 mt-4 rounded-lg px-4 py-2 text-white"
         >
           Actualizar
         </button>
@@ -179,10 +179,10 @@ const DashboardJurado = () => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-end mb-4">
+      <div className="mb-4 flex justify-end">
         <button
           onClick={actualizarManualmente}
-          className="px-4 py-2 bg-gold-600 text-white rounded-lg"
+          className="bg-golddark-400 rounded-lg px-4 py-2 text-white"
         >
           Actualizar proyectos
         </button>
