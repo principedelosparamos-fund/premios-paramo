@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { auth, db } from '../../lib/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc, Timestamp } from 'firebase/firestore'
+import { useState } from 'react'
 import { CATEGORIES } from '../../lib/categories' // 👈 Importamos categorías
+import { auth, db } from '../../lib/firebase'
 
 export default function RegisterJuradoForm() {
   const [formData, setFormData] = useState({
@@ -71,15 +71,15 @@ export default function RegisterJuradoForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 p-6 bg-white rounded-md shadow-md"
+      className="space-y-6 rounded-md bg-white p-6 shadow-md"
     >
-      <h2 className="text-xl font-bold text-center mb-4">
+      <h2 className="mb-4 text-center text-xl font-bold">
         Registrar Nuevo Jurado
       </h2>
 
       {/* Nombre */}
       <div className="flex flex-col space-y-2">
-        <label htmlFor="nombre" className="font-medium text-sm">
+        <label htmlFor="nombre" className="text-sm font-medium">
           Nombre
         </label>
         <input
@@ -88,13 +88,13 @@ export default function RegisterJuradoForm() {
           value={formData.nombre}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border rounded-md"
+          className="w-full rounded-md border px-4 py-2"
         />
       </div>
 
       {/* Apellido */}
       <div className="flex flex-col space-y-2">
-        <label htmlFor="apellido" className="font-medium text-sm">
+        <label htmlFor="apellido" className="text-sm font-medium">
           Apellido
         </label>
         <input
@@ -103,13 +103,13 @@ export default function RegisterJuradoForm() {
           value={formData.apellido}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border rounded-md"
+          className="w-full rounded-md border px-4 py-2"
         />
       </div>
 
       {/* Email */}
       <div className="flex flex-col space-y-2">
-        <label htmlFor="email" className="font-medium text-sm">
+        <label htmlFor="email" className="text-sm font-medium">
           Correo Electrónico
         </label>
         <input
@@ -119,13 +119,13 @@ export default function RegisterJuradoForm() {
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border rounded-md"
+          className="w-full rounded-md border px-4 py-2"
         />
       </div>
 
       {/* Celular */}
       <div className="flex flex-col space-y-2">
-        <label htmlFor="celular" className="font-medium text-sm">
+        <label htmlFor="celular" className="text-sm font-medium">
           Celular
         </label>
         <input
@@ -134,16 +134,16 @@ export default function RegisterJuradoForm() {
           value={formData.celular}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border rounded-md"
+          className="w-full rounded-md border px-4 py-2"
         />
       </div>
 
       {/* Categorías */}
       <div className="flex flex-col space-y-2">
-        <label className="font-medium text-sm mb-2">
+        <label className="mb-2 text-sm font-medium">
           Categorías que puede calificar
         </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {CATEGORIES.map((category) => (
             <div key={category} className="flex items-center space-x-2">
               <input
@@ -152,7 +152,7 @@ export default function RegisterJuradoForm() {
                 value={category}
                 checked={formData.categorias.includes(category)}
                 onChange={handleCategoryChange}
-                className="w-4 h-4"
+                className="h-4 w-4"
               />
               <label htmlFor={category} className="text-sm">
                 {category}
@@ -166,12 +166,12 @@ export default function RegisterJuradoForm() {
       </div>
 
       {/* Mensajes */}
-      {error && <div className="text-red-600 font-semibold">{error}</div>}
-      {success && <div className="text-green-600 font-semibold">{success}</div>}
+      {error && <div className="font-semibold text-red-600">{error}</div>}
+      {success && <div className="font-semibold text-green-600">{success}</div>}
 
       <button
         type="submit"
-        className="w-full bg-gold-600 text-white py-2 rounded-md hover:bg-gold-700 transition"
+        className="bg-golddark-500 hover:bg-golddark-600 w-full rounded-md py-2 text-white transition"
       >
         Registrar Jurado
       </button>

@@ -1,10 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro'
 import RegisterJuradoForm from '../../components/admin/RegisterJurado' // o la ruta donde tengas tu componente
+import Head from '../../components/Head.astro'
+import LayoutFormularios from '../../layouts/LayoutFormularios.astro'
 ---
 
-<Layout>
-  <div class="max-w-3xl mx-auto py-10">
+<Head title="Registro de jurados" description="Registro de jurados" />
+<LayoutFormularios>
+  <div class="mx-auto max-w-3xl py-10">
     <RegisterJuradoForm client:load />
   </div>
-</Layout>
+</LayoutFormularios>

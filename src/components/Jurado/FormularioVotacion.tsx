@@ -148,7 +148,7 @@ const FormularioVotacion = ({
       <button
         onClick={handleSubmit}
         disabled={enviando || Object.keys(respuestas).length !== 3}
-        className="bg-gold-600 hover:bg-gold-700 mt-6 w-full rounded py-2 font-semibold text-white disabled:opacity-50"
+        className="bg-golddark-600 hover:bg-golddark-700 mt-6 w-full rounded py-2 font-semibold text-white disabled:opacity-50"
       >
         {enviando ? 'Enviando...' : 'Enviar Votación'}
       </button>

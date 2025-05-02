@@ -1,5 +1,5 @@
-import { db } from './firebase'
 import { collection, getDocs } from 'firebase/firestore'
+import { db } from './firebase'
 
 export async function getAdminDashboardData() {
   const proyectosSnapshot = await getDocs(collection(db, 'proyectos'))
@@ -11,7 +11,10 @@ export async function getAdminDashboardData() {
     return {
       id: doc.id,
       nombre: data.nombreObra, // 🔥 corregido aquí
-      categoria: data.categorias[0] || 'Sin categoría',
+      categoria:
+        Array.isArray(data.categorias) && data.categorias.length > 0
+          ? data.categorias[0]
+          : 'Sin categoría',
       fechaRegistro: data.fechaRegistro,
       nombrePostulante: data.nombrePostulante,
     }

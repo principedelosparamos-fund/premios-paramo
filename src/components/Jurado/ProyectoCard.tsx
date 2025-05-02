@@ -26,7 +26,7 @@ const ProyectoCard = ({
       </p>
 
       {modo === 'admin' && (
-        <div className="mb-2 font-semibold text-blue-600">
+        <div className="text-ui-info mb-2 font-semibold">
           Promedio General:{' '}
           {proyecto.promedioGeneral
             ? proyecto.promedioGeneral.toFixed(1)
@@ -37,12 +37,12 @@ const ProyectoCard = ({
       {modo === 'jurado' && (
         <>
           {votado ? (
-            <div className="mb-2 font-semibold text-green-600">
+            <div className="text-ui-success mb-2 font-semibold">
               ✅ Ya calificado - Puntuación total:{' '}
               {promedioVotacionJurado?.toFixed(1)}
             </div>
           ) : (
-            <div className="mb-2 font-semibold text-yellow-800">
+            <div className="text-ui-warning mb-2 font-semibold">
               ⚡ Sin calificar
             </div>
           )}
@@ -56,7 +56,7 @@ const ProyectoCard = ({
             ? `/admin/proyecto/${proyecto.id}`
             : `/jurado/${proyecto.id}`
         }
-        className="bg-gold-600 mt-4 inline-block w-full rounded-lg px-4 py-2 text-center text-white"
+        className="bg-golddark-500 mt-4 inline-block w-full rounded-lg px-4 py-2 text-center text-white"
       >
         Ver Proyecto
       </a>
