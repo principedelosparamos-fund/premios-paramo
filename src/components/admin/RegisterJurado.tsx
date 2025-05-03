@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
-import { CATEGORIES } from '../../lib/categories' // 👈 Importamos categorías
+import { CATEGORIES } from '../../lib/categories'
 import { auth, db } from '../../lib/firebase'
 
 export default function RegisterJuradoForm() {
@@ -12,9 +12,9 @@ export default function RegisterJuradoForm() {
     celular: '',
     categorias: [] as string[],
   })
-
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -23,36 +23,39 @@ export default function RegisterJuradoForm() {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
     let updatedCategorias = [...formData.categorias]
-
     if (checked) {
       updatedCategorias.push(value)
     } else {
       updatedCategorias = updatedCategorias.filter((c) => c !== value)
     }
-
     setFormData({ ...formData, categorias: updatedCategorias })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
+    setSuccess('')
+    setLoading(true)
     console.log('🚀 Registrando nuevo jurado con datos:', formData)
-
     try {
       const { email, celular } = formData
       const password = `*${celular}*`
-
+      // 1. Crear usuario en Authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       )
-      const user = userCredential.user
-      console.log('✅ Usuario creado en Authentication:', user.uid)
-
-      await setDoc(doc(db, 'jurados', user.uid), {
+      console.log(
+        '✅ Usuario creado en Authentication:',
+        userCredential.user.uid
+      )
+      // 2. Registrar en Firestore
+      console.log('UID autenticado:', auth.currentUser?.uid)
+      await setDoc(doc(db, 'jurados', userCredential.user.uid), {
         ...formData,
         rol: 'jurado',
-        fechaRegistro: new Date().toLocaleString('es-CO'),
+        fechaRegistro: new Date().toISOString(),
         timestamp: Timestamp.now(),
       })
       console.log('✅ Documento creado en Firestore para el jurado.')

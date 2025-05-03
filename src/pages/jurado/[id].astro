@@ -1,113 +1,18 @@
 ---
-import { collection, doc, getDoc } from 'firebase/firestore'
 import Head from '../../components/Head.astro'
-import FormularioVotacion from '../../components/jurado/FormularioVotacion.tsx'
+import ProyectoDetalleJurado from '../../components/jurado/ProyectoDetalleJurado.tsx'
 import BackButton from '../../components/ui/BackButton.astro'
 import LayoutFormularios from '../../layouts/LayoutFormularios.astro'
-import { db } from '../../lib/firebase'
 const { id } = Astro.params
-
-let proyecto = null
-
-try {
-  const docRef = doc(collection(db, 'proyectos'), id)
-  const docSnap = await getDoc(docRef)
-
-  if (docSnap.exists()) {
-    proyecto = docSnap.data()
-  }
-} catch (error) {
-  console.error('Error al cargar proyecto:', error)
-}
 ---
 
 <Head
-  title="Votar Proyecto"
-  description="Vota por el proyecto que más te guste"
+  title="Detalle del proyecto postulado | Premios Príncipe de los Páramos"
+  description="Detalle del proyecto postulado"
 />
 <LayoutFormularios>
-  <div class="mx-auto max-w-4xl space-y-6 p-6">
+  <div class="py-5">
     <BackButton />
-    {
-      proyecto ? (
-        <div class="space-y-4 rounded-xl bg-white p-6">
-          <h1 class="text-2xl font-bold text-black">
-            {proyecto.nombreObra || 'Sin nombre'}
-          </h1>
-
-          <div class="text-sm text-gray-500">
-            Postulado por: {proyecto.nombrePostulante || 'No disponible'}
-          </div>
-
-          <div class="flex flex-col gap-2 text-sm text-gray-700">
-            <div>
-              <strong>Categoría:</strong>{' '}
-              {Array.isArray(proyecto.categorias)
-                ? proyecto.categorias.join(', ')
-                : proyecto.categorias || 'No asignada'}
-            </div>
-            <div>
-              <strong>Perfil:</strong> {proyecto.perfil || 'No disponible'}
-            </div>
-            <div>
-              <strong>Fecha de Registro:</strong>{' '}
-              {proyecto.fechaRegistro || 'No disponible'}
-            </div>
-            <div>
-              <strong>Sinopsis:</strong> {proyecto.sinopsis || 'No disponible'}
-            </div>
-          </div>
-
-          <div class="mt-6 flex flex-col gap-4">
-            {proyecto.linkImagen && (
-              <a
-                href={proyecto.linkImagen}
-                target="_blank"
-                class="bg-golddark-500 hover:bg-golddark-600 rounded px-4 py-2 text-center text-white"
-              >
-                📷 Ver Imagen
-              </a>
-            )}
-
-            {proyecto.linkVideo && (
-              <a
-                href={proyecto.linkVideo}
-                target="_blank"
-                class="bg-golddark-500 hover:bg-golddark-600 rounded px-4 py-2 text-center text-white"
-              >
-                🎬 Ver Video
-              </a>
-            )}
-
-            {proyecto.linkLibreto && (
-              <a
-                href={proyecto.linkLibreto}
-                target="_blank"
-                class="bg-golddark-500 hover:bg-golddark-600 rounded px-4 py-2 text-center text-white"
-              >
-                📄 Ver Libreto
-              </a>
-            )}
-          </div>
-          {proyecto && (
-            <div class="mt-8">
-              {proyecto.calificado ? (
-                <div class="bg-ui-success rounded-lg p-4 text-white">
-                  ✅ ¡Ya has calificado este proyecto!
-                </div>
-              ) : (
-                <FormularioVotacion
-                  idProyecto={id ?? ''}
-                  nombreProyecto={proyecto.nombreObra ?? 'Sin nombre'}
-                  client:load
-                />
-              )}
-            </div>
-          )}
-        </div>
-      ) : (
-        <div class="text-center text-gray-600">Proyecto no encontrado.</div>
-      )
-    }
   </div>
+  <ProyectoDetalleJurado client:only="react" id={id ?? ''} />
 </LayoutFormularios>
