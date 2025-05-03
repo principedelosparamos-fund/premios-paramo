@@ -1,9 +1,15 @@
 ---
 import ReportesCalificaciones from '../../components/reportes/ReportesCalificaciones'
+import BackButton from '../../components/ui/BackButton.astro'
 import Layout from '../../layouts/Layout.astro'
 ---
 
 <Layout>
+  <header class="bg-black p-4">
+    <div class="container mx-auto">
+      <BackButton />
+    </div>
+  </header>
   <main class="py-12">
     <ReportesCalificaciones client:only="react" />
   </main>

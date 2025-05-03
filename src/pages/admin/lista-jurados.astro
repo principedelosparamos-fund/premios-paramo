@@ -1,13 +1,13 @@
 ---
 import Head from '../../components/Head.astro'
-import ReportesProyectos from '../../components/reportes/ReportesProyectos'
+import ListaJurados from '../../components/admin/ListaJurados'
 import BackButton from '../../components/ui/BackButton.astro'
 import Layout from '../../layouts/Layout.astro'
 ---
 
 <Head
-  title="Reportes de Proyectos | Premios Príncipe de los Páramos"
-  description="Reportes de Proyectos"
+  title="Lista de Jurados | Premios Príncipe de los Páramos"
+  description="Lista de Jurados"
 />
 <Layout>
   <header class="bg-black p-4">
@@ -16,6 +16,6 @@ import Layout from '../../layouts/Layout.astro'
     </div>
   </header>
   <main class="py-12">
-    <ReportesProyectos client:only />
+    <ListaJurados client:only="react" />
   </main>
 </Layout>
