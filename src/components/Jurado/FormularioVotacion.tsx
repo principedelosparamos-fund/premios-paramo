@@ -110,6 +110,7 @@ const FormularioVotacion = ({
   return (
     <div className="rounded-lg bg-white p-4">
       <h2 className="mb-4 text-lg font-semibold">Califica este proyecto</h2>
+      <p className="mb-4 text-sm text-gray-700 font-medium">Las calificaciones deben ser del <span className="font-bold">1</span> al <span className="font-bold">10</span>.</p>
       {yaFueCalificado ? (
         <div className="bg-ui-success rounded-lg p-4 text-white mb-4">
           ✅ ¡Este proyecto ya ha sido calificado!
@@ -141,10 +142,15 @@ const FormularioVotacion = ({
                     type="number"
                     min={1}
                     max={10}
+                    step={1}
                     value={respuestas[criterio] || ''}
-                    onChange={(e) =>
-                      handleChange(criterio, parseInt(e.target.value))
-                    }
+                    onChange={(e) => {
+                      let valor = parseInt(e.target.value);
+                      if (isNaN(valor)) valor = 1;
+                      if (valor < 1) valor = 1;
+                      if (valor > 10) valor = 10;
+                      handleChange(criterio, valor);
+                    }}
                     className="w-32 rounded-md border p-2"
                     placeholder="Calificación (1-10)"
                   />
