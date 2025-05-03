@@ -126,6 +126,12 @@ export default function AdminDashboard(props: AdminDashboardProps) {
         >
           📊 Reporte Calificaciones
         </a>
+        <a
+          href="/admin/jurado"
+          className="bg-goldlight-100 hover:bg-goldlight-300 text-goldlight-900 flex-1 rounded-xl py-3 text-center font-semibold"
+        >
+          📊 Registrar jurado
+        </a>
       </div>
 
       {/* Listado de Proyectos */}
