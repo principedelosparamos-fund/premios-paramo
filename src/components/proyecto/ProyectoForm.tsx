@@ -88,7 +88,7 @@ export default function ProyectoForm() {
         calificado: false,
       })
 
-      window.location.href = '/proyecto-gracias'
+      window.location.href = '/registro-exitoso'
     } catch (err) {
       console.error(err)
       setError('❌ No se pudo registrar la obra. Intenta nuevamente.')

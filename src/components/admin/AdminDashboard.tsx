@@ -132,6 +132,12 @@ export default function AdminDashboard(props: AdminDashboardProps) {
         >
           📊 Registrar jurado
         </a>
+        <a
+          href="/admin/lista-jurados"
+          className="bg-goldlight-100 hover:bg-goldlight-300 text-goldlight-900 flex-1 rounded-xl py-3 text-center font-semibold"
+        >
+          👌 Lista de jurados
+        </a>
       </div>
 
       {/* Listado de Proyectos */}
