@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro'
+import Head from '../components/Head.astro'
 import Header from '../components/landing/Header.astro'
 import CardDocument from '../components/transparencia/CardDocument.astro'
 import Heading from '../components/ui/Heading.astro'
@@ -33,6 +34,10 @@ const documents = [
 ]
 ---
 
+<Head
+  title="Transparencia | Premios Príncipe de los Páramos"
+  description="Conoce nuestras políticas de transparencia y ética en la gestión de los premios y selección de proyectos."
+/>
 <Layout>
   <Header />
   <Heading

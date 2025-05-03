@@ -1,3 +1,14 @@
 User-agent: *
+Disallow: /
+
 Allow: /
-Sitemap: https://www.principedelosparamos.org/sitemap.xml
+Allow: /acerca/
+Allow: /gracias/
+Allow: /proyecto-gracias/
+Allow: /transparencia/
+Allow: /proximamente/
+Allow: /programacion/
+Allow: /acceso-denegado/
+Allow: /proyecto/
+
+Sitemap: https://www.principedelosparamos.org/sitemap-0.xml
