@@ -1,5 +1,6 @@
 ---
 import simon from '../assets/logos/amigosc.svg'
+import central from '../assets/logos/central.svg'
 import colonia from '../assets/logos/coloniac.svg'
 import corazon from '../assets/logos/corazonc.svg'
 import games from '../assets/logos/gamersc.svg'
@@ -9,6 +10,11 @@ import Layout from '../layouts/Layout.astro'
 import { Image } from 'astro:assets'
 
 const supportEntities = [
+  {
+    name: 'Universidad Central',
+    logo: central,
+    link: 'https://www.ucentral.edu.co/',
+  },
   {
     name: 'Red Colombiana de Escritores Audiovisuales',
     logo: red,
@@ -110,7 +116,7 @@ const importantLinks = [
               Entidades que Apoyan
             </p>
           </div>
-          <div class="flex flex-wrap justify-center gap-4">
+          <div class="flex flex-wrap justify-center gap-8 sm:gap-4">
             {
               supportEntities.map((entity) => (
                 <a
