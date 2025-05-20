@@ -1,5 +1,6 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
+import imagenFestival from '../../assets/img/imagen-festival.png'
 import { CATEGORIES } from '../../lib/categories'
 import { db } from '../../lib/firebase'
 import MercadoPagoButton from './MercadoPagoButton'
@@ -101,6 +102,9 @@ export default function ProyectoForm() {
       <form onSubmit={handleSubmit} className="mx-auto space-y-8 p-6">
         {/* 📝 Instrucciones de postulación */}
         <section className="space-y-4 leading-[1.8]">
+          <div className="flex items-center justify-center pb-5">
+            <img src={imagenFestival.src} alt="Imagen Festival" />
+          </div>
           <h1 className="text-xl font-semibold">
             Formulario de postulación de la obra
           </h1>
