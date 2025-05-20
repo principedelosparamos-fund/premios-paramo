@@ -3,10 +3,6 @@ import { Image } from 'astro:assets'
 import hero1024 from '../../assets/img/hero-photo-1024.jpg'
 import hero1920 from '../../assets/img/hero-photo-1920.jpg'
 import heroMobile from '../../assets/img/hero-photo-700.jpg'
-
-import hero1024wp from '../../assets/img/hero-photo-1024.webp'
-import hero1920wp from '../../assets/img/hero-photo-1920.webp'
-import heroMobilewp from '../../assets/img/hero-photo-700.webp'
 ---
 
 <style>
@@ -27,22 +23,6 @@ import heroMobilewp from '../../assets/img/hero-photo-700.webp'
     id="hero-picture"
     class="h-full w-full object-cover object-bottom opacity-0 transition-opacity duration-1000 ease-out"
   >
-    <!-- Fuentes en WebP optimizadas -->
-    <source
-      srcset={hero1920wp.src}
-      media="(min-width: 1280px)"
-      type="image/webp"
-    />
-    <source
-      srcset={hero1024wp.src}
-      media="(min-width: 768px)"
-      type="image/webp"
-    />
-    <source
-      srcset={heroMobilewp.src}
-      media="(max-width: 767px)"
-      type="image/webp"
-    />
 
     <!-- Fuentes en JPG como fallback -->
     <source
