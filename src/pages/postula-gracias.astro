@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout>
+  <style>
+    @keyframes fadeZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+  </style>
+
+  <main
+    class="flex min-h-screen items-center justify-center bg-gray-200 p-6 text-white"
+  >
+    <div
+      class="animate-fade-in w-full max-w-xl rounded-xl bg-white p-8 text-center text-black shadow-lg"
+    >
+      <div class="mb-4 animate-bounce text-5xl">🏆</div>
+      <h1 class="mb-4 text-3xl font-bold">¡Gracias!</h1>
+      <p class="text-lg">Las postulaciones estuvieron abiertas hasta el 31 de mayo de 2025.</p>
+      <p class="mt-4 text-sm text-black/80">
+        ¡Espera pronto la lista de proyectos nominados y sigamos aportando a la diversidad y biodiversidad de Colombia a través de las artes audiovisuales y escénicas!
+      </p>
+
+      <div class="mt-6 flex justify-center gap-4">
+        <a
+          href="/"
+          class="bg-golddark rounded px-4 py-2 font-bold text-black transition"
+        >
+          Volver al inicio
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .animate-fade-in {
+      animation: fadeZoom 0.6s ease-out forwards;
+    }
+    .animate-bounce {
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+  </style>
+</Layout>
