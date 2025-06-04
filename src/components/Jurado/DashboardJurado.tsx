@@ -8,6 +8,7 @@ import ProyectoCard from './ProyectoCard'
 interface Proyecto {
   id: string
   nombre: string
+  nombrePostulante?: string
   categorias: string[]
   promedioGeneral?: number
   calificado?: boolean // 🔥 ahora trae el campo de firestore
@@ -78,11 +79,12 @@ const DashboardJurado = () => {
           proyectosList.push({
             id: doc.id,
             nombre: data.nombreObra,
+            nombrePostulante: data.nombrePostulante || 'Sin nombre',
             categorias: Array.isArray(data.categorias)
               ? data.categorias
               : typeof data.categorias === 'string'
                 ? [data.categorias]
-                : [], // 🔥 aquí el cambio
+                : [],
           })
         }
       })
@@ -194,6 +196,7 @@ const DashboardJurado = () => {
             proyecto={{
               id: proyecto.id,
               nombre: proyecto.nombre,
+              nombrePostulante: proyecto.nombrePostulante,
               categorias: proyecto.categorias,
               promedioGeneral: proyecto.promedioGeneral,
             }}

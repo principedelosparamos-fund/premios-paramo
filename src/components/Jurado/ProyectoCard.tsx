@@ -2,6 +2,7 @@ interface ProyectoCardProps {
   proyecto: {
     id: string
     nombre: string
+    nombrePostulante?: string
     categorias: string[]
     promedioGeneral?: number // para Admin
   }
@@ -19,10 +20,16 @@ const ProyectoCard = ({
 }: ProyectoCardProps) => {
   return (
     <div className="rounded-xl border border-gray-300 bg-white p-4 shadow-md">
-      <h2 className="mb-2 text-lg font-bold">{proyecto.nombre}</h2>
+      <h2 className="mb-1 text-lg font-bold">{proyecto.nombre}</h2>
+      
+        <p className="mb-1 text-sm text-gray-600">
+          <span className="font-medium">Autor:</span>{' '}
+          {proyecto.nombrePostulante}
+        </p>
 
       <p className="mb-2 text-sm text-gray-600">
-        Categoría: {proyecto.categorias.join(', ')}
+        <span className="font-medium">Categoría:</span>{' '}
+        {proyecto.categorias.join(', ')}
       </p>
 
       {modo === 'admin' && (
