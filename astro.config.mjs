@@ -40,6 +40,5 @@ export default defineConfig({
   },
   redirects: {
     '/postular': '/postula-gracias',
-    '/login': '/mantenimiento',
   },
 })

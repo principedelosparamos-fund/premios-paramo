@@ -35,7 +35,6 @@ export async function getAdminDashboardData() {
     const votacion = votacionesMap.get(proyecto.id)
     return {
       ...proyecto,
-      calificado: Boolean(votacion),
       nombreJurado: votacion?.nombreJurado || null,
       promedio: votacion ? Number(votacion.promedio) : null,
     }

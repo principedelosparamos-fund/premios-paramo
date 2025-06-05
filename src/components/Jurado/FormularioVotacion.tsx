@@ -8,6 +8,8 @@ interface FormularioVotacionProps {
   nombreProyecto: string
   onVotoExitoso?: () => void;
   yaFueCalificado?: boolean;
+  juradoInfo?: any;
+  votacionJurado?: any;
 }
 
 const PREGUNTAS = [
@@ -33,12 +35,15 @@ const FormularioVotacion = ({
   nombreProyecto,
   onVotoExitoso,
   yaFueCalificado,
+  juradoInfo,
+  votacionJurado,
 }: FormularioVotacionProps) => {
   const [success, setSuccess] = useState<string | null>(null);
   const [respuestas, setRespuestas] = useState<{ [key: string]: number }>({})
   const [promedio, setPromedio] = useState<number | null>(null)
   const [enviando, setEnviando] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [votoRegistrado, setVotoRegistrado] = useState(false);
 
   const handleChange = (criterio: string, valor: number) => {
     const nuevasRespuestas = { ...respuestas, [criterio]: valor }
@@ -55,8 +60,7 @@ const FormularioVotacion = ({
   }
 
   const handleSubmit = async () => {
-    const user = getUserInfoFromLocalStorage()
-    if (!user) {
+    if (!juradoInfo) {
       setError('Usuario no autenticado')
       return
     }
@@ -81,11 +85,23 @@ const FormularioVotacion = ({
         })
         .replace(',', '')
 
+      // DEBUG: log de los datos antes de guardar
+      console.log('Datos a guardar en votación:', {
+        idProyecto,
+        nombreProyecto,
+        idJurado: juradoInfo.uid,
+        nombreJurado: juradoInfo.nombre || juradoInfo.email || 'Jurado',
+        emailJurado: juradoInfo.email || 'sin-email',
+        fechaVotacion,
+        respuestas,
+        promedio,
+      })
       await addDoc(collection(db, 'votaciones'), {
         idProyecto,
         nombreProyecto,
-        nombreJurado: user.nombre,
-        emailJurado: user.email,
+        idJurado: juradoInfo.uid,
+        nombreJurado: juradoInfo.nombre || juradoInfo.email || 'Jurado',
+        emailJurado: juradoInfo.email || 'sin-email',
         fechaVotacion,
         respuestas,
         promedio,
@@ -96,9 +112,7 @@ const FormularioVotacion = ({
       setPromedio(null)
       setError(null)
       setSuccess('¡Votación registrada!')
-
-      const proyectoRef = doc(db, 'proyectos', idProyecto)
-      await updateDoc(proyectoRef, { calificado: true })
+      setVotoRegistrado(true);
     } catch (e) {
       console.error('Error guardando votación:', e)
       setError('Ocurrió un error guardando la votación.')
@@ -111,9 +125,9 @@ const FormularioVotacion = ({
     <div className="rounded-lg bg-white p-4">
       <h2 className="mb-4 text-lg font-semibold">Califica este proyecto</h2>
       <p className="mb-4 text-sm text-gray-700 font-medium">Las calificaciones deben ser del <span className="font-bold">1</span> al <span className="font-bold">10</span>.</p>
-      {yaFueCalificado ? (
+      {(yaFueCalificado || votoRegistrado) ? (
         <div className="bg-ui-success rounded-lg p-4 text-white mb-4">
-          ✅ ¡Este proyecto ya ha sido calificado!
+          ✅ Este proyecto ya fue calificado
         </div>
       ) : (
         <>

@@ -49,7 +49,7 @@ export default function CrearProyectos() {
           categorias: [obtenerCategoriaAleatoria()],
           fechaRegistro: new Date().toLocaleString('es-CO', { hour12: false }),
           timestamp: Timestamp.now(),
-          calificado: false,
+  
         })
       }
 

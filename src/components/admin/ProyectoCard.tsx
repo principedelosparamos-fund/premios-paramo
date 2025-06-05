@@ -15,7 +15,6 @@ export default function ProyectoCard({
   fechaRegistro,
   id,
   nombrePostulante,
-  calificado,
   nombreJurado,
   promedio,
 }: ProyectoCardProps) {
@@ -30,16 +29,7 @@ export default function ProyectoCard({
       <div className="text-sm text-gray-600">{categoria}</div>
       <div className="mb-2 text-xs text-gray-400">{fechaRegistro}</div>
 
-      {/* 🔥 Estado de votación */}
-      {calificado ? (
-        <div className="mt-2 text-sm text-green-600">
-          ✅ Calificado por {nombreJurado} - Promedio: {promedio}
-        </div>
-      ) : (
-        <div className="mt-2 text-sm text-red-600">
-          ⏳ Pendiente de calificación
-        </div>
-      )}
+
 
       <a
         href={`/admin/proyecto/${id}`}

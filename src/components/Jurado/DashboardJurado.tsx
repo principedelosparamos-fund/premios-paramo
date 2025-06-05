@@ -18,6 +18,7 @@ const LOCAL_STORAGE_PROYECTOS = 'proyectosJurado'
 const LOCAL_STORAGE_VOTACIONES = 'votacionesJurado'
 
 const DashboardJurado = () => {
+  const [proyectoSeleccionado, setProyectoSeleccionado] = useState<string | null>(null);
   const [proyectos, setProyectos] = useState<Proyecto[]>([])
   const [votaciones, setVotaciones] = useState<Record<string, number>>({})
   const [categoriasAsignadas, setCategoriasAsignadas] = useState<string[]>([])
@@ -105,7 +106,8 @@ const DashboardJurado = () => {
       const votos: Record<string, number> = {}
       votacionesSnap.forEach((doc) => {
         const data = doc.data()
-        if (data.nombreJurado === nombre) {
+        // Filtrar por UID del jurado autenticado
+        if (data.idJurado === user.uid) {
           votos[data.idProyecto] = data.promedio
         }
       })
@@ -179,6 +181,11 @@ const DashboardJurado = () => {
     )
   }
 
+  // Nueva función: refresca los datos tras votar
+  const handleVotoExitoso = () => {
+    cargarDatos(true);
+  };
+
   return (
     <div className="p-4">
       <div className="mb-4 flex justify-end">
@@ -189,6 +196,7 @@ const DashboardJurado = () => {
           Actualizar proyectos
         </button>
       </div>
+      {/* Aquí deberías pasar handleVotoExitoso al detalle, por ejemplo si usas un modal o ruta SPA */}
       <div className="grid grid-cols-3 gap-6">
         {proyectos.map((proyecto) => (
           <ProyectoCard
@@ -203,6 +211,8 @@ const DashboardJurado = () => {
             votado={proyecto.calificado}
             promedioVotacionJurado={votaciones[proyecto.id]}
             modo="jurado"
+            // Si tu navegación es tipo modal o SPA, aquí deberías pasar:
+            // onVotacionRegistrada={handleVotoExitoso}
           />
         ))}
       </div>
