@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getVotingResults, type ProjectResult, type JurorVoteResult } from '../../lib/getVotingResults';
+
+let results: ProjectResult[] = [];
+let error: string | null = null;
+
+try {
+  results = await getVotingResults();
+} catch (e) {
+  console.error(e);
+  error = 'Error al cargar los resultados. Por favor, inténtalo de nuevo más tarde.';
+}
+
+// Obtener todas las categorías únicas de los resultados
+const allCategories = [...new Set(results.flatMap(p => p.categorias))];
+
+// Calcular el proyecto con mayor calificación por categoría
+const topProjectsByCategory = allCategories.map(category => {
+  const projectsInCategory = results.filter(p => p.categorias.includes(category));
+  if (projectsInCategory.length === 0) {
+    return null;
+  }
+  const topProject = projectsInCategory.reduce((max, current) => 
+    current.promedioGeneral > max.promedioGeneral ? current : max
+  );
+  return {
+    category,
+    project: topProject
+  };
+}).filter(item => item !== null) as { category: string; project: ProjectResult }[];
+
+---
+
+<Layout title="Resultados de Votaciones">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8 text-center">Resultados de Votaciones</h1>
+
+    {error && (
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Error:</strong>
+        <span class="block sm:inline">{error}</span>
+      </div>
+    )}
+
+    {!error && results.length === 0 && (
+      <p class="text-center text-gray-500">Aún no hay votaciones para mostrar.</p>
+    )}
+
+    {!error && results.length > 0 && (
+      <>
+        {/* Filtros de Categoría */}
+        <div class="flex justify-center flex-wrap gap-2 mb-8">
+          <button class="filter-btn active bg-blue-500 text-white py-2 px-4 rounded-full">Todas</button>
+          {allCategories.map(category => (
+            <button class="filter-btn py-2 px-4 rounded-full bg-gray-200 text-gray-700">{category}</button>
+          ))}
+        </div>
+
+        {/* Lista de todos los proyectos */}
+        <div class="space-y-12" id="projects-container">
+          {results.map((project) => (
+            <div class="project-card bg-white shadow-lg rounded-lg p-6 border border-gray-200" data-categories={project.categorias.join(',')}>
+              <h2 class="text-2xl font-semibold mb-2">{project.nombreProyecto}</h2>
+              <div class="flex items-center gap-2 mb-2">
+                {project.categorias.map((cat: string) => <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">{cat}</span>)}
+              </div>
+              <p class="text-lg font-bold text-blue-600 mb-4">Promedio General: {project.promedioGeneral.toFixed(2)}</p>
+              
+              <h3 class="text-xl font-semibold mb-3">Votos de los Jurados:</h3>
+              <ul class="divide-y divide-gray-200">
+                {project.votos.map((vote: JurorVoteResult) => (
+                  <li class="py-3 flex justify-between items-center">
+                    <div>
+                      <p class="font-medium">{vote.nombreJurado}</p>
+                      <p class="text-xs text-gray-400 mt-1">Votó el: {vote.fechaVotacion}</p>
+                    </div>
+                    <p class="text-lg font-semibold">{vote.promedio.toFixed(2)}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <hr class="my-12"/>
+
+        {/* Sección de Ganadores por Categoría */}
+        {topProjectsByCategory.length > 0 && (
+          <section class="mt-12">
+            <h2 class="text-3xl font-bold mb-4 text-center text-gray-800">Proyectos Destacados por Categoría</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {topProjectsByCategory.map(item => (
+                <div class="bg-gradient-to-br from-yellow-300 to-orange-400 text-black p-4 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                  <h3 class="text-lg font-bold mb-2 uppercase">{item.category}</h3>
+                  <p class="text-base font-semibold">{item.project.nombreProyecto}</p>
+                  <p class="mt-2 text-2xl font-bold text-right">
+                    {item.project.promedioGeneral.toFixed(2)}
+                    <span class="text-xs font-normal ml-1">pts</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </>
+    )}
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Manejar estado activo del botón
+        filterButtons.forEach(btn => btn.classList.remove('active', 'bg-blue-500', 'text-white'));
+        button.classList.add('active', 'bg-blue-500', 'text-white');
+
+        const filter = button.textContent;
+
+        if (!filter) return;
+
+        projectCards.forEach(card => {
+          const categories = (card as HTMLElement).dataset.categories;
+          if (filter === 'Todas' || (categories && categories.split(',').includes(filter))) {
+            (card as HTMLElement).style.display = 'block';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

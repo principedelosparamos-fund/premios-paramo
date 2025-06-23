@@ -138,6 +138,13 @@ export default function AdminDashboard(props: AdminDashboardProps) {
         >
           👌 Lista de jurados
         </a>
+        <a
+          href="/admin/resultados"
+          target="_blank"
+          className="bg-goldlight-100 hover:bg-goldlight-300 text-goldlight-900 flex-1 rounded-xl py-3 text-center font-semibold"
+        >
+          👁️ Resultados
+        </a>
       </div>
 
       {/* Listado de Proyectos */}
