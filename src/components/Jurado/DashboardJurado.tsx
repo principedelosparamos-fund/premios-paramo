@@ -1,5 +1,6 @@
 import { onAuthStateChanged } from 'firebase/auth'
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import type { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../../lib/firebase'
 import { getUserInfoFromLocalStorage } from '../../lib/getUserRole'
@@ -67,37 +68,41 @@ const DashboardJurado = () => {
         return
       }
 
-      // 🔥 Si no hay en localStorage o se fuerza actualización
-      const [proyectosSnap, votacionesSnap] = await Promise.all([
-        getDocs(collection(db, 'proyectos')),
-        getDocs(collection(db, 'votaciones')),
-      ])
+      // 🔥 Si no hay en localStorage o se fuerza actualización, hacemos consultas eficientes
+      let proyectosSnap;
+      if (categorias && categorias.length > 0) {
+        // 1. Consulta solo los proyectos de las categorías asignadas al jurado
+        const proyectosQuery = query(collection(db, 'proyectos'), where('categorias', 'array-contains-any', categorias));
+        proyectosSnap = await getDocs(proyectosQuery);
+      } else {
+        // Si el jurado no tiene categorías, no hay proyectos que buscar
+        console.log('[DEBUG] El jurado no tiene categorías asignadas, no se buscarán proyectos.');
+        proyectosSnap = { docs: [] }; // Devolvemos un resultado vacío para que el resto del código no falle
+      }
 
-      const proyectosList: Proyecto[] = []
-      proyectosSnap.forEach((doc) => {
-        const data = doc.data()
-        if (data.nombreObra) {
-          proyectosList.push({
-            id: doc.id,
-            nombre: data.nombreObra,
-            nombrePostulante: data.nombrePostulante || 'Sin nombre',
-            categorias: Array.isArray(data.categorias)
-              ? data.categorias
-              : typeof data.categorias === 'string'
-                ? [data.categorias]
-                : [],
-          })
-        }
-      })
+      // 2. Consulta solo las votaciones del jurado actual para ser más eficientes
+      const votacionesQuery = query(collection(db, 'votaciones'), where('idJurado', '==', user.uid));
+      const votacionesSnap = await getDocs(votacionesQuery);
 
-      console.log(
-        '[DEBUG] Proyectos disponibles en la base de datos:',
-        proyectosList
-      )
-
-      const proyectosFiltrados = proyectosList.filter((proyecto) =>
-        proyecto.categorias.some((cat) => categorias.includes(cat))
-      )
+      const proyectosFiltrados: Proyecto[] = []
+      // Se procesan los proyectos recibidos de la consulta ya filtrada
+      if ('forEach' in proyectosSnap) {
+        proyectosSnap.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
+          const data = doc.data()
+          if (data.nombreObra) {
+            proyectosFiltrados.push({
+              id: doc.id,
+              nombre: data.nombreObra,
+              nombrePostulante: data.nombrePostulante || 'Sin nombre',
+              categorias: Array.isArray(data.categorias)
+                ? data.categorias
+                : typeof data.categorias === 'string'
+                  ? [data.categorias]
+                  : [],
+            })
+          }
+        })
+      }
 
       console.log(
         '[DEBUG] Proyectos filtrados por categoría:',

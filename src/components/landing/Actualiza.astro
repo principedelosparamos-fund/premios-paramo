@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets'
+import hero from '../../assets/img/hero2025.png'
+import Button from '../ui/Button.astro'
+---
+
+<section class="relative h-[600px] md:h-250">
+  <Image
+    src={hero}
+    alt="Imagen de actualización"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
+  <div
+    class="relative z-10 mx-auto flex h-full w-full flex-col items-end justify-end gap-4 p-8 py-24 md:max-w-2xl md:flex-row md:py-48"
+  >
+    <Button
+      type="primary"
+      size="large"
+      text="Nominados"
+      href="pdf/nominados.pdf"
+      target="_blank"
+      fullWidth
+    />
+    <Button
+      size="large"
+      text="Postular"
+      href="/postular"
+      fullWidth
+      target="_blank"
+    />
+  </div>
+</section>
