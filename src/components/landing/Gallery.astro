@@ -22,6 +22,18 @@ import evento4 from '../../assets/img/premios/4.jpg'
 import evento5 from '../../assets/img/premios/5.jpg'
 import evento6 from '../../assets/img/premios/6.jpg'
 
+//Velada
+import velada from '../../assets/img/velada/01.png'
+import velada2 from '../../assets/img/velada/02.jpeg'
+import velada3 from '../../assets/img/velada/03.jpg'
+import velada4 from '../../assets/img/velada/04.png'
+import velada5 from '../../assets/img/velada/05.png'
+import velada6 from '../../assets/img/velada/06.jpg'
+import velada7 from '../../assets/img/velada/07.png'
+import velada8 from '../../assets/img/velada/08.png'
+import velada9 from '../../assets/img/velada/09.png'
+import velada10 from '../../assets/img/velada/10.png'
+
 import GalleryCard from '../../components/gallery/GalleryCard.tsx'
 
 const imageSet1 = [foto1.src, foto2.src, foto3.src, foto4.src, foto5.src]
@@ -36,6 +48,19 @@ const imageSet3 = [
   evento5.src,
   evento6.src,
 ]
+
+const imageSet4 = [
+  velada.src,
+  velada2.src,
+  velada3.src,
+  velada4.src,
+  velada5.src,
+  velada6.src,
+  velada7.src,
+  velada8.src,
+  velada9.src,
+  velada10.src,
+]
 ---
 
 <section id="gallery" class="bg-gray-50 py-16 md:py-24">
@@ -47,7 +72,7 @@ const imageSet3 = [
     </div>
 
     <div
-      class="grid grid-cols-1 items-center gap-6 md:grid-cols-1 lg:grid-cols-3"
+      class="grid grid-cols-1 items-center gap-6 md:grid-cols-1 lg:grid-cols-2"
     >
       <div
         id="gallery-card-1"
@@ -79,6 +104,16 @@ const imageSet3 = [
           client:load
         />
       </div>
+      <div
+        id="gallery-card-4"
+        class="translate-y-6 opacity-0 transition-all delay-600 duration-1500 ease-out"
+      >
+        <GalleryCard
+          images={imageSet4}
+          title="Premios Príncipe de los Páramos 2025"
+          client:load
+        />
+      </div>
     </div>
   </div>
 </section>
@@ -106,5 +141,6 @@ const imageSet3 = [
     fadeIn('gallery-card-1')
     fadeIn('gallery-card-2')
     fadeIn('gallery-card-3')
+    fadeIn('gallery-card-4')
   })
 </script>
