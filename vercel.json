@@ -1,8 +1,6 @@
 {
-  "rewrites": [
-    {
-      "source": "/jurado/:match*",
-      "destination": "/Jurado/:match*"
-    }
+  "redirects": [
+    { "source": "/jurado", "destination": "/Jurado", "permanent": true },
+    { "source": "/jurado/:path*", "destination": "/Jurado/:path*", "permanent": true }
   ]
 }
