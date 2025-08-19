@@ -1,8 +1,4 @@
 ---
-import JuradoForm from '../../components/Jurado/JuradoForm.tsx'
+/* Redirección inmediata al formulario de login */
+return Astro.redirect('/login');
 ---
-
-<div class="container mx-auto py-8">
-  <!-- Render solo en cliente: evita 500 por SSR -->
-  <JuradoForm client:only="react" />
-</div>
