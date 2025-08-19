@@ -1,10 +1,11 @@
 ---
-import JuradoForm from '../../components/Jurado/JuradoForm.tsx'
 import LayoutUser from '../../layouts/LayoutUser.astro'
+import JuradoForm from '../../components/Jurado/JuradoForm.tsx'  // ← el formulario de login
 ---
 
 <LayoutUser>
-  <div class="container mx-auto">
-    <JuradoForm client:load />
+  <div class="container mx-auto py-8">
+    <!-- Renderiza el formulario SOLO en cliente para evitar 500 en SSR -->
+    <JuradoForm client:only="react" />
   </div>
 </LayoutUser>
