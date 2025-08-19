@@ -1,21 +1,8 @@
 ---
-/* Página mínima para diagnosticar 500 en /Jurado */
-const titulo = "Área de Jurados";
+import JuradoForm from '../../components/Jurado/JuradoForm.tsx'
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <title>{titulo}</title>
-    <meta name="robots" content="noindex" />
-  </head>
-  <body style="font-family: system-ui, sans-serif; padding: 2rem">
-    <h1>{titulo}</h1>
-    <p>Para continuar, inicia sesión.</p>
-    <p>
-      <a href="/login" style="padding:.6rem 1rem; border:1px solid #ccc; border-radius:8px; text-decoration:none">
-        Ir a /login
-      </a>
-    </p>
-  </body>
-</html>
+<div class="container mx-auto py-8">
+  <!-- Render solo en cliente: evita 500 por SSR -->
+  <JuradoForm client:only="react" />
+</div>
