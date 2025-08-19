@@ -17,8 +17,8 @@ export default defineConfig({
         page !== 'https://www.principedelosparamos.org/acceso-denegado/' &&
         page !== 'https://www.principedelosparamos.org/admin/' &&
         page !==
-          'https://www.principedelosparamos.org/admin/jurado-inscrito/' &&
-        page !== 'https://www.principedelosparamos.org/admin/jurado/' &&
+          'https://www.principedelosparamos.org/admin/Jurado-inscrito/' &&
+        page !== 'https://www.principedelosparamos.org/admin/Jurado/' &&
         page !== 'https://www.principedelosparamos.org/admin/lista-jurados/' &&
         page !== 'https://www.principedelosparamos.org/auto/proyectos/' &&
         page !== 'https://www.principedelosparamos.org/interna/' &&
