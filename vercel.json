@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/jurado/:match*",
+      "destination": "/Jurado/:match*"
+    }
+  ]
+}
