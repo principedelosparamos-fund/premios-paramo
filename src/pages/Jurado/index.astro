@@ -1,7 +1,9 @@
 ---
-/* TEMP: sin guard en servidor; probando login */
+import RequireAuth from "../../components/auth/RequireAuth.tsx";
 ---
-<div class="container mx-auto py-8">
-  <h1>Jurado</h1>
-  <p class="text-sm opacity-70">Acceso temporal sin guard.</p>
-</div>
+<RequireAuth client:only="react">
+  <div class="container mx-auto py-8">
+    <h1>Jurado</h1>
+    <p>Acceso temporal con guard.</p>
+  </div>
+</RequireAuth>
