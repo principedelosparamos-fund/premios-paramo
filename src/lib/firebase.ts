@@ -3,31 +3,24 @@ import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// Usa la API recomendada por Astro para variables en el CLIENTE
-import {
-  VITE_FIREBASE_API_KEY,
-  VITE_FIREBASE_APP_ID,
-  VITE_FIREBASE_AUTH_DOMAIN,
-  VITE_FIREBASE_MEASUREMENT_ID,
-  VITE_FIREBASE_MESSAGING_SENDER_ID,
-  VITE_FIREBASE_PROJECT_ID,
-  VITE_FIREBASE_STORAGE_BUCKET,
-} from 'astro:env/client';
-
+// ⚠️ PRUEBA CONTROLADA: valores literales (del snippet oficial)
 const config = {
-  apiKey: VITE_FIREBASE_API_KEY,
-  authDomain: VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: VITE_FIREBASE_PROJECT_ID,
-  storageBucket: VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: VITE_FIREBASE_APP_ID,
-  measurementId: VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyBp2bEoUGYUZ_oz4TZXMVeHUiq-w76LFEo",
+  authDomain: "premios-paramo-938eb.firebaseapp.com",
+  projectId: "premios-paramo-938eb",
+  storageBucket: "premios-paramo-938eb.firebasestorage.app",
+  messagingSenderId: "298114311534",
+  appId: "1:298114311534:web:43f7c9f3b9b62565c5cd7f",
+  measurementId: "G-H3YP0KL2K4",
 };
 
-// Debug temporal (borra luego si quieres)
+// Log temporal para confirmar que llegan literales
 if (typeof window !== 'undefined') {
-  console.log('[firebase][client] apiKey prefix:', (config.apiKey ?? '').slice(0, 6));
-  console.log('[firebase][client] authDomain:', config.authDomain);
+  console.log('[firebase][client][FORCED]', {
+    apiKey: config.apiKey.slice(0, 6) + '...',
+    authDomain: config.authDomain,
+    projectId: config.projectId,
+  });
 }
 
 const app = getApps().length ? getApp() : initializeApp(config);
