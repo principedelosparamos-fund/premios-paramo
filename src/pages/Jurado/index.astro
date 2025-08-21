@@ -1,8 +1,11 @@
 ---
+import Layout from "../../layouts/Layout.astro";
 import RequireAuth from "../../components/auth/RequireAuth.tsx";
 import JuradoForm from "../../components/Jurado/JuradoForm.tsx";
 ---
 
-<RequireAuth client:only="react">
-  <JuradoForm client:only="react" />
-</RequireAuth>
+<Layout title="Jurado">
+  <RequireAuth client:only="react" allow="jurado">
+    <JuradoForm client:only="react" />
+  </RequireAuth>
+</Layout>

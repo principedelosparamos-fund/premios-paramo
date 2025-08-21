@@ -1,9 +1,24 @@
 ---
-import RegisterJuradoForm from '../../components/admin/RegisterJurado' // o la ruta donde tengas tu componente
+import RegisterJuradoForm from '../../components/admin/RegisterJurado'
 import Head from '../../components/Head.astro'
 import BackButton from '../../components/ui/BackButton.astro'
 import LayoutFormularios from '../../layouts/LayoutFormularios.astro'
 ---
+
+<!-- Guard solo-admin en cliente -->
+<script>
+  (function () {
+    try {
+      const m = document.cookie.match(/(?:^|;\s*)userRole=([^;]+)/);
+      const role = (m && decodeURIComponent(m[1])) || localStorage.getItem('userRole');
+      if (role !== 'admin') {
+        window.location.replace('/login');
+      }
+    } catch (e) {
+      window.location.replace('/login');
+    }
+  })();
+</script>
 
 <Head title="Registro de jurados" description="Registro de jurados" />
 <LayoutFormularios>

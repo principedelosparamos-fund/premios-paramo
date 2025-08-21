@@ -1,8 +1,11 @@
 ---
+import Layout from "../../layouts/Layout.astro";
 import RequireAuth from "../../components/auth/RequireAuth.tsx";
 import AdminDashboard from "../../components/admin/AdminDashboard.tsx";
 ---
 
-<RequireAuth client:only="react">
-  <AdminDashboard client:only="react" />
-</RequireAuth>
+<Layout title="Dashboard Administrativo">
+  <RequireAuth client:only="react" allow="admin">
+    <AdminDashboard client:only="react" />
+  </RequireAuth>
+</Layout>
