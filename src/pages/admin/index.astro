@@ -1,8 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro'
+import LayoutUser from '../../layouts/LayoutUser.astro'
 import AdminDashboard from '../../components/admin/AdminDashboard.tsx'
 ---
 
-<Layout title="Dashboard Administrativo">
-  <AdminDashboard client:only="react" />
-</Layout>
+<LayoutUser>
+  <AdminDashboard client:load />
+</LayoutUser>

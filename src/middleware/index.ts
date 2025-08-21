@@ -1,55 +1,64 @@
-// src/middleware/index.ts
-import type { MiddlewareHandler } from 'astro';
+import { defineMiddleware } from 'astro/middleware'
 
-export const onRequest: MiddlewareHandler = async (ctx, next) => {
-  const { pathname } = new URL(ctx.request.url);
+export const onRequest = defineMiddleware(async (context, next) => {
+  const pathname = context.url.pathname
 
-  // 1) Rutas públicas
-  const PUBLIC_PATHS = new Set<string>([
-    '/',
-    '/acerca',
-    '/login',
-    '/Jurado', // base pública para ver formulario
-  ]);
+  // Para todas las demás rutas, procesamos normalmente
+  const role = context.cookies.get('userRole')?.value || ''
 
-  // 1.1) Bypass de assets/estáticos
-  const isStatic =
-    pathname.startsWith('/_image') ||
-    pathname.startsWith('/assets') ||
-    pathname.startsWith('/favicon') ||
-    pathname.startsWith('/fonts') ||
-    pathname.startsWith('/images');
+  console.log('📩 [Middleware] Nueva solicitud:')
+  console.log('🔍 - Rol detectado:', role || 'Sin rol')
+  console.log('🔍 - URL solicitada:', pathname)
 
-  if (PUBLIC_PATHS.has(pathname) || isStatic) {
-    return next();
-  }
+  // 🛡️ Protegemos todo /admin
+  if (pathname.startsWith('/admin')) {
+    console.log('🛡️ [Middleware] Protegiendo acceso Admin.')
 
-  // 2) Proteger solo subrutas privadas relevantes
-  const requiereJuradoPrivado = pathname.startsWith('/Jurado/');
-  const requiereAdmin = pathname.startsWith('/admin');
-
-  if (!(requiereJuradoPrivado || requiereAdmin)) {
-    return next();
-  }
-
-  // 3) Lazy import de helpers (para no cargar Firebase en rutas públicas)
-  try {
-    const { obtenerUsuarioDesdeCookieOToken, verificarRolEnFirestore } =
-      await import('../lib/getUserRole'); // ⚠️ ajusta si tu helper está en otro archivo
-
-    const user = await obtenerUsuarioDesdeCookieOToken(ctx);
-    if (!user) {
-      return Response.redirect(new URL('/login', ctx.request.url));
+    if (!role) {
+      console.warn('🚫 [Middleware] Sin rol. Redirigiendo a /login.')
+      return new Response(null, {
+        status: 302,
+        headers: { Location: '/login' },
+      })
     }
 
-    const tieneRol = await verificarRolEnFirestore(user);
-    if (!tieneRol) {
-      return Response.redirect(new URL('/login', ctx.request.url));
+    if (role !== 'admin') {
+      console.warn('🚫 [Middleware] No admin. Redirigiendo a /acceso-denegado.')
+      return new Response(null, {
+        status: 302,
+        headers: { Location: '/acceso-denegado' },
+      })
     }
 
-    return next();
-  } catch (err) {
-    console.error('[middleware] fallo control de acceso:', err);
-    return Response.redirect(new URL('/login', ctx.request.url));
+    console.log('✅ [Middleware] Acceso PERMITIDO a /admin para admin.')
   }
-};
+
+  // 🛡️ Protegemos todo /jurado excepto /jurado/registro
+  if (
+    pathname.startsWith('/jurado') &&
+    !pathname.startsWith('/jurado/registro')
+  ) {
+    console.log('🛡️ [Middleware] Protegiendo acceso Jurado.')
+
+    if (!role) {
+      console.warn('🚫 [Middleware] Sin rol. Redirigiendo a /login.')
+      return new Response(null, {
+        status: 302,
+        headers: { Location: '/login' },
+      })
+    }
+
+    if (role !== 'jurado' && role !== 'admin') {
+      console.warn('🚫 [Middleware] No jurado ni admin. Redirigiendo a /login.')
+      return new Response(null, {
+        status: 302,
+        headers: { Location: '/login' },
+      })
+    }
+
+    console.log(`✅ [Middleware] Acceso PERMITIDO a /jurado (${role}).`)
+  }
+
+  console.log('➡️ [Middleware] Continuando con la solicitud...')
+  return next()
+})
