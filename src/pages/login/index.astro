@@ -1,10 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import LoginForm from '../../components/auth/LoginForm.tsx'
 ---
 
-<Layout title="Probar Login">
+<Layout title="Ingresar">
   <div class="container mx-auto py-12">
-    <h1 class="mb-4 text-3xl font-bold">Prueba de login</h1>
-    <p>Si ves este texto, la ruta /login y el Layout están OK.</p>
+    <LoginForm client:load />
   </div>
 </Layout>
