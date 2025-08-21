@@ -1,10 +1,8 @@
 ---
+import Layout from '../../layouts/Layout.astro'
 import DashboardJurado from '../../components/Jurado/DashboardJurado.tsx'
-import LayoutUser from '../../layouts/LayoutUser.astro'
 ---
 
-<LayoutUser>
-  <div class="container mx-auto">
-    <DashboardJurado client:load />
-  </div>
-</LayoutUser>
+<Layout title="Jurado">
+  <DashboardJurado client:only="react" />
+</Layout>
