@@ -1,8 +1,8 @@
 ---
-import LayoutUser from '../../layouts/LayoutUser.astro'
-import AdminDashboard from '../../components/admin/AdminDashboard.tsx'
+import RequireAuth from "../../components/auth/RequireAuth.tsx";
+import AdminDashboard from "../../components/admin/AdminDashboard.tsx";
 ---
 
-<LayoutUser>
-  <AdminDashboard client:load />
-</LayoutUser>
+<RequireAuth client:only="react">
+  <AdminDashboard client:only="react" />
+</RequireAuth>
