@@ -1,10 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import RequireAuth from '../../components/auth/RequireAuth'
+import RequireAuth from '../../components/auth/RequireAuth.tsx'
 ---
 
 <Layout title="Jurado">
-  <RequireAuth>
+  <RequireAuth client:only="react">
     <div class="container mx-auto py-12">
       <h1 class="mb-4 text-3xl font-bold">Jurado</h1>
       <p class="text-black/70">Bienvenido. (Vista protegida)</p>
