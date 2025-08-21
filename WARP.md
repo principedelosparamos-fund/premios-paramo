@@ -68,7 +68,7 @@ This is an **Astro + React + Firebase** application for managing an audiovisual 
 
 **Route Protection (Middleware)**
 - `src/middleware/index.ts` handles role-based access control
-- Uses cookies (`userRole`) to enforce access to `/admin/*` and `/jurado/*` routes
+- Uses cookies (`userRole`) to enforce access to `/admin/*` and `/Jurado/*` routes
 - Redirects unauthorized users to appropriate pages
 
 **Data Management**

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { db, auth } from '../../lib/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc, Timestamp } from 'firebase/firestore/lite'
+import { useEffect, useState } from 'react'
 import { CATEGORIES } from '../../lib/categories'
+import { auth, db } from '../../lib/firebase'
 
 export default function JuradoForm() {
   const [error, setError] = useState('')
@@ -58,7 +58,7 @@ export default function JuradoForm() {
         timestamp: Timestamp.now(),
       })
 
-      window.location.href = '/jurado-gracias'
+      window.location.href = '/Jurado'
     } catch (err: any) {
       console.error('❌ Error al registrar jurado:', err)
       if (err.code === 'auth/email-already-in-use') {

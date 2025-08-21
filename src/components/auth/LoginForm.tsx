@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore' // 🔥 Nuevo para leer Firestore
+import { doc, getDoc } from 'firebase/firestore'; // 🔥 Nuevo para leer Firestore
 import { useState } from 'react'
-import { auth, db } from '../../lib/firebase' // 🔥 Asegúrate que db esté importado
+import { auth, db } from '../../lib/firebase'; // 🔥 Asegúrate que db esté importado
 import { getUserRole } from '../../lib/getUserRole'
 import Snackbar from '../ui/Snackbar'
 
@@ -58,8 +58,8 @@ export default function LoginForm() {
           console.log('🔵 Redirigiendo a /admin')
           window.location.href = '/admin'
         } else {
-          console.log('🟢 Redirigiendo a /jurado')
-          window.location.href = '/jurado'
+          console.log('🟢 Redirigiendo a /Jurado')
+          window.location.href = '/Jurado'
         }
       }, 300)
     } catch (err: any) {
